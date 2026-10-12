@@ -68,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${jakarta.variable} scroll-smooth antialiased`}>
+    <html lang="en" className={`${jakarta.variable} scroll-smooth antialiased max-w-full overflow-x-hidden`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -81,7 +81,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] selection:bg-amber-400 selection:text-slate-950">
+      <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] selection:bg-amber-400 selection:text-slate-950 max-w-full overflow-x-hidden">
         <Suspense fallback={null}>
           <ScrollToTop />
         </Suspense>
@@ -92,7 +92,7 @@ export default function RootLayout({
         <Suspense fallback={<div className="h-20 bg-[#082B59]" />}>
           <Navbar />
         </Suspense>
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
         <Footer />
         <WhatsAppWidget />
       </body>

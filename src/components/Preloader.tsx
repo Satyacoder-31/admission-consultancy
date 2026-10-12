@@ -94,7 +94,7 @@ export default function Preloader() {
   return (
     <div
       id="branded-preloader"
-      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center transition-all duration-500 ease-out ${
+      className={`fixed inset-0 z-[99999] overflow-hidden flex flex-col items-center justify-center transition-all duration-500 ease-out ${
         isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
       }`}
       style={{

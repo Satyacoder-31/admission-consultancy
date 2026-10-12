@@ -124,7 +124,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
       {/* 1. Cinematic Hero Section */}
       <Hero onOpenEnquiry={handleGeneralEnquiry} />
 

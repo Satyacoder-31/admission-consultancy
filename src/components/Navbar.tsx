@@ -103,8 +103,8 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-3 group focus:outline-none">
-            <div className="relative w-11 h-11 md:w-13 md:h-13 rounded-full bg-white p-1 shadow-md border-2 border-amber-400/80 group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none min-w-0 flex-shrink">
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-13 md:h-13 rounded-full bg-white p-1 shadow-md border-2 border-amber-400/80 group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
               <Image
                 src="/images/brand/logo.jpg"
                 alt="SAHI RAAH CONSULTANCY Logo"
@@ -114,14 +114,14 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <div className="flex flex-col">
-              <span className="text-lg md:text-xl font-extrabold tracking-tight text-white leading-tight group-hover:text-amber-300 transition-colors">
+            <div className="flex flex-col min-w-0">
+              <span className="text-base sm:text-lg md:text-xl font-extrabold tracking-tight text-white leading-tight truncate group-hover:text-amber-300 transition-colors">
                 SAHI RAAH
               </span>
-              <span className="text-[10px] md:text-[11px] font-bold tracking-[0.2em] text-teal-300 uppercase leading-none">
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-bold tracking-[0.2em] text-teal-300 uppercase leading-none truncate">
                 CONSULTANCY
               </span>
-              <span className="text-[9px] text-slate-300 italic hidden sm:inline-block leading-tight mt-0.5">
+              <span className="text-[9px] text-slate-300 italic hidden sm:inline-block leading-tight mt-0.5 truncate">
                 Your Future. Our Guidance.
               </span>
             </div>

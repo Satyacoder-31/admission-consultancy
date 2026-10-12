@@ -152,69 +152,71 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
           </div>
 
           {/* Right Column: Hero Visual Poster & Floating Glass Cards (5 cols) */}
-          <div className="lg:col-span-5 relative flex justify-center">
-            <SlideImageRightToLeft className="w-full flex justify-center">
-              {/* Visual Frame */}
-              <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900/40 backdrop-blur-md">
-                <div className="relative w-full aspect-[4/5] overflow-hidden">
-                  <Image
-                    src="/images/brand/admission_poster.jpg"
-                    alt="SAHI RAAH CONSULTANCY Official Admission Guidance Poster"
-                    fill
-                    className="object-cover object-top hover:scale-105 transition-transform duration-700"
-                    priority
-                  />
-                </div>
+          <div className="lg:col-span-5 relative flex justify-center w-full max-w-full">
+            <div className="relative w-full max-w-md mx-auto">
+              <SlideImageRightToLeft className="w-full flex justify-center">
+                {/* Visual Frame */}
+                <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900/40 backdrop-blur-md">
+                  <div className="relative w-full aspect-[4/5] overflow-hidden">
+                    <Image
+                      src="/images/brand/admission_poster.jpg"
+                      alt="SAHI RAAH CONSULTANCY Official Admission Guidance Poster"
+                      fill
+                      className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                      priority
+                    />
+                  </div>
 
-              {/* Bottom overlay badge */}
-              <div className="p-4 bg-[#051D3C]/95 border-t border-amber-400/30 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
-                    SAHI RAAH CONSULTANCY
+                  {/* Bottom overlay badge */}
+                  <div className="p-3.5 sm:p-4 bg-[#051D3C]/95 border-t border-amber-400/30 flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
+                        SAHI RAAH CONSULTANCY
+                      </span>
+                      <span className="text-xs font-extrabold text-white">
+                        Raxaul (East Champaran, Bihar)
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-amber-300 block font-semibold">
+                        Helpline: 8092911956
+                      </span>
+                      <span className="text-[10px] text-slate-400">
+                        Offline & Online Support
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </SlideImageRightToLeft>
+
+              {/* Floating Card 1: Session Badge (Top Right) */}
+              <div className="absolute top-2 right-2 sm:-top-4 sm:-right-4 bg-white/95 backdrop-blur-md text-slate-900 p-2.5 sm:p-3 rounded-2xl shadow-xl border border-amber-400/50 flex items-center gap-2 sm:gap-3 animate-bounce [animation-duration:5s] max-w-[190px] sm:max-w-[210px] z-10">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase block">
+                    ADMISSION OPEN
                   </span>
-                  <span className="text-xs font-extrabold text-white">
-                    Raxaul (East Champaran, Bihar)
+                  <span className="text-[11px] sm:text-xs font-black text-[#082B59]">
+                    Session 2026–2027
                   </span>
                 </div>
-                <div className="text-right">
-                  <span className="text-[10px] text-amber-300 block font-semibold">
-                    Helpline: 8092911956
+              </div>
+
+              {/* Floating Card 2: 3 Education Modes (Bottom Left) */}
+              <div className="absolute bottom-2 left-2 sm:-bottom-5 sm:-left-6 bg-[#051D3C]/95 backdrop-blur-md text-white p-2.5 sm:p-3.5 rounded-2xl shadow-2xl border border-teal-400/40 flex items-center gap-2 sm:gap-3 max-w-[200px] sm:max-w-[240px] z-10">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-300" />
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[9px] sm:text-[10px] font-bold text-teal-300 uppercase block">
+                    Three Study Modes
                   </span>
-                  <span className="text-[10px] text-slate-400">
-                    Offline & Online Support
+                  <span className="text-[11px] sm:text-xs font-bold text-white">
+                    Regular • Distance • Online
                   </span>
                 </div>
-              </div>
-            </div>
-          </SlideImageRightToLeft>
-
-            {/* Floating Card 1: Session Badge (Top Right) */}
-            <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md text-slate-900 p-3 rounded-2xl shadow-xl border border-amber-400/50 flex items-center gap-3 animate-bounce [animation-duration:5s] max-w-[210px]">
-              <div className="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
-                <Calendar className="w-5 h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">
-                  ADMISSION OPEN
-                </span>
-                <span className="text-xs font-black text-[#082B59]">
-                  Session 2026–2027
-                </span>
-              </div>
-            </div>
-
-            {/* Floating Card 2: 3 Education Modes (Bottom Left) */}
-            <div className="absolute -bottom-5 -left-2 sm:-left-6 bg-[#051D3C]/95 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl border border-teal-400/40 flex items-center gap-3 max-w-[240px]">
-              <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold flex-shrink-0">
-                <Sparkles className="w-5 h-5 text-amber-300" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[10px] font-bold text-teal-300 uppercase block">
-                  Three Study Modes
-                </span>
-                <span className="text-xs font-bold text-white">
-                  Regular • Distance • Online
-                </span>
               </div>
             </div>
           </div>
