@@ -27,6 +27,7 @@ const HERO_SLIDES = [
   {
     id: 1,
     image: '/images/hero/slide-1-campus.jpg',
+    mobileImage: '/images/hero/slide-1-campus-mobile.jpg',
     alt: 'Prestigious University Campus Environment',
     badge: '15+ Leading Partner Universities',
     caption: 'Prestigious Campuses',
@@ -34,6 +35,7 @@ const HERO_SLIDES = [
   {
     id: 2,
     image: '/images/hero/slide-2-library.jpg',
+    mobileImage: '/images/hero/slide-2-library-mobile.jpg',
     alt: 'Modern Academic Research & Library Learning',
     badge: '21+ Recognized Degrees & Diplomas',
     caption: 'Modern Learning',
@@ -41,6 +43,7 @@ const HERO_SLIDES = [
   {
     id: 3,
     image: '/images/hero/slide-3-convocation.jpg',
+    mobileImage: '/images/hero/slide-3-convocation-mobile.jpg',
     alt: 'Graduation Convocation & Recognized Degrees',
     badge: 'UGC & Council Approved Pathways',
     caption: 'Convocation & Degrees',
@@ -48,6 +51,7 @@ const HERO_SLIDES = [
   {
     id: 4,
     image: '/images/hero/slide-4-counselling.jpg',
+    mobileImage: '/images/hero/slide-4-counselling-mobile.jpg',
     alt: 'Personalized Educational Admission Guidance at Raxaul',
     badge: 'One-on-One Counselling Desk',
     caption: 'Personalized Guidance',
@@ -83,7 +87,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
       className="relative overflow-hidden bg-[#082B59] text-white pt-8 pb-16 lg:pt-14 lg:pb-24 w-full max-w-full"
     >
       {/* ============================================================== */}
-      {/* MULTI-IMAGE BACKGROUND SLIDESHOW WITH SMOOTH CROSSFADE         */}
+      {/* MULTI-IMAGE BACKGROUND SLIDESHOW WITH ADAPTIVE MOBILE ASSETS   */}
       {/* ============================================================== */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         {HERO_SLIDES.map((slide, idx) => {
@@ -95,29 +99,47 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                 isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
             >
-              <Image
-                src={slide.image}
-                alt={slide.alt}
-                fill
-                priority={idx === 0}
-                className={`object-cover object-center transition-transform duration-[7000ms] ease-out ${
-                  isActive ? 'scale-105' : 'scale-100'
-                }`}
-              />
+              {/* Mobile Portrait View (9:16 vertical framing, perfectly scaled for phones) */}
+              <div className="relative w-full h-full block md:hidden">
+                <Image
+                  src={slide.mobileImage}
+                  alt={slide.alt}
+                  fill
+                  priority={idx === 0}
+                  className={`object-cover object-center transition-transform duration-[7000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
+                  sizes="100vw"
+                />
+              </div>
+
+              {/* Desktop Landscape View (16:9 widescreen composition) */}
+              <div className="relative w-full h-full hidden md:block">
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  fill
+                  priority={idx === 0}
+                  className={`object-cover object-center transition-transform duration-[7000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
+                  sizes="100vw"
+                />
+              </div>
             </div>
           );
         })}
 
-        {/* Multi-layered luxury gradients for 100% contrast & legibility */}
-        {/* Left-to-right directional mask for text readability */}
-        <div className="absolute inset-0 z-20 bg-gradient-to-r from-[#03152B]/95 via-[#082B59]/90 to-[#082B59]/75 lg:to-[#082B59]/60" />
+        {/* Multi-layered luxury gradients for 100% contrast & vibrant image visibility */}
+        {/* On mobile: balanced vertical gradient so image detail & colors are bright and clear */}
+        <div className="absolute inset-0 z-20 bg-gradient-to-b from-[#03152B]/85 via-[#082B59]/70 to-[#082B59]/90 md:bg-gradient-to-r md:from-[#03152B]/95 md:via-[#082B59]/90 md:to-[#082B59]/65" />
         
         {/* Top-to-bottom vignette */}
-        <div className="absolute inset-0 z-20 bg-gradient-to-b from-[#051D3C]/95 via-transparent to-[#082B59]/95" />
+        <div className="absolute inset-0 z-20 bg-gradient-to-b from-[#051D3C]/75 via-transparent to-[#082B59]/95" />
 
         {/* Ambient dot matrix luxury texture */}
         <div
-          className="absolute inset-0 z-20 opacity-20 pointer-events-none"
+          className="absolute inset-0 z-20 opacity-15 pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(rgba(247, 213, 123, 0.45) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
@@ -255,15 +277,16 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
           <div className="lg:col-span-5 relative flex justify-center w-full max-w-full">
             <div className="relative w-full max-w-md mx-auto">
               <SlideImageRightToLeft className="w-full flex justify-center">
-                {/* Visual Frame */}
-                <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900/60 backdrop-blur-md">
-                  <div className="relative w-full aspect-[4/5] overflow-hidden">
+                {/* Visual Frame: Responsive aspect-ratio matching the 1024x883 natural poster */}
+                <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900/80 backdrop-blur-md">
+                  <div className="relative w-full aspect-[16/13] sm:aspect-[4/3] overflow-hidden bg-slate-950">
                     <Image
                       src="/images/brand/admission_poster.jpg"
                       alt="SAHI RAAH CONSULTANCY Official Admission Guidance Poster"
                       fill
-                      className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                      className="object-contain sm:object-cover object-center hover:scale-105 transition-transform duration-700"
                       priority
+                      sizes="(max-width: 768px) 100vw, 450px"
                     />
                   </div>
 
