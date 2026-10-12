@@ -11,11 +11,23 @@ export default function Preloader() {
   const [isRendered, setIsRendered] = useState(true);
   const isInitialMount = useRef(true);
 
+  const resetScrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    }
+  };
+
   // Function to run a smooth loading sequence
   const startLoadingAnimation = (durationMs = 400) => {
     setIsRendered(true);
     setIsVisible(true);
     setProgress(0);
+    resetScrollToTop();
 
     const stepTime = 25;
     const steps = durationMs / stepTime;
@@ -29,7 +41,11 @@ export default function Preloader() {
         clearInterval(interval);
         setTimeout(() => {
           setIsVisible(false);
-          setTimeout(() => setIsRendered(false), 450);
+          resetScrollToTop();
+          setTimeout(() => {
+            setIsRendered(false);
+            resetScrollToTop();
+          }, 450);
         }, 150);
       } else {
         setProgress(Math.round(current));
@@ -39,12 +55,14 @@ export default function Preloader() {
     return () => clearInterval(interval);
   };
 
-  // Initial load
+  // Initial load: ensure window is at the very top of the page
   useEffect(() => {
+    resetScrollToTop();
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       setIsVisible(false);
       setIsRendered(false);
+      resetScrollToTop();
       return;
     }
 
@@ -52,15 +70,19 @@ export default function Preloader() {
     return cleanup;
   }, []);
 
-  // Whenever user redirects / navigates to a new page, show the branded loading screen!
+  // Whenever user redirects / navigates to a new page, show the branded loading screen and reset to top
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
 
+    resetScrollToTop();
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion) {
+      resetScrollToTop();
+      return;
+    }
 
     // Trigger branded loading screen on route change
     const cleanup = startLoadingAnimation(420);

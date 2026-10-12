@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Preloader from '@/components/Preloader';
+import ScrollToTop from '@/components/ScrollToTop';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
@@ -68,7 +69,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${jakarta.variable} scroll-smooth antialiased`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+              }
+              window.scrollTo(0, 0);
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] selection:bg-amber-400 selection:text-slate-950">
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
         <Suspense fallback={null}>
           <Preloader />
         </Suspense>
