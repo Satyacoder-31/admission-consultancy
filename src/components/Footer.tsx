@@ -1,0 +1,247 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { siteConfig } from '@/data/siteConfig';
+import { formatIndianPhone } from '@/lib/utils';
+import { 
+  Phone, 
+  Mail, 
+  MapPin, 
+  ShieldCheck, 
+  ExternalLink, 
+  ChevronRight, 
+  Clock,
+  Sparkles 
+} from 'lucide-react';
+
+export default function Footer() {
+  return (
+    <footer className="bg-[#051D3C] text-slate-300 pt-16 pb-8 border-t-2 border-amber-400/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+          {/* Brand Info (2 columns) */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-14 h-14 rounded-full bg-white p-1 border-2 border-amber-400/80 shadow-lg overflow-hidden flex-shrink-0">
+                <Image
+                  src="/images/brand/logo.jpg"
+                  alt="SAHI RAAH CONSULTANCY Logo"
+                  width={56}
+                  height={56}
+                  className="w-full h-full object-contain rounded-full"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-black tracking-tight text-white uppercase leading-tight">
+                  SAHI RAAH
+                </h3>
+                <p className="text-xs font-bold tracking-[0.2em] text-teal-300 uppercase">
+                  CONSULTANCY
+                </p>
+                <p className="text-xs text-amber-300/90 italic font-medium">
+                  Your Future. Our Guidance.
+                </p>
+              </div>
+            </div>
+
+            <p className="text-sm text-slate-300 leading-relaxed pr-4">
+              Premium educational guidance and admission counselling based in Raxaul, Bihar. 
+              Empowering students with verified university options, transparent eligibility checks, 
+              and legitimate admission pathways across regular, distance, and online education modes.
+            </p>
+
+            <div className="pt-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-teal-950/80 border border-teal-500/30 text-teal-300 text-xs font-medium">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>Admissions Guidance for Sessions 2026–2027 & 2027–2028</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-l-2 border-amber-400 pl-2">
+              Explore
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Home</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>About Us</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/courses" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>All Courses</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/universities" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Universities Directory</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/admission-process" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Admission Process</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/faqs" className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Frequently Asked Questions</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/enquiry" className="hover:text-amber-300 transition-colors flex items-center gap-1.5 font-semibold text-amber-300">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Online Admission Enquiry</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Education Modes */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-l-2 border-teal-400 pl-2">
+              Education Pathways
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/regular-education" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Regular Universities</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/distance-online-education" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Distance & Online Degrees</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/school-guidance" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Class 10th & 12th Boards</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/courses#engineering" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>B.Tech & Polytechnic</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/courses#medical" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>BNYS & DNYS Naturopathy</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/courses#management" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>BBA & MBA Programs</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Details */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white border-l-2 border-amber-400 pl-2">
+              Contact Us
+            </h4>
+            <div className="space-y-2.5 text-sm text-slate-300">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
+                <address className="not-italic text-xs leading-relaxed">
+                  {siteConfig.address}
+                </address>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
+                <a href={`tel:${siteConfig.phone}`} className="text-white hover:text-amber-300 font-semibold text-xs transition-colors">
+                  {formatIndianPhone(siteConfig.phone)}
+                </a>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
+                <a href={`mailto:${siteConfig.email}`} className="text-xs hover:text-amber-300 transition-colors break-all">
+                  {siteConfig.email}
+                </a>
+              </div>
+
+              <div className="flex items-start gap-2.5 pt-1">
+                <Clock className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <span className="text-xs text-slate-400">
+                  {siteConfig.officeHours}
+                </span>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-white font-medium underline"
+                >
+                  <span>View Google Map & Directions</span>
+                  <ExternalLink className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Regulatory Disclosure & Legal Notice */}
+        <div className="py-6 border-b border-white/10 text-xs text-slate-400 leading-relaxed space-y-2">
+          <div className="flex items-center gap-2 text-amber-300 font-semibold uppercase tracking-wider text-[11px]">
+            <ShieldCheck className="w-4 h-4 text-amber-400" />
+            <span>Transparency & Statutory Advisory</span>
+          </div>
+          <p>
+            <strong>SAHI RAAH CONSULTANCY</strong> is an educational guidance and career counselling facilitator operating from Raxaul, Bihar, India. 
+            We provide prospective applicants with institutional information, eligibility clarification, and application support. 
+            We do not grant diplomas or degrees, conduct examinations, or guarantee admission, academic results, or employment. 
+            All admissions, course approvals, curriculum schedules, and fee structures are solely subject to the statutory enactments and official notifications of the respective universities, boards, and regulatory councils (including UGC, AICTE, and State Councils).
+          </p>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+          <p>
+            &copy; 2026 SAHI RAAH CONSULTANCY. All Rights Reserved. Raxaul, Bihar – 845305.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms & Conditions
+            </Link>
+            <span>•</span>
+            <Link href="/disclaimer" className="hover:text-white transition-colors">
+              Regulatory Disclaimer
+            </Link>
+            <span>•</span>
+            <Link href="/admin" className="text-slate-500 hover:text-amber-300 transition-colors">
+              Admin CMS
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

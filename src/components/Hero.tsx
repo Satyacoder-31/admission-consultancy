@@ -1,0 +1,225 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { getGeneralWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
+import { 
+  ArrowRight, 
+  MessageCircle, 
+  GraduationCap, 
+  Sparkles, 
+  Compass, 
+  CheckCircle2,
+  Calendar,
+  Building2,
+  BookOpen
+} from 'lucide-react';
+import { SlideImageRightToLeft } from '@/components/ScrollReveal';
+
+interface HeroProps {
+  onOpenEnquiry: () => void;
+}
+
+export default function Hero({ onOpenEnquiry }: HeroProps) {
+  const whatsappUrl = getWhatsAppUrl(getGeneralWhatsAppMessage());
+
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#082B59] via-[#0D386E] to-[#082B59] text-white pt-8 pb-20 lg:pt-14 lg:pb-28">
+      {/* Background decorative curved path inspired by the SR logo arrow */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
+        <svg
+          viewBox="0 0 1200 800"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full object-cover"
+        >
+          <path
+            d="M-100 700 C 300 650, 400 350, 700 300 C 1000 250, 1100 100, 1300 50"
+            stroke="url(#gradient-path)"
+            strokeWidth="32"
+            strokeLinecap="round"
+          />
+          <path
+            d="M-50 750 C 350 700, 450 400, 750 350 C 1050 300, 1150 150, 1350 100"
+            stroke="url(#gradient-path-teal)"
+            strokeWidth="16"
+            strokeLinecap="round"
+            strokeDasharray="12 12"
+          />
+          <defs>
+            <linearGradient id="gradient-path" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#078C8A" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#1355A5" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#E6B437" stopOpacity="0.9" />
+            </linearGradient>
+            <linearGradient id="gradient-path-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#078C8A" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#0AAFA8" stopOpacity="0.8" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Floating subtle glowing ambient orbs */}
+      <div className="absolute top-1/4 left-10 w-72 h-72 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Editorial Headline & Actions (7 cols) */}
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            {/* Top pill badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-amber-400/30 text-xs text-amber-300 font-semibold shadow-inner">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Official Academic Guidance • Session 2026–2027 & 2027–2028</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]">
+              Your Dreams Deserve{' '}
+              <span className="block gold-gradient-text mt-1">
+                The Right Direction.
+              </span>
+            </h1>
+
+            {/* Supporting text */}
+            <p className="text-base sm:text-lg text-slate-200/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              Explore courses, discover universities, and receive personalized admission guidance for the next step in your academic journey. From Raxaul to leading universities across India.
+            </p>
+
+            {/* CTAs */}
+            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+              <button
+                onClick={onOpenEnquiry}
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 shadow-xl shadow-amber-400/20 hover:scale-[1.02] active:scale-[0.98] transition-all border border-amber-300 cursor-pointer"
+              >
+                <GraduationCap className="w-5 h-5 text-slate-900" />
+                <span>Get Admission Guidance</span>
+              </button>
+
+              <Link
+                href="/courses"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-amber-400/50 shadow-md transition-all hover:scale-[1.02]"
+              >
+                <Compass className="w-4 h-4 text-teal-300" />
+                <span>Explore Courses</span>
+              </Link>
+
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm text-white bg-[#25D366]/90 hover:bg-[#25D366] transition-transform active:scale-95 shadow-md"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+
+            {/* Verifiable Trust Indicators Bar */}
+            <div className="pt-6 border-t border-white/15 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-teal-500/20 border border-teal-400/30 flex items-center justify-center flex-shrink-0 text-teal-300">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">21+ Courses</h4>
+                  <p className="text-[11px] text-slate-300">UG, PG, Tech, Medical & Diploma</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center flex-shrink-0 text-amber-300">
+                  <Building2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">15+ Universities</h4>
+                  <p className="text-[11px] text-slate-300">Regular, Distance & Online</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0 text-blue-300">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">Direct Guidance</h4>
+                  <p className="text-[11px] text-slate-300">Kaurihar Chouk, Raxaul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Hero Visual Poster & Floating Glass Cards (5 cols) */}
+          <div className="lg:col-span-5 relative flex justify-center">
+            <SlideImageRightToLeft className="w-full flex justify-center">
+              {/* Visual Frame */}
+              <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900/40 backdrop-blur-md">
+                <div className="relative w-full aspect-[4/5] overflow-hidden">
+                  <Image
+                    src="/images/brand/admission_poster.jpg"
+                    alt="SAHI RAAH CONSULTANCY Official Admission Guidance Poster"
+                    fill
+                    className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                    priority
+                  />
+                </div>
+
+              {/* Bottom overlay badge */}
+              <div className="p-4 bg-[#051D3C]/95 border-t border-amber-400/30 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
+                    SAHI RAAH CONSULTANCY
+                  </span>
+                  <span className="text-xs font-extrabold text-white">
+                    Raxaul (East Champaran, Bihar)
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] text-amber-300 block font-semibold">
+                    Helpline: 8092911956
+                  </span>
+                  <span className="text-[10px] text-slate-400">
+                    Offline & Online Support
+                  </span>
+                </div>
+              </div>
+            </div>
+          </SlideImageRightToLeft>
+
+            {/* Floating Card 1: Session Badge (Top Right) */}
+            <div className="absolute -top-4 -right-2 sm:-right-4 bg-white/95 backdrop-blur-md text-slate-900 p-3 rounded-2xl shadow-xl border border-amber-400/50 flex items-center gap-3 animate-bounce [animation-duration:5s] max-w-[210px]">
+              <div className="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
+                <Calendar className="w-5 h-5" />
+              </div>
+              <div className="leading-tight">
+                <span className="text-[10px] font-bold text-slate-500 uppercase block">
+                  ADMISSION OPEN
+                </span>
+                <span className="text-xs font-black text-[#082B59]">
+                  Session 2026–2027
+                </span>
+              </div>
+            </div>
+
+            {/* Floating Card 2: 3 Education Modes (Bottom Left) */}
+            <div className="absolute -bottom-5 -left-2 sm:-left-6 bg-[#051D3C]/95 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl border border-teal-400/40 flex items-center gap-3 max-w-[240px]">
+              <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold flex-shrink-0">
+                <Sparkles className="w-5 h-5 text-amber-300" />
+              </div>
+              <div className="leading-tight">
+                <span className="text-[10px] font-bold text-teal-300 uppercase block">
+                  Three Study Modes
+                </span>
+                <span className="text-xs font-bold text-white">
+                  Regular • Distance • Online
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

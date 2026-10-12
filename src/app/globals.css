@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-navy: #082B59;
+  --color-brand-navy-dark: #051D3C;
+  --color-brand-royal: #1355A5;
+  --color-brand-teal: #078C8A;
+  --color-brand-teal-light: #0AAFA8;
+  --color-brand-gold: #E6B437;
+  --color-brand-gold-light: #F7D57B;
+  --color-brand-offwhite: #F8FAFC;
+  --color-brand-charcoal: #172033;
+  --color-brand-muted: #64748B;
+  
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --navy: #082B59;
+  --royal: #1355A5;
+  --teal: #078C8A;
+  --gold: #E6B437;
+  --offwhite: #F8FAFC;
+  --charcoal: #172033;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: #082B59;
+  color: #172033;
+}
+
+body {
+  background-color: #F8FAFC;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-panel-dark {
+  background: rgba(8, 43, 89, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(230, 180, 55, 0.2);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F7D57B 0%, #E6B437 50%, #C9961B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.teal-gradient-text {
+  background: linear-gradient(135deg, #0AAFA8 0%, #078C8A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navy-gradient {
+  background: linear-gradient(135deg, #051D3C 0%, #082B59 50%, #1355A5 100%);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 15px rgba(230, 180, 55, 0.25);
+}
+
+.card-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px -10px rgba(8, 43, 89, 0.15);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #082B59;
+}
+::-webkit-scrollbar-thumb {
+  background: #078C8A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E6B437;
+}
+
+/* Subtle animation pulses */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 4s ease-in-out infinite;
+}
