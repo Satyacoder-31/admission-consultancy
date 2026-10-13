@@ -14,6 +14,7 @@ import {
   ArrowRight,
   GraduationCap
 } from 'lucide-react';
+import AffiliatedCouncils from '@/components/AffiliatedCouncils';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -128,6 +129,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Recognized Councils & Collaborations (AICPMF & BAYC) */}
+      <AffiliatedCouncils />
 
       {/* Why Students Seek Our Guidance */}
       <section className="py-16 md:py-24">

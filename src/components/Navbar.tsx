@@ -77,6 +77,16 @@ export default function Navbar() {
           </div>
           
           <div className="flex items-center gap-4">
+            <div className="hidden xl:flex items-center gap-2 text-[11px] text-slate-300 border-r border-white/10 pr-4">
+              <span className="text-slate-400">Allied Portals:</span>
+              <a href="https://www.aicpmf.com" target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:text-white font-semibold underline">
+                aicpmf.com
+              </a>
+              <span>•</span>
+              <a href="https://www.bayc.in" target="_blank" rel="noopener noreferrer" className="text-amber-300 hover:text-white font-semibold underline">
+                bayc.in
+              </a>
+            </div>
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-teal-900/60 text-teal-200 text-[11px] font-medium border border-teal-500/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Counseling Active Today
@@ -210,6 +220,16 @@ export default function Navbar() {
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-teal-400" />
                 <span>Kaurihar Chouk, Kaurihar Road, Raxaul</span>
+              </div>
+              <div className="pt-2 border-t border-white/10 flex items-center gap-2 text-[11px]">
+                <span className="text-slate-400">Allied Councils:</span>
+                <a href="https://www.aicpmf.com" target="_blank" rel="noopener noreferrer" className="text-amber-300 font-bold underline">
+                  aicpmf.com
+                </a>
+                <span>•</span>
+                <a href="https://www.bayc.in" target="_blank" rel="noopener noreferrer" className="text-amber-300 font-bold underline">
+                  bayc.in
+                </a>
               </div>
             </div>
 

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { initialUniversities } from '@/data/universities';
 import UniversityCard from '@/components/UniversityCard';
 import EnquiryFormModal from '@/components/EnquiryFormModal';
+import AffiliatedCouncils from '@/components/AffiliatedCouncils';
 import { University, VerificationStatus } from '@/types';
 import { Search, Building2, ShieldAlert, Sparkles, Filter, ExternalLink } from 'lucide-react';
 
@@ -157,6 +158,11 @@ export default function UniversitiesPage() {
             />
           ))}
         </div>
+      </div>
+
+      {/* Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      <div className="mt-16">
+        <AffiliatedCouncils onOpenEnquiry={() => setEnquiryOpen(true)} />
       </div>
 
       <EnquiryFormModal

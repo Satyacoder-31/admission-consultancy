@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Hero from '@/components/Hero';
 import EducationModesPreview from '@/components/EducationModesPreview';
 import ProcessTimeline from '@/components/ProcessTimeline';
+import AffiliatedCouncils from '@/components/AffiliatedCouncils';
 import CourseCard from '@/components/CourseCard';
 import UniversityCard from '@/components/UniversityCard';
 import EligibilityModal from '@/components/EligibilityModal';
@@ -355,7 +356,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Interactive 5-Step Admission Guidance Journey */}
+      {/* 5. Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      <AffiliatedCouncils onOpenEnquiry={handleGeneralEnquiry} />
+
+      {/* 6. Interactive 5-Step Admission Guidance Journey */}
       <ProcessTimeline onOpenEnquiry={handleGeneralEnquiry} />
 
       {/* 6. About Us Section */}

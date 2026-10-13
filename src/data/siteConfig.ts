@@ -21,3 +21,34 @@ export const brandColors = {
   offwhite: '#F8FAFC',
   charcoal: '#172033',
 };
+
+export const councilAffiliations = [
+  {
+    id: 'aicpmf',
+    name: 'All India Council of Paramedical Faculty',
+    shortName: 'AICPMF',
+    category: 'Paramedical & Allied Health Science Council',
+    logo: '/images/brand/aicpmf-logo.png',
+    website: 'https://www.aicpmf.com',
+    displayUrl: 'www.aicpmf.com',
+    tagline: 'Autonomous Council for Paramedical & Health Science Education',
+    description: 'Central council for health science and paramedical education established under Act 1882 and Section 20 Constitution of India, dedicated to standardizing allied health training, branch registrations, and student credentials across India.',
+    recognition: 'Established Under Act 1882 & Constitution of India',
+    location: 'Corporate: Kanpur, UP • Nangloi, New Delhi',
+    featuredCourses: ['Diploma in Medical Lab Technology (DMLT)', 'Emergency Medical Technician', 'Radiology & Imaging', 'Allied Health Sciences']
+  },
+  {
+    id: 'bayc',
+    name: 'Bihar Acupressure Yoga College',
+    shortName: 'BAYC Institute',
+    category: 'Yoga, Acupressure & Alternative Medicine Institute',
+    logo: '/images/brand/bayc-logo.png',
+    website: 'https://www.bayc.in',
+    displayUrl: 'www.bayc.in',
+    tagline: 'Premier Acupressure, Yoga & Natural Therapeutics College',
+    description: 'Pioneering educational institution in Patna, Bihar offering certified diploma, degree, and research programs in Acupressure therapy, Naturopathy, Yogic sciences, and drugless holistic healing.',
+    recognition: 'Registered Alternative Therapy College & Research Center',
+    location: 'Gandhi Setu Link Path, Patna – 800007, Bihar',
+    featuredCourses: ['Certificate in Acupressure Therapy', 'Diploma in Yogic Science (DYS)', 'DNYS & Naturopathy Guidance', 'Acupressure Point Treatment Training']
+  }
+];

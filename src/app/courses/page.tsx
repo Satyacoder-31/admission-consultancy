@@ -6,6 +6,7 @@ import { initialCourses } from '@/data/courses';
 import CourseCard from '@/components/CourseCard';
 import EligibilityModal from '@/components/EligibilityModal';
 import EnquiryFormModal from '@/components/EnquiryFormModal';
+import AffiliatedCouncils from '@/components/AffiliatedCouncils';
 import { Course, CourseCategory, CourseLevel, StudyMode } from '@/types';
 import { Search, Filter, BookOpen, Sparkles, ArrowRight } from 'lucide-react';
 
@@ -189,6 +190,11 @@ export default function CoursesPage() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      <div className="mt-16">
+        <AffiliatedCouncils onOpenEnquiry={() => { setEnquiryCourse(null); setEnquiryModalOpen(true); }} />
       </div>
 
       {/* Modals */}

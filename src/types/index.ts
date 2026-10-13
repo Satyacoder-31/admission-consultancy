@@ -86,3 +86,18 @@ export interface SiteSettings {
   officeHours: string;
   googleMapsEmbedUrl: string;
 }
+
+export interface CouncilAffiliation {
+  id: string;
+  name: string;
+  shortName: string;
+  category: string;
+  logo: string;
+  website: string;
+  displayUrl: string;
+  tagline: string;
+  description: string;
+  recognition: string;
+  location: string;
+  featuredCourses: string[];
+}

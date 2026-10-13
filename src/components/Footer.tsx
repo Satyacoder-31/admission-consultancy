@@ -154,6 +154,28 @@ export default function Footer() {
                   <span>BBA & MBA Programs</span>
                 </Link>
               </li>
+              <li>
+                <a 
+                  href="https://www.aicpmf.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-teal-300 font-semibold"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+                  <span>AICPMF Portal (Paramedical)</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://www.bayc.in" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-teal-300 font-semibold"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+                  <span>BAYC Institute (Yoga & Acupressure)</span>
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -201,6 +223,83 @@ export default function Footer() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Official Affiliated Council & College Portals Strip */}
+        <div className="py-6 border-b border-white/10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4">
+            <div>
+              <span className="text-[11px] font-bold text-teal-300 uppercase tracking-wider block">
+                Official Affiliated Portals & Healthcare Verification
+              </span>
+              <h5 className="text-sm font-extrabold text-white">
+                Paramedical, Yoga & Alternative Medicine Portals
+              </h5>
+            </div>
+            <span className="text-xs text-slate-400">
+              Direct verification links for candidate registrations & curriculum
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* AICPMF Portal Link Card */}
+            <a
+              href="https://www.aicpmf.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/60 transition-all flex items-center justify-between gap-3 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-white p-1 border border-emerald-400 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/brand/aicpmf-logo.png"
+                    alt="AICPMF Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h6 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                    All India Council of Paramedical Faculty
+                  </h6>
+                  <p className="text-[11px] text-teal-300 font-medium">
+                    www.aicpmf.com • Central Council for Health Science
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-300 flex-shrink-0 transition-colors" />
+            </a>
+
+            {/* BAYC Portal Link Card */}
+            <a
+              href="https://www.bayc.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/60 transition-all flex items-center justify-between gap-3 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-8 rounded-lg bg-white p-1 border border-blue-400 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/brand/bayc-logo.png"
+                    alt="BAYC Logo"
+                    width={56}
+                    height={32}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h6 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                    Bihar Acupressure Yoga College (BAYC)
+                  </h6>
+                  <p className="text-[11px] text-teal-300 font-medium">
+                    www.bayc.in • Premier Acupressure & Yoga College
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-300 flex-shrink-0 transition-colors" />
+            </a>
           </div>
         </div>
 
