@@ -31,6 +31,7 @@ export default function CoursesPage() {
     'Nursing',
     'Pharmacy',
     'Education & Teaching',
+    'Legal Studies & Law',
     'Library & Information Science',
     'Medical, Wellness & Research',
     'Vocational & Skill Development',

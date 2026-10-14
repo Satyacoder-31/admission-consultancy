@@ -9,6 +9,7 @@ export type CourseCategory =
   | 'Nursing'
   | 'Pharmacy'
   | 'Education & Teaching'
+  | 'Legal Studies & Law'
   | 'Vocational & Skill Development'
   | 'Agriculture & Applied Sciences'
   | 'School-Level Education';
