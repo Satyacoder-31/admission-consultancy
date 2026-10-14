@@ -80,6 +80,9 @@ export interface AdmissionEnquiry {
   admissionSession: string;
   questions?: string;
   status: LeadStatus;
+  priority?: 'Urgent' | 'High' | 'Normal';
+  followUpDate?: string;
+  source?: string;
   counselorNotes?: string[];
   createdAt: string;
 }

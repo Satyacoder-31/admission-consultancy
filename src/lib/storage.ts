@@ -14,58 +14,141 @@ const sampleEnquiries: AdmissionEnquiry[] = [
     studentName: 'Rahul Kumar Sah',
     mobileNumber: '9876543210',
     whatsappNumber: '9876543210',
-    email: 'rahul.sah@example.com',
+    email: 'rahul.sah@gmail.com',
     state: 'Bihar',
     city: 'Raxaul',
     highestQualification: '12th Science (PCM)',
     yearOfPassing: '2025',
-    interestedCourse: 'Bachelor of Technology (B.Tech)',
-    preferredUniversity: 'Dr. A.P.J. Abdul Kalam University',
+    interestedCourse: 'Bachelor of Technology (B.Tech Computer Science)',
+    preferredUniversity: 'Jaipur National University',
     preferredMode: 'Regular',
-    budget: '₹80,000/yr',
+    budget: '₹75,000/yr',
     admissionSession: '2026-2027',
-    questions: 'Interested in Computer Science Engineering. Need hostel facility details.',
+    questions: 'Interested in CSE with AI specialization. Need hostel & Bihar Student Credit Card (BSCC) guidance.',
     status: 'New',
-    createdAt: '2026-10-12T10:30:00.000Z'
+    priority: 'Urgent',
+    followUpDate: '2026-10-15',
+    source: 'Website Form',
+    createdAt: '2026-10-14T18:30:00.000Z'
   },
   {
     id: 'enq-102',
-    studentName: 'Priya Kumari',
+    studentName: 'Anjali Sharma',
     mobileNumber: '9123456780',
     whatsappNumber: '9123456780',
-    email: 'priya.k@example.com',
+    email: 'anjali.nursing@gmail.com',
     state: 'Bihar',
     city: 'Motihari',
-    highestQualification: 'B.Com',
-    yearOfPassing: '2024',
-    interestedCourse: 'Master of Business Administration (MBA)',
-    preferredUniversity: 'ISBM University',
-    preferredMode: 'Online',
-    budget: '₹50,000/yr',
+    highestQualification: '12th Biology (PCB - 72%)',
+    yearOfPassing: '2025',
+    interestedCourse: 'B.Sc Nursing (4 Years)',
+    preferredUniversity: 'Desh Bhagat University',
+    preferredMode: 'Regular',
+    budget: '₹90,000/yr',
     admissionSession: '2026-2027',
-    questions: 'Currently working in accounts. Need flexible online examination schedule.',
-    status: 'Contacted',
-    counselorNotes: ['Spoke on call on Oct 12. Sent MBA syllabus on WhatsApp.'],
-    createdAt: '2026-10-11T14:15:00.000Z'
+    questions: 'Need INC approval verification and clinical hospital attachment information.',
+    status: 'Follow-Up',
+    priority: 'High',
+    followUpDate: '2026-10-16',
+    source: 'WhatsApp',
+    counselorNotes: [
+      '14 Oct: Sent INC recognition certificate and college prospectus on WhatsApp.',
+      '14 Oct: Candidate visited Kaurihar Chouk desk with father. Reviewing fee payment schedule.'
+    ],
+    createdAt: '2026-10-13T14:15:00.000Z'
   },
   {
     id: 'enq-103',
-    studentName: 'Amit Verma',
+    studentName: 'Vikramaditya Prasad',
     mobileNumber: '9811223344',
     whatsappNumber: '9811223344',
-    email: 'amit.verma@example.com',
+    email: 'vikram.agri@gmail.com',
     state: 'Bihar',
-    city: 'Bettiah',
-    highestQualification: '12th Biology (PCB)',
-    yearOfPassing: '2025',
-    interestedCourse: 'BNYS (Bachelor of Naturopathy & Yogic Sciences)',
-    preferredUniversity: 'Saveetha Amaravati University',
+    city: 'Bettiah (West Champaran)',
+    highestQualification: 'B.Sc Agriculture (Hons.)',
+    yearOfPassing: '2024',
+    interestedCourse: 'M.Sc Agriculture in Agronomy',
+    preferredUniversity: 'Vivekananda Global University',
     preferredMode: 'Regular',
+    budget: '₹60,000/yr',
     admissionSession: '2026-2027',
-    questions: 'Want to know clinical hospital training and AYUSH registration norms.',
+    questions: 'Interested in Master thesis research fields and ICAR compliance.',
+    status: 'Contacted',
+    priority: 'Normal',
+    followUpDate: '2026-10-17',
+    source: 'Website Form',
+    counselorNotes: ['13 Oct: Explained Agronomy specialization and farm research labs.'],
+    createdAt: '2026-10-12T11:00:00.000Z'
+  },
+  {
+    id: 'enq-104',
+    studentName: 'Md. Tariq Anwar',
+    mobileNumber: '9431876543',
+    whatsappNumber: '9431876543',
+    email: 'tariq.physio@gmail.com',
+    state: 'Bihar',
+    city: 'Raxaul',
+    highestQualification: '10+2 Intermediate (PCB)',
+    yearOfPassing: '2025',
+    interestedCourse: 'Diploma in Physiotherapy (DPT)',
+    preferredUniversity: 'Sanskriti University',
+    preferredMode: 'Regular',
+    budget: '₹45,000/yr',
+    admissionSession: '2026-2027',
+    questions: 'Want lateral entry into BPT after completing 2 years DPT.',
+    status: 'New',
+    priority: 'High',
+    followUpDate: '2026-10-15',
+    source: 'Walk-In Office',
+    createdAt: '2026-10-14T09:20:00.000Z'
+  },
+  {
+    id: 'enq-105',
+    studentName: 'Pooja Pandey',
+    mobileNumber: '9934112233',
+    whatsappNumber: '9934112233',
+    email: 'pooja.pandey@yahoo.com',
+    state: 'Bihar',
+    city: 'Sitamarhi',
+    highestQualification: 'B.A (English Hons.)',
+    yearOfPassing: '2023',
+    interestedCourse: 'Bachelor of Education (B.Ed)',
+    preferredUniversity: 'Subharti University',
+    preferredMode: 'Regular',
+    budget: '₹55,000/yr',
+    admissionSession: '2026-2027',
+    questions: 'Checking NCTE approval and Bihar Teacher Recruitment Examination (TRE) eligibility.',
+    status: 'Converted',
+    priority: 'Normal',
+    source: 'Phone Call',
+    counselorNotes: [
+      '11 Oct: Verified NCTE code and state validity.',
+      '14 Oct: Admission seat confirmed. Bonafide issued for student records.'
+    ],
+    createdAt: '2026-10-10T16:45:00.000Z'
+  },
+  {
+    id: 'enq-106',
+    studentName: 'Suresh Yadav',
+    mobileNumber: '9835445566',
+    whatsappNumber: '9835445566',
+    email: 'suresh.yadav@gmail.com',
+    state: 'Bihar',
+    city: 'Raxaul (Nepal Border)',
+    highestQualification: '12th Science (PCB)',
+    yearOfPassing: '2024',
+    interestedCourse: 'D.Pharma (Ayurveda)',
+    preferredUniversity: 'Desh Bhagat University',
+    preferredMode: 'Regular',
+    budget: '₹50,000/yr',
+    admissionSession: '2026-2027',
+    questions: 'Need pharmacy council licensing information and retail medicine dispensary permissions.',
     status: 'Follow-Up',
-    counselorNotes: ['Scheduled for in-person counseling at Raxaul office.'],
-    createdAt: '2026-10-10T11:00:00.000Z'
+    priority: 'High',
+    followUpDate: '2026-10-16',
+    source: 'WhatsApp',
+    counselorNotes: ['12 Oct: Sent State Pharmacy Council registration guidelines.'],
+    createdAt: '2026-10-13T10:10:00.000Z'
   }
 ];
 
@@ -73,7 +156,12 @@ export function getStoredCourses(): Course[] {
   if (typeof window === 'undefined') return initialCourses;
   try {
     const raw = localStorage.getItem(COURSES_KEY);
-    return raw ? JSON.parse(raw) : initialCourses;
+    if (!raw) return initialCourses;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length >= initialCourses.length) {
+      return parsed;
+    }
+    return initialCourses;
   } catch {
     return initialCourses;
   }
@@ -92,7 +180,12 @@ export function getStoredUniversities(): University[] {
   if (typeof window === 'undefined') return initialUniversities;
   try {
     const raw = localStorage.getItem(UNIVERSITIES_KEY);
-    return raw ? JSON.parse(raw) : initialUniversities;
+    if (!raw) return initialUniversities;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length >= initialUniversities.length) {
+      return parsed;
+    }
+    return initialUniversities;
   } catch {
     return initialUniversities;
   }
@@ -115,7 +208,8 @@ export function getStoredEnquiries(): AdmissionEnquiry[] {
       localStorage.setItem(ENQUIRIES_KEY, JSON.stringify(sampleEnquiries));
       return sampleEnquiries;
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : sampleEnquiries;
   } catch {
     return sampleEnquiries;
   }
