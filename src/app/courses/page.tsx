@@ -29,10 +29,12 @@ export default function CoursesPage() {
     'Computer Applications',
     'Library & Information Science',
     'Medical, Wellness & Research',
+    'Vocational & Skill Development',
+    'Agriculture & Applied Sciences',
     'School-Level Education'
   ];
 
-  const levels = ['All', 'UG', 'PG', 'Diploma', 'Doctorate', 'School'];
+  const levels = ['All', 'UG', 'PG', 'Diploma', 'Doctorate', 'Vocational', 'School'];
   const modes = ['All', 'Regular', 'Distance', 'Online', 'Open Board'];
 
   const filtered = useMemo(() => {

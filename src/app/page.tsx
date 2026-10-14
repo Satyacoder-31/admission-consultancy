@@ -104,6 +104,8 @@ export default function HomePage() {
     'Computer Applications',
     'Library & Information Science',
     'Medical, Wellness & Research',
+    'Vocational & Skill Development',
+    'Agriculture & Applied Sciences',
     'School-Level Education'
   ];
 

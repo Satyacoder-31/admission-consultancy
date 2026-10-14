@@ -5,9 +5,11 @@ export type CourseCategory =
   | 'Computer Applications'
   | 'Library & Information Science'
   | 'Medical, Wellness & Research'
+  | 'Vocational & Skill Development'
+  | 'Agriculture & Applied Sciences'
   | 'School-Level Education';
 
-export type CourseLevel = 'UG' | 'PG' | 'Diploma' | 'Doctorate' | 'School';
+export type CourseLevel = 'UG' | 'PG' | 'Diploma' | 'Doctorate' | 'School' | 'Vocational';
 
 export type StudyMode = 'Regular' | 'Distance' | 'Online' | 'Open Board';
 
@@ -40,7 +42,7 @@ export interface University {
   state: string;
   logo: string;
   established?: string;
-  type: 'Private University' | 'State Private University' | 'Autonomous Institution' | 'Skill University';
+  type: 'Private University' | 'State Private University' | 'Autonomous Institution' | 'Skill University' | 'State University' | 'State Open University';
   verificationStatus: VerificationStatus;
   accreditationNote: string;
   modesOffered: StudyMode[];

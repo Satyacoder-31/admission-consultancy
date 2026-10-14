@@ -377,5 +377,139 @@ export const initialCourses: Course[] = [
     keySubjects: ['Science Stream (Physics, Chem, Math/Bio)', 'Commerce Stream (Accounts, Business Studies, Econ)', 'Arts Stream (History, Pol Sci, Geography)'],
     approxFeePerYear: 'Nominal board exam & guidance fees (as per official board notifications)',
     regulatoryNote: 'All examinations and credentials follow statutory educational board schedules and evaluation procedures.'
+  },
+
+  // Vocational & Skill Development Programs
+  {
+    id: 'c-bvoc-fashion-interior',
+    slug: 'vocational-fashion-design-interior-design',
+    name: 'Vocational Programs in Fashion Design & Interior Design',
+    shortName: 'Fashion & Interior Design',
+    category: 'Vocational & Skill Development',
+    level: 'Vocational',
+    duration: 'Certificate (6 Mo) | Diploma (1 Yr) | Adv. Diploma (2 Yrs) | B.Voc (3 Yrs) | M.Voc (2 Yrs)',
+    eligibility: '10th / 10+2 from any recognized board for Certificate/Diploma/B.Voc; Graduation for M.Voc.',
+    modes: ['Regular', 'Distance', 'Online'],
+    description: 'Comprehensive industry-aligned vocational training in fashion illustration, garment construction, pattern drafting, textile design, spatial interior architecture, residential & commercial layout planning, and 3D interior visualization.',
+    careerProspects: ['Fashion Designer & Stylist', 'Interior Architectural Consultant', 'Textile & Apparel Merchandiser', 'CAD Draftsman & 3D Visualizer', 'Visual Merchandising Manager', 'Boutique & Studio Entrepreneur'],
+    keySubjects: ['Fashion Illustration & CAD', 'Pattern Making & Garment Construction', 'Textile Science & Fabric Styling', 'Interior Space Planning & Ergonomics', '3D Architectural Modeling', 'Materials, Lighting & Estimation'],
+    approxFeePerYear: '₹25,000 – ₹55,000/yr (Varies by credential level & institution)',
+    popular: true
+  },
+  {
+    id: 'c-bvoc-software-dev',
+    slug: 'vocational-software-development-bvoc',
+    name: 'Vocational Programs in Software Development',
+    shortName: 'Software Development (B.Voc)',
+    category: 'Vocational & Skill Development',
+    level: 'Vocational',
+    duration: 'Certificate (6 Mo) | Diploma (1 Yr) | Adv. Diploma (2 Yrs) | B.Voc (3 Yrs) | M.Voc (2 Yrs)',
+    eligibility: '10+2 in any stream (Science/Commerce/Arts with basic computer knowledge).',
+    modes: ['Regular', 'Distance', 'Online'],
+    description: 'Hands-on practical vocational engineering degree emphasizing modern full-stack web and mobile application development, Python, Java, JavaScript, database design, REST APIs, Git, cloud deployment, and software testing.',
+    careerProspects: ['Full-Stack Web Developer', 'Python / Java Programmer', 'Frontend (React/Next) Developer', 'Mobile Application Developer', 'Database Administrator', 'QA & Software Testing Engineer'],
+    keySubjects: ['Programming in Python & Java', 'Full Stack Web Technologies', 'Database Systems (SQL & MongoDB)', 'Mobile App Engineering', 'Data Structures & Algorithms', 'Cloud Computing & DevOps Basics'],
+    approxFeePerYear: '₹30,000 – ₹60,000/yr',
+    popular: true
+  },
+  {
+    id: 'c-bvoc-tourism-hospitality',
+    slug: 'vocational-tourism-hospitality-management',
+    name: 'Vocational Programs in Tourism & Hospitality Management',
+    shortName: 'Tourism & Hospitality',
+    category: 'Vocational & Skill Development',
+    level: 'Vocational',
+    duration: 'Certificate (6 Mo) | Diploma (1 Yr) | Adv. Diploma (2 Yrs) | B.Voc (3 Yrs) | M.Voc (2 Yrs)',
+    eligibility: '10th / 10+2 in any stream from a recognized board.',
+    modes: ['Regular', 'Distance', 'Online'],
+    description: 'Professional vocational curriculum training candidates in modern resort management, front office hospitality systems, food and beverage operations, travel itinerary design, global airline ticketing, and customer relationship management.',
+    careerProspects: ['Hotel Operations Executive', 'Tour & Travel Agency Manager', 'Airline & Airport Ground Staff', 'Guest Relations Officer', 'Event, Conference & Banquet Coordinator', 'Cruise Liner Staff'],
+    keySubjects: ['Front Office & Hotel Operations', 'Food & Beverage Service Management', 'Tourism Marketing & Geography', 'Travel Agency & Tour Planning', 'Global Distribution Systems (GDS)', 'Hospitality Customer Care'],
+    approxFeePerYear: '₹25,000 – ₹50,000/yr'
+  },
+  {
+    id: 'c-bvoc-graphic-multimedia',
+    slug: 'vocational-graphic-multimedia-design',
+    name: 'Vocational Programs in Graphic & Multimedia',
+    shortName: 'Graphic & Multimedia',
+    category: 'Vocational & Skill Development',
+    level: 'Vocational',
+    duration: 'Certificate (6 Mo) | Diploma (1 Yr) | Adv. Diploma (2 Yrs) | B.Voc (3 Yrs) | M.Voc (2 Yrs)',
+    eligibility: '10th / 10+2 in any stream from a recognized educational board.',
+    modes: ['Regular', 'Distance', 'Online'],
+    description: 'Creative technology specialization spanning brand identity design, UI/UX interface layout, digital illustration, 2D/3D character animation, motion graphics, commercial video editing, and digital media publishing.',
+    careerProspects: ['Graphic Designer', 'UI/UX Interface Designer', 'Motion Graphics Animator', 'Video Editor & Colorist', 'Digital Marketing Creative Lead', 'Game & Social Media Artist'],
+    keySubjects: ['Vector Graphic & Brand Identity', 'UI/UX Design & Prototyping', '2D Character Animation', 'Motion Graphics & Compositing', 'Digital Audio-Video Post Production', 'Portfolio & Studio Work'],
+    approxFeePerYear: '₹25,000 – ₹55,000/yr',
+    popular: true
+  },
+
+  // Faculty of Agriculture Sciences
+  {
+    id: 'c-bsc-agriculture',
+    slug: 'bsc-agriculture-hons',
+    name: 'B.Sc (Hons.) in Agriculture Sciences',
+    shortName: 'B.Sc Agriculture',
+    category: 'Agriculture & Applied Sciences',
+    level: 'UG',
+    duration: '4 Years (8 Semesters)',
+    eligibility: '10+2 with Science stream (Physics, Chemistry, and Biology or Mathematics) or Agriculture from any recognized board.',
+    modes: ['Regular'],
+    description: 'Comprehensive 4-year undergraduate degree in modern scientific farming, crop breeding, soil chemistry, plant pathology, agricultural biotechnology, organic crop management, and agri-business finance.',
+    careerProspects: ['Agriculture Development Officer (ADO)', 'Farm Operations Manager', 'Agri-Business & Marketing Officer', 'Seed & Agro-Chemical Consultant', 'Soil Testing Lab Specialist', 'Banking Rural Credit Officer'],
+    keySubjects: ['Agronomy & Field Crops', 'Soil Science & Agricultural Chemistry', 'Plant Breeding & Genetics', 'Entomology & Pest Management', 'Horticultural Crops', 'Agri-Business Management'],
+    approxFeePerYear: '₹40,000 – ₹90,000/yr',
+    popular: true
+  },
+
+  // Faculty of Fire & Safety
+  {
+    id: 'c-fire-safety',
+    slug: 'diploma-bsc-fire-safety-management',
+    name: 'Diploma & B.Sc in Fire & Safety Management',
+    shortName: 'Fire & Industrial Safety',
+    category: 'Engineering & Technology',
+    level: 'Diploma',
+    duration: '1 Year (Diploma) / 3 Years (B.Sc)',
+    eligibility: '10th / 10+2 with Science or any stream from a recognized board.',
+    modes: ['Regular', 'Distance'],
+    description: 'Crucial professional safety qualification training personnel in industrial fire prevention, hazards management, chemical plant safety, emergency rescue protocols, disaster management, and safety audit legislation.',
+    careerProspects: ['Industrial Safety Officer', 'Fire & Safety Supervisor', 'HSE Engineer in Oil & Gas / Construction', 'Fire Protection Consultant', 'Disaster Mitigation Specialist'],
+    keySubjects: ['Fire Engineering Science', 'Industrial Safety & Risk Assessment', 'Hazardous Chemicals & Explosives Safety', 'Occupational Health & Hygiene', 'Emergency Rescue & First Aid', 'Safety Laws & Factories Act'],
+    approxFeePerYear: '₹25,000 – ₹55,000/yr'
+  },
+
+  // Faculty of Hotel Management
+  {
+    id: 'c-bhm-hotel-mgmt',
+    slug: 'bhm-bachelor-of-hotel-management',
+    name: 'Bachelor of Hotel Management (BHM)',
+    shortName: 'BHM / Hotel Management',
+    category: 'Management',
+    level: 'UG',
+    duration: '3 to 4 Years',
+    eligibility: '10+2 in any stream from a recognized educational board with good communication skills.',
+    modes: ['Regular'],
+    description: 'Rigorous professional hospitality programme preparing aspiring executives in international gastronomy, luxury resort management, front desk enterprise, housekeeping operations, and event banquet management.',
+    careerProspects: ['Hotel Operations Trainee / Manager', 'Executive Chef & Culinary Specialist', 'Food & Beverage Manager', 'Cruise Hospitality Executive', 'Aviation Flight Services Officer'],
+    keySubjects: ['Culinary Arts & Food Production', 'Food & Beverage Service Management', 'Accommodation Management', 'Front Desk Enterprise Systems', 'Hospitality Law & Financial Control'],
+    approxFeePerYear: '₹35,000 – ₹85,000/yr'
+  },
+
+  // Faculty of Animation & Multimedia
+  {
+    id: 'c-bsc-animation',
+    slug: 'bsc-animation-visual-effects-multimedia',
+    name: 'B.Sc in Animation, VFX & Multimedia',
+    shortName: 'B.Sc Animation & VFX',
+    category: 'Computer Applications',
+    level: 'UG',
+    duration: '3 Years (6 Semesters)',
+    eligibility: '10+2 in any stream with creative interest in digital arts.',
+    modes: ['Regular'],
+    description: 'Advanced technical animation degree covering 3D digital modeling, cinematic visual effects (VFX), character rigging, game environment texturing, digital lighting, audio-video post-production, and CGI compositing.',
+    careerProspects: ['3D Character Animator', 'VFX Compositor', 'Game Asset Designer', 'Lighting & Rendering Artist', 'Motion Graphics Video Editor'],
+    keySubjects: ['3D Modeling & Texturing', 'Character Animation & Rigging', 'VFX & Rotoscopy Compositing', 'Cinematography & Storyboarding', 'Game Art & Unreal Engine Basics'],
+    approxFeePerYear: '₹35,000 – ₹80,000/yr'
   }
 ];
