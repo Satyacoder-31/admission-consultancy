@@ -53,8 +53,30 @@ import {
   MapPin,
   GraduationCap,
   Printer,
-  FileCheck
+  FileCheck,
+  Check,
+  Copy,
+  RotateCcw
 } from 'lucide-react';
+
+export interface MasterDoc {
+  id: string;
+  name: string;
+  isRequired: boolean;
+}
+
+const DEFAULT_MASTER_DOCS: MasterDoc[] = [
+  { id: 'doc-1', name: '10th Matriculation Marksheet & Passing Certificate', isRequired: true },
+  { id: 'doc-2', name: '12th Intermediate Marksheet, Admit Card & Migration', isRequired: true },
+  { id: 'doc-3', name: 'Aadhaar Card (Student + Parent / Co-Applicant)', isRequired: true },
+  { id: 'doc-4', name: 'Residential / Domicile Certificate (Bihar Government)', isRequired: true },
+  { id: 'doc-5', name: 'Bank Account Passbook with IFSC (Applicant & Parent)', isRequired: true },
+  { id: 'doc-6', name: 'Passport size photographs (6 Copies)', isRequired: true },
+  { id: 'doc-7', name: 'Character / Conduct Certificate', isRequired: false },
+  { id: 'doc-8', name: 'Caste / Category Certificate (SC/ST/OBC/EWS)', isRequired: false },
+  { id: 'doc-9', name: 'Bonafide Certificate / DRCC Slip (for BSCC)', isRequired: false },
+  { id: 'doc-10', name: 'Entrance Exam Score Card (NEET/JEE/CAT/CUET)', isRequired: false }
+];
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -85,11 +107,19 @@ export default function AdminDashboardPage() {
   // Modals
   const [selectedEnquiry, setSelectedEnquiry] = useState<AdmissionEnquiry | null>(null);
   const [walkInModalOpen, setWalkInModalOpen] = useState(false);
-  const [whatsAppModalLead, setWhatsAppModalLead] = useState<AdmissionEnquiry | null>(null);
   const [courseModalOpen, setCourseModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [uniModalOpen, setUniModalOpen] = useState(false);
   const [editingUni, setEditingUni] = useState<University | null>(null);
+
+  // Master Document Checklist Configuration State
+  const [masterDocs, setMasterDocs] = useState<MasterDoc[]>(DEFAULT_MASTER_DOCS);
+  const [newDocInput, setNewDocInput] = useState('');
+
+  // WhatsApp Smart Communication Modal State
+  const [whatsAppModalLead, setWhatsAppModalLead] = useState<AdmissionEnquiry | null>(null);
+  const [whatsAppSelectedTemplate, setWhatsAppSelectedTemplate] = useState<'pendingDocs' | 'overview' | 'visit' | 'custom'>('pendingDocs');
+  const [whatsAppMessageText, setWhatsAppMessageText] = useState('');
 
   // University Form State
   const [uniForm, setUniForm] = useState({
@@ -163,11 +193,26 @@ export default function AdminDashboardPage() {
     setUniversities(getStoredUniversities());
     setSettings(getStoredSettings());
 
+    const savedMasterDocs = localStorage.getItem('admission_master_docs');
+    if (savedMasterDocs) {
+      try {
+        setMasterDocs(JSON.parse(savedMasterDocs));
+      } catch (err) {
+        console.error('Failed to parse saved master docs', err);
+      }
+    }
+
     const handleSync = () => {
       setEnquiries(getStoredEnquiries());
       setCourses(getStoredCourses());
       setUniversities(getStoredUniversities());
       setSettings(getStoredSettings());
+      const syncMasterDocs = localStorage.getItem('admission_master_docs');
+      if (syncMasterDocs) {
+        try {
+          setMasterDocs(JSON.parse(syncMasterDocs));
+        } catch (err) {}
+      }
     };
 
     window.addEventListener('storage', handleSync);
@@ -240,44 +285,91 @@ export default function AdminDashboardPage() {
     showToast('Counsellor note logged');
   };
 
-  const MANDATORY_DOCS = [
-    '10th Matriculation Marksheet & Passing Certificate',
-    '12th Intermediate Marksheet & Migration / TC',
-    'Aadhaar Card (Student + Parent)',
-    'Residential / Domicile Certificate (Bihar Government)',
-    'Bank Account Passbook with IFSC',
-    'Passport Size Photographs (6 Copies)'
-  ];
+  // Master Document Checklist Handlers (Tab 5 & Dossier)
+  const handleAddMasterDoc = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = newDocInput.trim();
+    if (!trimmed) return;
+    if (masterDocs.some((d) => d.name.toLowerCase() === trimmed.toLowerCase())) {
+      showToast('Document already exists in checklist');
+      return;
+    }
+    const newDoc: MasterDoc = {
+      id: `doc-${Date.now()}`,
+      name: trimmed,
+      isRequired: true
+    };
+    const updated = [...masterDocs, newDoc];
+    setMasterDocs(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('admission_master_docs', JSON.stringify(updated));
+    }
+    setNewDocInput('');
+    showToast(`Added "${trimmed}" to checklist`);
+  };
 
+  const handleToggleMasterDocRequired = (id: string) => {
+    const updated = masterDocs.map((d) => (d.id === id ? { ...d, isRequired: !d.isRequired } : d));
+    setMasterDocs(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('admission_master_docs', JSON.stringify(updated));
+    }
+    showToast('Document requirement updated');
+  };
+
+  const handleDeleteMasterDoc = (id: string) => {
+    const updated = masterDocs.filter((d) => d.id !== id);
+    setMasterDocs(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('admission_master_docs', JSON.stringify(updated));
+    }
+    showToast('Document removed from checklist');
+  };
+
+  const handleResetMasterDocs = () => {
+    setMasterDocs(DEFAULT_MASTER_DOCS);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('admission_master_docs', JSON.stringify(DEFAULT_MASTER_DOCS));
+    }
+    showToast('Reset to default document checklist');
+  };
+
+  // Toggle student document verification status (Clean atomic update)
   const handleToggleDocument = (id: string, docName: string) => {
-    const updated = enquiries.map((enq) => {
-      if (enq.id === id) {
-        const currentDocs = enq.verifiedDocuments || [];
-        const newDocs = currentDocs.includes(docName)
-          ? currentDocs.filter((d) => d !== docName)
-          : [...currentDocs, docName];
-        return {
-          ...enq,
-          verifiedDocuments: newDocs
-        };
-      }
-      return enq;
+    setEnquiries((prevEnquiries) => {
+      const updated = prevEnquiries.map((enq) => {
+        if (enq.id === id) {
+          const currentDocs = enq.verifiedDocuments || [];
+          const newDocs = currentDocs.includes(docName)
+            ? currentDocs.filter((d) => d !== docName)
+            : [...currentDocs, docName];
+          return {
+            ...enq,
+            verifiedDocuments: newDocs
+          };
+        }
+        return enq;
+      });
+      saveStoredEnquiries(updated);
+      return updated;
     });
 
-    setEnquiries(updated);
-    saveStoredEnquiries(updated);
-    if (selectedEnquiry && selectedEnquiry.id === id) {
-      const currentDocs = selectedEnquiry.verifiedDocuments || [];
+    setSelectedEnquiry((prev) => {
+      if (!prev || prev.id !== id) return prev;
+      const currentDocs = prev.verifiedDocuments || [];
       const newDocs = currentDocs.includes(docName)
         ? currentDocs.filter((d) => d !== docName)
         : [...currentDocs, docName];
-      setSelectedEnquiry({
-        ...selectedEnquiry,
+      return {
+        ...prev,
         verifiedDocuments: newDocs
-      });
-    }
+      };
+    });
+
+    showToast('Document status updated');
   };
 
+  // Print official verified receipt for candidate
   const handlePrintDossierReceipt = (enq: AdmissionEnquiry) => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
@@ -321,15 +413,16 @@ export default function AdminDashboardPage() {
             <div><span class="label">Preferred University:</span><span class="value">${enq.preferredUniversity || 'University Directory Matching'}</span></div>
             <div><span class="label">Date of Verification:</span><span class="value">${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
           </div>
-          <h3 style="font-size: 14px; margin: 15px 0 5px 0;">Document Audit Status (${docs.length}/6 Collected)</h3>
+          <h3 style="font-size: 14px; margin: 15px 0 5px 0;">Document Audit Status (${docs.length}/${masterDocs.length} Collected)</h3>
           <table class="table">
-            <thead><tr><th>#</th><th>Document Name</th><th>Status</th><th>Notes</th></tr></thead>
+            <thead><tr><th>#</th><th>Document Name</th><th>Classification</th><th>Status</th><th>Notes</th></tr></thead>
             <tbody>
-              ${MANDATORY_DOCS.map((doc, i) => {
-                const received = docs.includes(doc);
+              ${masterDocs.map((doc, i) => {
+                const received = docs.includes(doc.name);
                 return `<tr>
                   <td>${i + 1}</td>
-                  <td><strong>${doc}</strong></td>
+                  <td><strong>${doc.name}</strong></td>
+                  <td>${doc.isRequired ? 'Mandatory' : 'Optional'}</td>
                   <td class="${received ? 'status-rec' : 'status-pen'}">${received ? '✓ RECEIVED & VERIFIED' : '⏳ PENDING SUBMISSION'}</td>
                   <td>${received ? 'Self-attested copy on file' : 'To be submitted before final admission'}</td>
                 </tr>`;
@@ -348,6 +441,7 @@ export default function AdminDashboardPage() {
     printWindow.document.close();
   };
 
+  // Print blank checklist form for physical candidate folders
   const handlePrintBlankChecklist = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
@@ -389,12 +483,13 @@ export default function AdminDashboardPage() {
           </div>
           <table class="table">
             <thead>
-              <tr><th style="width: 50px;">Verify</th><th>Mandatory Document Name</th><th>Copies / Type</th><th>Verification Remarks</th></tr>
+              <tr><th style="width: 50px;">Verify</th><th>Document Name</th><th>Classification</th><th>Copies / Type</th><th>Verification Remarks</th></tr>
             </thead>
             <tbody>
-              ${MANDATORY_DOCS.map((doc, i) => `<tr>
+              ${masterDocs.map((doc, i) => `<tr>
                 <td style="text-align: center;"><div class="checkbox"></div></td>
-                <td><strong>${doc}</strong></td>
+                <td><strong>${doc.name}</strong></td>
+                <td>${doc.isRequired ? 'Mandatory' : 'Optional'}</td>
                 <td>Original + 2 Xerox</td>
                 <td></td>
               </tr>`).join('')}
@@ -410,6 +505,61 @@ export default function AdminDashboardPage() {
     `;
     printWindow.document.write(html);
     printWindow.document.close();
+  };
+
+  // WhatsApp Smart Generator
+  const generateWhatsAppMessage = (lead: AdmissionEnquiry, template: 'pendingDocs' | 'overview' | 'visit' | 'custom') => {
+    const studentDocs = lead.verifiedDocuments || [];
+    const activeRequiredDocs = masterDocs.filter((d) => d.isRequired).map((d) => d.name);
+    const pendingDocs = activeRequiredDocs.filter((d) => !studentDocs.includes(d));
+
+    if (template === 'pendingDocs') {
+      if (pendingDocs.length > 0) {
+        const docList = pendingDocs.map((d, i) => `${i + 1}) ${d}`).join('\n');
+        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nRegarding your admission application for ${lead.interestedCourse} (${lead.admissionSession}):\n\nThe following documents are currently PENDING for official verification:\n${docList}\n\nPlease share clear photos of these documents on this WhatsApp number or visit our Kaurihar Chouk office so we can proceed with your university seat booking.\n\nHelpline: 8092911956\nLocation: Kaurihar Chouk, Near Railway Crossing, Raxaul (Bihar)`;
+      } else {
+        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nAll your admission documents for ${lead.interestedCourse} (${lead.admissionSession}) have been successfully verified and filed!\n\nPlease contact our counselling desk to finalize your admission allotment and seat confirmation.\n\nHelpline: 8092911956`;
+      }
+    }
+
+    if (template === 'overview') {
+      return `Hello ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul!\n\nRegarding your enquiry for ${lead.interestedCourse} (${lead.admissionSession}): We have UGC, AICTE & Council approved university seats available with complete guidance on fees and scholarships. Please reply to schedule your free counselling session.\n\nHelpline: 8092911956`;
+    }
+
+    if (template === 'visit') {
+      return `Hello ${lead.studentName}, please visit our central admission guidance office at Kaurihar Chouk, Kaurihar Road, Raxaul (East Champaran, Bihar).\n\nOur senior educational counsellors will assist you with college options, fee structure, scholarship, and Bihar Student Credit Card (BSCC) bonafide documentation.\n\nTiming: 9:00 AM – 7:00 PM\nHelpline: 8092911956`;
+    }
+
+    return '';
+  };
+
+  const openWhatsAppModal = (lead: AdmissionEnquiry, template: 'pendingDocs' | 'overview' | 'visit' | 'custom' = 'pendingDocs') => {
+    setWhatsAppModalLead(lead);
+    setWhatsAppSelectedTemplate(template);
+    setWhatsAppMessageText(generateWhatsAppMessage(lead, template));
+  };
+
+  const handleSelectWhatsAppTemplate = (template: 'pendingDocs' | 'overview' | 'visit' | 'custom') => {
+    if (!whatsAppModalLead) return;
+    setWhatsAppSelectedTemplate(template);
+    if (template !== 'custom') {
+      setWhatsAppMessageText(generateWhatsAppMessage(whatsAppModalLead, template));
+    }
+  };
+
+  const handleSendWhatsApp = () => {
+    if (!whatsAppModalLead) return;
+    const targetPhone = whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber;
+    window.open(getWhatsAppUrl(whatsAppMessageText, targetPhone), '_blank');
+    handleAddNote(whatsAppModalLead.id, `Sent WhatsApp (${whatsAppSelectedTemplate}) to ${targetPhone}`);
+    showToast('Opening WhatsApp with message');
+    setWhatsAppModalLead(null);
+  };
+
+  const handleCopyWhatsAppMessage = () => {
+    if (!whatsAppMessageText) return;
+    navigator.clipboard.writeText(whatsAppMessageText);
+    showToast('Message text copied to clipboard!');
   };
 
   const handleDeleteLead = (id: string) => {
@@ -1177,7 +1327,7 @@ export default function AdminDashboardPage() {
 
                           <div className="flex items-center gap-1.5">
                             <button
-                              onClick={() => setWhatsAppModalLead(lead)}
+                              onClick={() => openWhatsAppModal(lead)}
                               className="p-1.5 rounded-lg bg-[#25D366] text-white hover:bg-[#20ba59] transition-colors cursor-pointer"
                               title="Quick WhatsApp message"
                             >
@@ -1426,7 +1576,7 @@ export default function AdminDashboardPage() {
                             <div className="flex items-center justify-end gap-1.5">
                               {/* WhatsApp Smart Action */}
                               <button
-                                onClick={() => setWhatsAppModalLead(enq)}
+                                onClick={() => openWhatsAppModal(enq)}
                                 className="p-1.5 rounded-lg bg-[#25D366] text-white hover:bg-[#20ba59] transition-transform active:scale-95 shadow-sm cursor-pointer"
                                 title="Send WhatsApp Message"
                               >
@@ -1762,49 +1912,114 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* Document Checklist for Student File */}
+            {/* Document Checklist for Student File (Master Configuration) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Student Admission File Document Checklist</span>
-                  </h3>
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                  <div>
+                    <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                      <span>Student Admission File Document Checklist</span>
+                    </h3>
+                    <p className="text-[11px] text-slate-500">Configure mandatory requirements & add custom documents</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleResetMasterDocs}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors cursor-pointer"
+                      title="Reset to default 10 documents"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      <span>Reset</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handlePrintBlankChecklist}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                      title="Print blank checklist form for physical candidate folders"
+                    >
+                      <Printer className="w-3.5 h-3.5 text-slate-600" />
+                      <span>Print Blank Form</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Add Custom Document Form */}
+                <form onSubmit={handleAddMasterDoc} className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Add document (e.g. Migration Certificate, CLC, Gap Affidavit)..."
+                    value={newDocInput}
+                    onChange={(e) => setNewDocInput(e.target.value)}
+                    className="flex-1 p-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none"
+                  />
                   <button
-                    onClick={handlePrintBlankChecklist}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
-                    title="Print blank checklist form for physical candidate folders"
+                    type="submit"
+                    className="px-3.5 py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer shrink-0"
                   >
-                    <Printer className="w-3.5 h-3.5 text-slate-600" />
-                    <span>Print Blank Form</span>
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add</span>
                   </button>
+                </form>
+
+                {/* Master Document Items List */}
+                <div className="space-y-2 max-h-[360px] overflow-y-auto pr-1">
+                  {masterDocs.map((doc) => (
+                    <div
+                      key={doc.id}
+                      className={`flex items-center justify-between p-2.5 rounded-xl border transition-all ${
+                        doc.isRequired
+                          ? 'bg-slate-50/80 border-slate-200 hover:border-slate-300'
+                          : 'bg-slate-100/50 border-slate-200 opacity-70'
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => handleToggleMasterDocRequired(doc.id)}
+                        className="flex items-center gap-2.5 flex-1 min-w-0 text-left cursor-pointer"
+                        title="Click to toggle Mandatory vs Optional"
+                      >
+                        <div
+                          className={`w-4 h-4 rounded flex items-center justify-center border transition-all shrink-0 ${
+                            doc.isRequired ? 'bg-teal-600 border-teal-600 text-white' : 'border-slate-300 bg-white'
+                          }`}
+                        >
+                          {doc.isRequired && <Check className="w-3 h-3 stroke-[3]" />}
+                        </div>
+                        <span
+                          className={`text-xs truncate ${
+                            doc.isRequired ? 'font-semibold text-slate-800' : 'text-slate-500 line-through'
+                          }`}
+                        >
+                          {doc.name}
+                        </span>
+                      </button>
+
+                      <div className="flex items-center gap-2 shrink-0 ml-2">
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded font-bold ${
+                            doc.isRequired ? 'bg-teal-100 text-teal-800' : 'bg-slate-200 text-slate-600'
+                          }`}
+                        >
+                          {doc.isRequired ? 'Mandatory' : 'Optional'}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMasterDoc(doc.id)}
+                          className="p-1 text-slate-400 hover:text-red-600 rounded hover:bg-red-50 transition-colors cursor-pointer"
+                          title="Remove document from checklist"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="space-y-2 text-xs text-slate-700">
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>10th Matriculation Marksheet & Passing Certificate</span>
-                  </label>
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>12th Intermediate Marksheet, Admit Card & Migration</span>
-                  </label>
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>Aadhaar Card (Student + Parent / Co-Applicant)</span>
-                  </label>
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>Residential / Domicile Certificate (Bihar Government)</span>
-                  </label>
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>Bank Account Passbook with IFSC (Applicant & Parent)</span>
-                  </label>
-                  <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
-                    <input type="checkbox" defaultChecked className="rounded text-teal-600" />
-                    <span>Passport size photographs (6 Copies)</span>
-                  </label>
-                </div>
+
+                <p className="text-[11px] text-slate-500 bg-amber-50 p-2.5 rounded-xl border border-amber-200/60 text-amber-900">
+                  💡 <strong>How it works:</strong> Items marked as <strong>Mandatory</strong> are required for admission. If unchecked in a candidate&apos;s file, they will be highlighted as <strong>Pending</strong> in their dossier and on printed receipts.
+                </p>
               </div>
 
               {/* Statutory Verification Portals Quick Access */}
@@ -2017,59 +2232,111 @@ export default function AdminDashboardPage() {
 
             {/* Student Document Verification Checklist & Receipt */}
             <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h4 className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
                     <FileCheck className="w-4 h-4 text-emerald-600" />
                     <span>Admission Documents Collected & Verified</span>
                   </h4>
                   <p className="text-[11px] text-slate-500">
-                    {(selectedEnquiry.verifiedDocuments || []).length} of {MANDATORY_DOCS.length} documents verified on file
+                    {(selectedEnquiry.verifiedDocuments || []).length} of {masterDocs.length} documents verified on file
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handlePrintDossierReceipt(selectedEnquiry)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300 shadow-sm transition-colors cursor-pointer"
-                  title="Print official document submission receipt for candidate"
-                >
-                  <Printer className="w-3.5 h-3.5 text-slate-600" />
-                  <span>Print Receipt</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  {masterDocs.filter(d => d.isRequired && !(selectedEnquiry.verifiedDocuments || []).includes(d.name)).length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => openWhatsAppModal(selectedEnquiry, 'pendingDocs')}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
+                      title="Send WhatsApp reminder for missing documents"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>WhatsApp Missing List</span>
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => handlePrintDossierReceipt(selectedEnquiry)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300 shadow-sm transition-colors cursor-pointer"
+                    title="Print official document submission receipt for candidate"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-slate-600" />
+                    <span>Print Receipt</span>
+                  </button>
+                </div>
               </div>
+
+              {/* Pending Documents Alert banner if any mandatory doc is missing */}
+              {masterDocs.filter(d => d.isRequired && !(selectedEnquiry.verifiedDocuments || []).includes(d.name)).length > 0 && (
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-amber-900 flex items-center gap-1.5">
+                      <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                      <span>{masterDocs.filter(d => d.isRequired && !(selectedEnquiry.verifiedDocuments || []).includes(d.name)).length} Mandatory Document(s) Pending:</span>
+                    </span>
+                    <span className="text-[10px] uppercase font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">Action Required</span>
+                  </div>
+                  <p className="text-amber-800 text-[11px] leading-relaxed">
+                    {masterDocs.filter(d => d.isRequired && !(selectedEnquiry.verifiedDocuments || []).includes(d.name)).map(d => d.name).join(' • ')}
+                  </p>
+                </div>
+              )}
 
               {/* Progress Bar */}
               <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 transition-all duration-300"
                   style={{
-                    width: `${((selectedEnquiry.verifiedDocuments || []).length / MANDATORY_DOCS.length) * 100}%`
+                    width: `${masterDocs.length > 0 ? ((selectedEnquiry.verifiedDocuments || []).length / masterDocs.length) * 100 : 0}%`
                   }}
                 />
               </div>
 
-              {/* Checklist items */}
+              {/* Interactive Checklist items */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                {MANDATORY_DOCS.map((doc) => {
-                  const isChecked = (selectedEnquiry.verifiedDocuments || []).includes(doc);
+                {masterDocs.map((doc) => {
+                  const isChecked = (selectedEnquiry.verifiedDocuments || []).includes(doc.name);
                   return (
-                    <label
-                      key={doc}
-                      onClick={() => handleToggleDocument(selectedEnquiry.id, doc)}
-                      className={`flex items-center gap-2 p-2 rounded-xl border text-xs cursor-pointer transition-colors ${
+                    <button
+                      type="button"
+                      key={doc.id}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleToggleDocument(selectedEnquiry.id, doc.name);
+                      }}
+                      className={`w-full flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                         isChecked
-                          ? 'bg-emerald-50/70 border-emerald-300 text-emerald-900 font-semibold'
-                          : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                          ? 'bg-emerald-50 border-emerald-300 text-emerald-950 shadow-xs'
+                          : 'bg-white border-slate-200 hover:border-amber-400 hover:bg-amber-50/20 text-slate-700'
                       }`}
+                      title={isChecked ? 'Click to uncheck document' : 'Click to verify and check document'}
                     >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => {}} // handled by label onClick
-                        className="rounded text-emerald-600 focus:ring-emerald-500 pointer-events-none"
-                      />
-                      <span className="truncate">{doc}</span>
-                    </label>
+                      <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                        <div
+                          className={`w-4 h-4 rounded flex items-center justify-center border transition-all shrink-0 ${
+                            isChecked ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-slate-300 bg-white'
+                          }`}
+                        >
+                          {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+                        </div>
+                        <div className="min-w-0">
+                          <span className={`block truncate text-xs ${isChecked ? 'font-bold text-emerald-950' : 'font-medium text-slate-700'}`}>
+                            {doc.name}
+                          </span>
+                          <span className="text-[10px] text-slate-400">
+                            {doc.isRequired ? 'Mandatory Requirement' : 'Optional / Special Category'}
+                          </span>
+                        </div>
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
+                          isChecked ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700'
+                        }`}
+                      >
+                        {isChecked ? '✓ Verified' : '⏳ Pending'}
+                      </span>
+                    </button>
                   );
                 })}
               </div>
@@ -2116,8 +2383,7 @@ export default function AdminDashboardPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => {
-                    setWhatsAppModalLead(selectedEnquiry);
-                    setSelectedEnquiry(null);
+                    openWhatsAppModal(selectedEnquiry);
                   }}
                   className="px-4 py-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
                 >
@@ -2287,65 +2553,153 @@ export default function AdminDashboardPage() {
       )}
 
       {/* ============================================================== */}
-      {/* MODAL 3: SMART WHATSAPP MESSAGE TEMPLATES                      */}
+      {/* MODAL 3: SMART WHATSAPP COMMUNICATION & DOCUMENT REMINDER     */}
       {/* ============================================================== */}
       {whatsAppModalLead && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-amber-300 space-y-4 animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-amber-300 space-y-4 animate-in zoom-in-95 max-h-[90vh] overflow-y-auto">
+            {/* Header with clear recipient info */}
+            <div className="flex items-start justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  <span>Send WhatsApp to {whatsAppModalLead.studentName}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <MessageCircle className="w-3 h-3" />
+                  <span>Direct Candidate WhatsApp Dispatch</span>
+                </span>
+                <h3 className="text-base font-black text-slate-900 mt-1">
+                  Send WhatsApp to {whatsAppModalLead.studentName}
                 </h3>
-                <span className="text-xs text-slate-500">{whatsAppModalLead.mobileNumber} • {whatsAppModalLead.interestedCourse}</span>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mt-0.5">
+                  <span className="font-bold text-slate-700">📱 {formatIndianPhone(whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber)}</span>
+                  <span>•</span>
+                  <span>{whatsAppModalLead.interestedCourse} ({whatsAppModalLead.preferredMode})</span>
+                </div>
               </div>
-              <button onClick={() => setWhatsAppModalLead(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+              <button
+                onClick={() => setWhatsAppModalLead(null)}
+                className="text-slate-400 hover:text-slate-700 p-1 rounded-lg cursor-pointer"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-600 font-medium">Select a tailored official messaging template:</p>
+            {/* Recipient and Routing Notice */}
+            <div className="bg-teal-50/80 p-3 rounded-2xl border border-teal-200 text-xs space-y-1">
+              <span className="font-bold text-teal-950 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-teal-700" />
+                <span>To Whom & How This Sends:</span>
+              </span>
+              <p className="text-teal-900 text-[11px] leading-relaxed">
+                This message will be sent directly to <strong>{whatsAppModalLead.studentName}</strong> at their personal registered phone number (<strong>{formatIndianPhone(whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber)}</strong>). Clicking &ldquo;Send via WhatsApp&rdquo; will open WhatsApp Web or your desktop/mobile WhatsApp application with this pre-filled message ready to deliver.
+              </p>
+            </div>
 
-            <div className="space-y-2 text-xs">
+            {/* Template Selector */}
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-slate-800">
+                1. Select Message Purpose / Template:
+              </label>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => handleSelectWhatsAppTemplate('pendingDocs')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    whatsAppSelectedTemplate === 'pendingDocs'
+                      ? 'bg-amber-50 border-amber-400 text-amber-950 font-bold shadow-xs'
+                      : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <span className="block text-xs">📋 Missing Documents</span>
+                  <span className="text-[10px] text-slate-500 font-normal">Lists pending certificates</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSelectWhatsAppTemplate('overview')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    whatsAppSelectedTemplate === 'overview'
+                      ? 'bg-blue-50 border-blue-400 text-blue-950 font-bold shadow-xs'
+                      : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <span className="block text-xs">🎓 Course & Seat Info</span>
+                  <span className="text-[10px] text-slate-500 font-normal">UGC approval & counselling</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSelectWhatsAppTemplate('visit')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    whatsAppSelectedTemplate === 'visit'
+                      ? 'bg-purple-50 border-purple-400 text-purple-950 font-bold shadow-xs'
+                      : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <span className="block text-xs">📍 Raxaul Office Visit</span>
+                  <span className="text-[10px] text-slate-500 font-normal">Kaurihar Chouk location</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSelectWhatsAppTemplate('custom')}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                    whatsAppSelectedTemplate === 'custom'
+                      ? 'bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-xs'
+                      : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <span className="block text-xs">✏️ Custom Message</span>
+                  <span className="text-[10px] text-slate-500 font-normal">Type your own message</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Editable Message Text Box */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-800">
+                <span>2. Review & Edit Message Text:</span>
+                <span className="text-[10px] text-slate-400 font-normal">
+                  {whatsAppMessageText.length} characters • Fully editable
+                </span>
+              </div>
+              <textarea
+                rows={6}
+                value={whatsAppMessageText}
+                onChange={(e) => setWhatsAppMessageText(e.target.value)}
+                placeholder="Type your WhatsApp message to the student..."
+                className="w-full p-3 rounded-2xl border border-slate-300 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none leading-relaxed text-slate-800 font-sans"
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
               <button
-                onClick={() => {
-                  const msg = `Hello ${whatsAppModalLead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul! Regarding your enquiry for ${whatsAppModalLead.interestedCourse} (${whatsAppModalLead.admissionSession}): We have UGC & Council approved university seats available. Please reply to schedule your free counselling. Helpline: 8092911956.`;
-                  window.open(getWhatsAppUrl(msg, whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber), '_blank');
-                  handleAddNote(whatsAppModalLead.id, 'Sent WhatsApp Template: Course Overview & Free Counselling');
-                  setWhatsAppModalLead(null);
-                }}
-                className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all font-medium text-slate-800 cursor-pointer"
+                type="button"
+                onClick={handleCopyWhatsAppMessage}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                title="Copy message to clipboard"
               >
-                <span className="font-bold text-[#082B59] block">1. Course Overview & Free Counselling Invitation</span>
-                <span className="text-slate-500 text-[11px]">Introductory greetings, seat confirmation, and helpline contact.</span>
+                <Copy className="w-3.5 h-3.5 text-slate-600" />
+                <span>Copy Message</span>
               </button>
 
-              <button
-                onClick={() => {
-                  const msg = `Dear ${whatsAppModalLead.studentName}, for admission in ${whatsAppModalLead.interestedCourse}, here is the essential document checklist: 1) 10th & 12th Marksheet, 2) Aadhaar Card, 3) 6 Photos, 4) Residential Certificate (for Bihar Student Credit Card). Please share clear photos on this number for verification. — SAHI RAAH, Raxaul.`;
-                  window.open(getWhatsAppUrl(msg, whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber), '_blank');
-                  handleAddNote(whatsAppModalLead.id, 'Sent WhatsApp Template: Document Verification Checklist');
-                  setWhatsAppModalLead(null);
-                }}
-                className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all font-medium text-slate-800 cursor-pointer"
-              >
-                <span className="font-bold text-teal-800 block">2. Document Checklist & Eligibility Verification</span>
-                <span className="text-slate-500 text-[11px]">List of 10th/12th marksheets, Aadhaar, and photo requirements.</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  const msg = `Hello ${whatsAppModalLead.studentName}, please visit our central admission guidance office at Kaurihar Chouk, Kaurihar Road, Raxaul (Bihar). Our senior educational counsellors will assist you with fee structure, scholarship, and bonafide documentation. Timing: 9:00 AM – 7:00 PM. Call: 8092911956.`;
-                  window.open(getWhatsAppUrl(msg, whatsAppModalLead.whatsappNumber || whatsAppModalLead.mobileNumber), '_blank');
-                  handleAddNote(whatsAppModalLead.id, 'Sent WhatsApp Template: Raxaul Office Visit Invitation');
-                  setWhatsAppModalLead(null);
-                }}
-                className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all font-medium text-slate-800 cursor-pointer"
-              >
-                <span className="font-bold text-amber-800 block">3. In-Person Counselling at Kaurihar Chouk, Raxaul</span>
-                <span className="text-slate-500 text-[11px]">Office location address, working hours, and counsellor helpline.</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setWhatsAppModalLead(null)}
+                  className="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-bold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendWhatsApp}
+                  disabled={!whatsAppMessageText.trim()}
+                  className="px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-black flex items-center gap-2 shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Send via WhatsApp</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
