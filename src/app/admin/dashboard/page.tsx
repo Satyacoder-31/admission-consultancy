@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
     preferredMode: 'Regular' as const,
     budget: '₹50,000/yr',
     admissionSession: '2026-2027',
-    priority: 'High' as const,
+    priority: 'Normal' as const,
     questions: '',
     source: 'Walk-In Office'
   });
@@ -293,7 +293,7 @@ export default function AdminDashboardPage() {
       preferredMode: 'Regular',
       budget: '₹50,000/yr',
       admissionSession: '2026-2027',
-      priority: 'High',
+      priority: 'Normal',
       questions: '',
       source: 'Walk-In Office'
     });
@@ -953,64 +953,74 @@ export default function AdminDashboardPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {enquiries
-                  .filter((e) => e.priority === 'Urgent' || e.priority === 'High' || e.status === 'New')
-                  .slice(0, 6)
-                  .map((lead) => (
-                    <div
-                      key={lead.id}
-                      className="p-4 rounded-2xl border border-slate-200 hover:border-amber-400 bg-slate-50/70 hover:bg-white transition-all space-y-3"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h4 className="font-bold text-sm text-slate-900">{lead.studentName}</h4>
-                          <span className="text-[11px] text-slate-500 block">📍 {lead.city}, {lead.state}</span>
-                        </div>
-                        <span
-                          className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase ${
-                            lead.priority === 'Urgent'
-                              ? 'bg-red-100 text-red-700 border border-red-300'
-                              : 'bg-amber-100 text-amber-800 border border-amber-300'
-                          }`}
-                        >
-                          {lead.priority || 'High'}
-                        </span>
-                      </div>
-
-                      <div className="text-xs font-medium text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200">
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Interested In:</span>
-                        <span className="font-bold text-[#082B59]">{lead.interestedCourse}</span>
-                        <span className="block text-[11px] text-teal-700 mt-0.5">Preferred: {lead.preferredUniversity || 'Open for Guidance'}</span>
-                      </div>
-
-                      <div className="flex items-center justify-between pt-1 border-t border-slate-200 text-xs">
-                        <a
-                          href={`tel:${lead.mobileNumber}`}
-                          className="flex items-center gap-1 text-teal-700 font-bold hover:underline"
-                        >
-                          <Phone className="w-3.5 h-3.5" />
-                          <span>{lead.mobileNumber}</span>
-                        </a>
-
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            onClick={() => setWhatsAppModalLead(lead)}
-                            className="p-1.5 rounded-lg bg-[#25D366] text-white hover:bg-[#20ba59] transition-colors cursor-pointer"
-                            title="Quick WhatsApp message"
+                {enquiries.filter((e) => (e.priority === 'Urgent' || e.priority === 'High') && e.status !== 'Closed').length === 0 ? (
+                  <div className="col-span-full p-8 text-center bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                    <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto mb-2 opacity-80" />
+                    <p className="text-xs font-bold text-slate-700">No Urgent or High Priority Leads Pending</p>
+                    <p className="text-[11px] text-slate-500 mt-1 max-w-md mx-auto">
+                      All new student enquiries default to Normal priority. You can escalate any lead to High or Urgent from the Student Leads CRM tab below.
+                    </p>
+                  </div>
+                ) : (
+                  enquiries
+                    .filter((e) => (e.priority === 'Urgent' || e.priority === 'High') && e.status !== 'Closed')
+                    .slice(0, 6)
+                    .map((lead) => (
+                      <div
+                        key={lead.id}
+                        className="p-4 rounded-2xl border border-slate-200 hover:border-amber-400 bg-slate-50/70 hover:bg-white transition-all space-y-3"
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-bold text-sm text-slate-900">{lead.studentName}</h4>
+                            <span className="text-[11px] text-slate-500 block">📍 {lead.city}, {lead.state}</span>
+                          </div>
+                          <span
+                            className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase ${
+                              lead.priority === 'Urgent'
+                                ? 'bg-red-100 text-red-700 border border-red-300'
+                                : 'bg-amber-100 text-amber-800 border border-amber-300'
+                            }`}
                           >
-                            <MessageCircle className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => setSelectedEnquiry(lead)}
-                            className="p-1.5 rounded-lg bg-[#082B59] text-white hover:bg-[#1355A5] transition-colors cursor-pointer"
-                            title="View Full Profile"
+                            {lead.priority || 'Normal'}
+                          </span>
+                        </div>
+
+                        <div className="text-xs font-medium text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200">
+                          <span className="text-slate-400 block text-[10px] uppercase font-bold">Interested In:</span>
+                          <span className="font-bold text-[#082B59]">{lead.interestedCourse}</span>
+                          <span className="block text-[11px] text-teal-700 mt-0.5">Preferred: {lead.preferredUniversity || 'Open for Guidance'}</span>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-1 border-t border-slate-200 text-xs">
+                          <a
+                            href={`tel:${lead.mobileNumber}`}
+                            className="flex items-center gap-1 text-teal-700 font-bold hover:underline"
                           >
-                            <Eye className="w-3.5 h-3.5" />
-                          </button>
+                            <Phone className="w-3.5 h-3.5" />
+                            <span>{lead.mobileNumber}</span>
+                          </a>
+
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={() => setWhatsAppModalLead(lead)}
+                              className="p-1.5 rounded-lg bg-[#25D366] text-white hover:bg-[#20ba59] transition-colors cursor-pointer"
+                              title="Quick WhatsApp message"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => setSelectedEnquiry(lead)}
+                              className="p-1.5 rounded-lg bg-[#082B59] text-white hover:bg-[#1355A5] transition-colors cursor-pointer"
+                              title="View Full Profile"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                )}
               </div>
             </div>
           </div>

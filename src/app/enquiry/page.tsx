@@ -162,6 +162,7 @@ export default function EnquiryPage() {
       preferredMode,
       budget,
       admissionSession,
+      priority: 'Normal' as const,
       questions: questions.trim() || undefined
     };
 

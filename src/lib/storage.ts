@@ -256,6 +256,7 @@ export function addEnquiry(enquiry: Omit<AdmissionEnquiry, 'id' | 'status' | 'cr
     ...enquiry,
     id: `enq-${Date.now().toString().slice(-6)}`,
     status: 'New',
+    priority: enquiry.priority || 'Normal',
     createdAt: new Date().toISOString()
   };
   const updated = [created, ...all];
