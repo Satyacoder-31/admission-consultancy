@@ -375,81 +375,392 @@ export default function AdminDashboardPage() {
     showToast('Document status updated');
   };
 
-  // Print official verified receipt for candidate
+  // Print official verified receipt for candidate (Strictly 1 Page A4)
   const handlePrintDossierReceipt = (enq: AdmissionEnquiry) => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
     const docs = enq.verifiedDocuments || [];
+    const activeDocs = masterDocs.filter((d) => d.isRequired);
+    const inactiveDocs = masterDocs.filter((d) => !d.isRequired);
+    const verifiedActiveCount = activeDocs.filter((d) => docs.includes(d.name)).length;
+    const pendingActiveDocs = activeDocs.filter((d) => !docs.includes(d.name));
+    const optionalReceived = inactiveDocs.filter((d) => docs.includes(d.name));
+    const isComplete = activeDocs.length > 0 && pendingActiveDocs.length === 0;
+
     const html = `
       <!DOCTYPE html>
-      <html>
+      <html lang="en">
         <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Admission Document Receipt - ${enq.studentName}</title>
           <style>
-            body { font-family: system-ui, -apple-system, sans-serif; padding: 30px; color: #1e293b; line-height: 1.5; }
-            .header { border-bottom: 2px solid #082B59; padding-bottom: 15px; margin-bottom: 20px; text-align: center; }
-            .title { font-size: 20px; font-weight: 800; color: #082B59; margin: 0; text-transform: uppercase; }
-            .subtitle { font-size: 12px; color: #64748b; margin: 4px 0 0 0; }
-            .badge { display: inline-block; padding: 4px 10px; background: #e0f2fe; color: #0369a1; border-radius: 9999px; font-size: 11px; font-weight: bold; margin-top: 6px; }
-            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 13px; }
-            .grid div { background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0; }
-            .label { font-size: 10px; color: #64748b; text-transform: uppercase; font-weight: bold; display: block; }
-            .value { font-weight: 700; color: #0f172a; }
-            .table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px; }
-            .table th, .table td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
-            .table th { background: #082B59; color: white; }
-            .status-rec { color: #15803d; font-weight: bold; }
-            .status-pen { color: #b45309; font-weight: bold; }
-            .footer { margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px; padding-top: 20px; border-top: 1px dashed #cbd5e1; }
-            .sig { text-align: center; width: 180px; }
-            .sig-line { border-top: 1px solid #0f172a; margin-top: 40px; padding-top: 4px; font-size: 11px; font-weight: bold; }
+            @page {
+              size: A4 portrait;
+              margin: 7mm 9mm;
+            }
+            *, *:before, *:after {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            html, body {
+              width: 100%;
+              height: 100%;
+              margin: 0 !important;
+              padding: 0 !important;
+              background: #ffffff;
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+              color: #0f172a;
+              font-size: 10px;
+              line-height: 1.3;
+            }
+            @media screen {
+              body {
+                background: #e2e8f0;
+                padding: 16px;
+                display: flex;
+                justify-content: center;
+              }
+              .sheet {
+                background: #ffffff;
+                width: 210mm;
+                min-height: 297mm;
+                padding: 8mm 10mm;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+              }
+            }
+            @media print {
+              html, body {
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                overflow: hidden !important;
+              }
+              .sheet {
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 283mm !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+                break-after: avoid !important;
+                break-inside: avoid !important;
+              }
+            }
+            .sheet {
+              width: 100%;
+              max-width: 192mm;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 100%;
+            }
+            .header {
+              border-bottom: 2px solid #082B59;
+              padding-bottom: 6px;
+              margin-bottom: 8px;
+              text-align: center;
+            }
+            .org-title {
+              font-size: 19px;
+              font-weight: 800;
+              color: #082B59;
+              letter-spacing: 0.5px;
+              margin: 0;
+              text-transform: uppercase;
+            }
+            .org-sub {
+              font-size: 9.5px;
+              color: #475569;
+              margin: 2px 0 0 0;
+            }
+            .receipt-pill {
+              display: inline-block;
+              margin-top: 5px;
+              background: #082B59;
+              color: #ffffff;
+              font-size: 9.5px;
+              font-weight: 700;
+              padding: 2.5px 12px;
+              border-radius: 9999px;
+              letter-spacing: 0.4px;
+              text-transform: uppercase;
+            }
+            .grid-info {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 5px;
+              margin-bottom: 8px;
+            }
+            .info-cell {
+              background: #f8fafc;
+              border: 1px solid #cbd5e1;
+              border-radius: 4px;
+              padding: 4px 7px;
+            }
+            .lbl {
+              font-size: 8px;
+              color: #64748b;
+              text-transform: uppercase;
+              font-weight: 700;
+              display: block;
+              margin-bottom: 1px;
+            }
+            .val {
+              font-size: 10px;
+              font-weight: 700;
+              color: #0f172a;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: block;
+            }
+            .audit-bar {
+              padding: 4px 8px;
+              border-radius: 4px;
+              margin-bottom: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-size: 10px;
+            }
+            .audit-bar.complete {
+              background: #ecfdf5;
+              border: 1px solid #6ee7b7;
+              color: #065f46;
+            }
+            .audit-bar.pending {
+              background: #fffbeb;
+              border: 1px solid #fde68a;
+              color: #92400e;
+            }
+            .audit-badge {
+              font-size: 9px;
+              font-weight: 800;
+              padding: 1.5px 6px;
+              border-radius: 3px;
+              text-transform: uppercase;
+            }
+            .audit-bar.complete .audit-badge {
+              background: #d1fae5;
+              color: #047857;
+            }
+            .audit-bar.pending .audit-badge {
+              background: #fef3c7;
+              color: #b45309;
+            }
+            table.dossier-table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 9.5px;
+              margin-bottom: 6px;
+            }
+            table.dossier-table th, table.dossier-table td {
+              border: 1px solid #cbd5e1;
+              padding: 4px 6px;
+              text-align: left;
+              vertical-align: middle;
+            }
+            table.dossier-table th {
+              background: #082B59;
+              color: #ffffff;
+              font-size: 8.5px;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.3px;
+            }
+            .status-rec {
+              color: #15803d;
+              font-weight: 700;
+              white-space: nowrap;
+            }
+            .status-pen {
+              color: #b45309;
+              font-weight: 700;
+              white-space: nowrap;
+            }
+            .tag-mand {
+              background: #ccfbf1;
+              color: #0f766e;
+              font-size: 8px;
+              font-weight: 800;
+              padding: 1px 4px;
+              border-radius: 2px;
+            }
+            .tag-opt {
+              background: #e2e8f0;
+              color: #475569;
+              font-size: 8px;
+              font-weight: 700;
+              padding: 1px 4px;
+              border-radius: 2px;
+            }
+            .footer-wrap {
+              margin-top: 4px;
+              padding-top: 6px;
+              border-top: 1px dashed #cbd5e1;
+            }
+            .disclaimer {
+              font-size: 8px;
+              color: #64748b;
+              line-height: 1.3;
+              margin-bottom: 12px;
+            }
+            .sig-row {
+              display: flex;
+              justify-content: space-between;
+              padding: 0 10px;
+            }
+            .sig-item {
+              text-align: center;
+              width: 170px;
+            }
+            .sig-line {
+              border-top: 1px solid #0f172a;
+              padding-top: 3px;
+              font-size: 9px;
+              font-weight: 700;
+              color: #0f172a;
+            }
+            .sig-sub {
+              font-size: 8px;
+              color: #64748b;
+            }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h1 class="title">SAHI RAAH CONSULTANCY</h1>
-            <p class="subtitle">Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: 8092911956</p>
-            <div class="badge">Official Admission File Document Receipt & Audit Slip</div>
+          <div class="sheet">
+            <div>
+              <div class="header">
+                <h1 class="org-title">SAHI RAAH CONSULTANCY</h1>
+                <p class="org-sub">
+                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 8092911956 • contact@sahiraah.com
+                </p>
+                <div class="receipt-pill">Official Admission Document Receipt & Audit Acknowledgment</div>
+              </div>
+
+              <div class="grid-info">
+                <div class="info-cell">
+                  <span class="lbl">Candidate Name</span>
+                  <span class="val">${enq.studentName}</span>
+                </div>
+                <div class="info-cell">
+                  <span class="lbl">Application / File ID</span>
+                  <span class="val">${enq.id}</span>
+                </div>
+                <div class="info-cell">
+                  <span class="lbl">Contact Mobile</span>
+                  <span class="val">${formatIndianPhone(enq.mobileNumber)}</span>
+                </div>
+                <div class="info-cell">
+                  <span class="lbl">Course Enrolled</span>
+                  <span class="val">${enq.interestedCourse} (${enq.preferredMode})</span>
+                </div>
+                <div class="info-cell">
+                  <span class="lbl">Admission Session</span>
+                  <span class="val">${enq.admissionSession}</span>
+                </div>
+                <div class="info-cell">
+                  <span class="lbl">Allotted / Target University</span>
+                  <span class="val">${enq.preferredUniversity || 'Open Counselling / UGC Directory Matching'}</span>
+                </div>
+              </div>
+
+              <div class="audit-bar ${isComplete ? 'complete' : 'pending'}">
+                <span>
+                  <strong>Document Verification Audit:</strong> ${verifiedActiveCount} of ${activeDocs.length} Mandatory Requirements Verified on File
+                  ${optionalReceived.length > 0 ? `• ${optionalReceived.length} Optional Document(s) Received` : ''}
+                </span>
+                <span class="audit-badge">${isComplete ? '✓ File Cleared' : '⏳ Action Pending'}</span>
+              </div>
+
+              <table class="dossier-table">
+                <thead>
+                  <tr>
+                    <th style="width: 24px; text-align: center;">#</th>
+                    <th>Document Name</th>
+                    <th style="width: 85px;">Classification</th>
+                    <th style="width: 130px;">Verification Status</th>
+                    <th style="width: 140px;">Office Filing Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${activeDocs
+                    .map((doc, i) => {
+                      const received = docs.includes(doc.name);
+                      return `<tr>
+                        <td style="text-align: center; font-weight: bold;">${i + 1}</td>
+                        <td><strong>${doc.name}</strong></td>
+                        <td><span class="tag-mand">MANDATORY</span></td>
+                        <td class="${received ? 'status-rec' : 'status-pen'}">
+                          ${received ? '✓ RECEIVED & VERIFIED' : '⏳ PENDING SUBMISSION'}
+                        </td>
+                        <td>${received ? 'Self-attested copy placed in file' : 'Must submit before university seat cutoff'}</td>
+                      </tr>`;
+                    })
+                    .join('')}
+
+                  ${optionalReceived
+                    .map((doc, i) => {
+                      return `<tr style="background: #f8fafc;">
+                        <td style="text-align: center;">${activeDocs.length + i + 1}</td>
+                        <td>${doc.name}</td>
+                        <td><span class="tag-opt">OPTIONAL</span></td>
+                        <td class="status-rec">✓ VERIFIED (ADDITIONAL)</td>
+                        <td>Optional certificate filed on record</td>
+                      </tr>`;
+                    })
+                    .join('')}
+
+                  ${
+                    inactiveDocs.filter((d) => !docs.includes(d.name)).length > 0
+                      ? `<tr style="background: #f8fafc; color: #64748b; font-size: 8.5px;">
+                          <td style="text-align: center; color: #94a3b8;">—</td>
+                          <td colspan="4" style="padding: 3px 6px;">
+                            <span style="font-weight: 700; color: #475569;">Unticked Checklist Items (Not Required for this File):</span>
+                            ${inactiveDocs
+                              .filter((d) => !docs.includes(d.name))
+                              .map((d) => d.name)
+                              .join(' • ')}
+                          </td>
+                        </tr>`
+                      : ''
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <div class="footer-wrap">
+              <div class="disclaimer">
+                <strong>Important Notice:</strong> This computer-generated receipt certifies the physical / digital filing of the documents indicated above with SAHI RAAH CONSULTANCY for university admission seat processing. Original certificates (where deposited) remain strictly under confidential office custody until issuance of official university enrollment registration slips.
+              </div>
+
+              <div class="sig-row">
+                <div class="sig-item">
+                  <div class="sig-line">Candidate / Parent Signature</div>
+                  <div class="sig-sub">Date: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                </div>
+                <div class="sig-item">
+                  <div class="sig-line">Authorized Verification Officer</div>
+                  <div class="sig-sub">SAHI RAAH CONSULTANCY (Seal & Sign)</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="grid">
-            <div><span class="label">Candidate Name:</span><span class="value">${enq.studentName}</span></div>
-            <div><span class="label">Application / Ref ID:</span><span class="value">${enq.id}</span></div>
-            <div><span class="label">Course & Mode:</span><span class="value">${enq.interestedCourse} (${enq.preferredMode})</span></div>
-            <div><span class="label">Registered Phone:</span><span class="value">${enq.mobileNumber}</span></div>
-            <div><span class="label">Preferred University:</span><span class="value">${enq.preferredUniversity || 'University Directory Matching'}</span></div>
-            <div><span class="label">Date of Verification:</span><span class="value">${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
-          </div>
-          <h3 style="font-size: 14px; margin: 15px 0 5px 0;">Document Audit Status (${masterDocs.filter(d => d.isRequired && docs.includes(d.name)).length}/${masterDocs.filter(d => d.isRequired).length} Mandatory Requirements Collected)</h3>
-          <table class="table">
-            <thead><tr><th>#</th><th>Document Name</th><th>Classification</th><th>Status</th><th>Notes</th></tr></thead>
-            <tbody>
-              ${masterDocs.filter(d => d.isRequired).map((doc, i) => {
-                const received = docs.includes(doc.name);
-                return `<tr>
-                  <td>${i + 1}</td>
-                  <td><strong>${doc.name}</strong></td>
-                  <td><span style="color: #0f766e; font-weight: bold;">MANDATORY</span></td>
-                  <td class="${received ? 'status-rec' : 'status-pen'}">${received ? '✓ RECEIVED & VERIFIED' : '⏳ PENDING SUBMISSION'}</td>
-                  <td>${received ? 'Self-attested copy on file' : 'To be submitted before final admission'}</td>
-                </tr>`;
-              }).join('')}
-              ${masterDocs.filter(d => !d.isRequired).map((doc, i) => {
-                const received = docs.includes(doc.name);
-                return `<tr style="opacity: 0.75; background: #f8fafc;">
-                  <td>${masterDocs.filter(d => d.isRequired).length + i + 1}</td>
-                  <td><span style="text-decoration: ${received ? 'none' : 'line-through'};">${doc.name}</span></td>
-                  <td><span style="color: #64748b;">OPTIONAL (Unticked)</span></td>
-                  <td class="${received ? 'status-rec' : ''}">${received ? '✓ Verified (Optional)' : '<span style="color: #94a3b8;">Not Required</span>'}</td>
-                  <td>Optional certificate</td>
-                </tr>`;
-              }).join('')}
-            </tbody>
-          </table>
-          <div class="footer">
-            <div class="sig"><div class="sig-line">Candidate / Parent Signature</div></div>
-            <div class="sig"><div class="sig-line">Authorized Counsellor Seal & Sign</div></div>
-          </div>
-          <script>window.onload = function() { window.print(); }</script>
+
+          <script>
+            window.addEventListener('load', function() {
+              setTimeout(function() {
+                window.print();
+              }, 150);
+            });
+          </script>
         </body>
       </html>
     `;
@@ -457,64 +768,309 @@ export default function AdminDashboardPage() {
     printWindow.document.close();
   };
 
-  // Print blank checklist form for physical candidate folders
+  // Print blank checklist form for physical candidate folders (Strictly 1 Page A4)
   const handlePrintBlankChecklist = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
+    const activeDocs = masterDocs.filter((d) => d.isRequired);
+
     const html = `
       <!DOCTYPE html>
-      <html>
+      <html lang="en">
         <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Student Admission File Document Checklist - Blank</title>
           <style>
-            body { font-family: system-ui, -apple-system, sans-serif; padding: 30px; color: #1e293b; line-height: 1.5; }
-            .header { border-bottom: 2px solid #082B59; padding-bottom: 12px; margin-bottom: 20px; text-align: center; }
-            .title { font-size: 20px; font-weight: 800; color: #082B59; margin: 0; text-transform: uppercase; }
-            .subtitle { font-size: 12px; color: #64748b; margin: 4px 0 0 0; }
-            .box { border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; margin-bottom: 20px; }
-            .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 13px; }
-            .line { border-bottom: 1px dashed #94a3b8; height: 20px; margin-top: 4px; }
-            .table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-            .table th, .table td { border: 1px solid #94a3b8; padding: 10px 12px; text-align: left; }
-            .table th { background: #082B59; color: white; }
-            .checkbox { width: 22px; height: 22px; border: 2px solid #082B59; display: inline-block; border-radius: 4px; }
-            .footer { margin-top: 50px; display: flex; justify-content: space-between; font-size: 12px; }
-            .sig { text-align: center; width: 200px; }
-            .sig-line { border-top: 1px solid #0f172a; margin-top: 40px; padding-top: 4px; font-size: 11px; font-weight: bold; }
+            @page {
+              size: A4 portrait;
+              margin: 7mm 9mm;
+            }
+            *, *:before, *:after {
+              box-sizing: border-box;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            html, body {
+              width: 100%;
+              height: 100%;
+              margin: 0 !important;
+              padding: 0 !important;
+              background: #ffffff;
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+              color: #0f172a;
+              font-size: 10px;
+              line-height: 1.3;
+            }
+            @media screen {
+              body {
+                background: #e2e8f0;
+                padding: 16px;
+                display: flex;
+                justify-content: center;
+              }
+              .sheet {
+                background: #ffffff;
+                width: 210mm;
+                min-height: 297mm;
+                padding: 8mm 10mm;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+              }
+            }
+            @media print {
+              html, body {
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                overflow: hidden !important;
+              }
+              .sheet {
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 283mm !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                page-break-after: avoid !important;
+                page-break-inside: avoid !important;
+                break-after: avoid !important;
+                break-inside: avoid !important;
+              }
+            }
+            .sheet {
+              width: 100%;
+              max-width: 192mm;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 100%;
+            }
+            .header {
+              border-bottom: 2px solid #082B59;
+              padding-bottom: 6px;
+              margin-bottom: 8px;
+              text-align: center;
+            }
+            .org-title {
+              font-size: 19px;
+              font-weight: 800;
+              color: #082B59;
+              letter-spacing: 0.5px;
+              margin: 0;
+              text-transform: uppercase;
+            }
+            .org-sub {
+              font-size: 9.5px;
+              color: #475569;
+              margin: 2px 0 0 0;
+            }
+            .checklist-pill {
+              display: inline-block;
+              margin-top: 5px;
+              background: #b45309;
+              color: #ffffff;
+              font-size: 9.5px;
+              font-weight: 700;
+              padding: 2.5px 12px;
+              border-radius: 9999px;
+              letter-spacing: 0.4px;
+              text-transform: uppercase;
+            }
+            .candidate-box {
+              border: 1px solid #cbd5e1;
+              border-radius: 4px;
+              padding: 6px 10px;
+              margin-bottom: 8px;
+              background: #f8fafc;
+            }
+            .candidate-grid {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 8px 16px;
+              font-size: 10px;
+            }
+            .fill-line {
+              border-bottom: 1px dashed #94a3b8;
+              height: 16px;
+              margin-top: 2px;
+            }
+            .instruction-bar {
+              background: #f1f5f9;
+              border: 1px solid #cbd5e1;
+              padding: 4px 8px;
+              border-radius: 4px;
+              font-size: 9px;
+              color: #334155;
+              margin-bottom: 8px;
+              display: flex;
+              justify-content: space-between;
+            }
+            table.checklist-table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 9.5px;
+              margin-bottom: 6px;
+            }
+            table.checklist-table th, table.checklist-table td {
+              border: 1px solid #94a3b8;
+              padding: 4px 6px;
+              text-align: left;
+              vertical-align: middle;
+            }
+            table.checklist-table th {
+              background: #082B59;
+              color: #ffffff;
+              font-size: 8.5px;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.3px;
+            }
+            .box-check {
+              width: 16px;
+              height: 16px;
+              border: 1.5px solid #082B59;
+              border-radius: 3px;
+              margin: 0 auto;
+              background: #ffffff;
+            }
+            .footer-wrap {
+              margin-top: 4px;
+              padding-top: 6px;
+              border-top: 1px dashed #cbd5e1;
+            }
+            .sig-row {
+              display: flex;
+              justify-content: space-between;
+              padding: 0 10px;
+            }
+            .sig-item {
+              text-align: center;
+              width: 180px;
+            }
+            .sig-line {
+              border-top: 1px solid #0f172a;
+              padding-top: 3px;
+              font-size: 9px;
+              font-weight: 700;
+              color: #0f172a;
+            }
+            .sig-sub {
+              font-size: 8px;
+              color: #64748b;
+            }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h1 class="title">SAHI RAAH CONSULTANCY</h1>
-            <p class="subtitle">Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: 8092911956</p>
-            <h2 style="font-size: 14px; margin: 6px 0 0 0; color: #b45309;">Candidate Admission Folder — Document Verification Checklist</h2>
-          </div>
-          <div class="box">
-            <div class="fields">
-              <div>Student Full Name: <div class="line"></div></div>
-              <div>Contact Mobile No.: <div class="line"></div></div>
-              <div>Course Enrolled: <div class="line"></div></div>
-              <div>Allotted University: <div class="line"></div></div>
+          <div class="sheet">
+            <div>
+              <div class="header">
+                <h1 class="org-title">SAHI RAAH CONSULTANCY</h1>
+                <p class="org-sub">
+                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 8092911956 • contact@sahiraah.com
+                </p>
+                <div class="checklist-pill">Candidate Physical File — Admission Document Verification Checklist</div>
+              </div>
+
+              <div class="candidate-box">
+                <div class="candidate-grid">
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Candidate Full Name:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Contact Mobile Number:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Enrolled Course & Mode:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Allocated University:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Candidate Application / File No.:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                  <div>
+                    <span style="font-weight: 700; color: #475569; font-size: 9px; text-transform: uppercase;">Verification Date & Counsellor Name:</span>
+                    <div class="fill-line"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="instruction-bar">
+                <span><strong>Verification Guide:</strong> Check [✓] each document physically verified. Ensure candidate self-attestation on all xerox copies.</span>
+                <span><strong>Active Mandatory:</strong> ${activeDocs.length} Docs</span>
+              </div>
+
+              <table class="checklist-table">
+                <thead>
+                  <tr>
+                    <th style="width: 24px; text-align: center;">#</th>
+                    <th style="width: 38px; text-align: center;">Verify</th>
+                    <th>Required Document Description</th>
+                    <th style="width: 140px;">Standard Submission Format</th>
+                    <th style="width: 140px;">Office Verification Sign & Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${activeDocs
+                    .map(
+                      (doc, i) => `<tr>
+                    <td style="text-align: center; font-weight: bold;">${i + 1}</td>
+                    <td style="text-align: center;"><div class="box-check"></div></td>
+                    <td><strong>${doc.name}</strong></td>
+                    <td>Original Verified + 2 Self-Attested Xerox</td>
+                    <td></td>
+                  </tr>`
+                    )
+                    .join('')}
+
+                  ${Array.from({ length: Math.max(1, 8 - activeDocs.length) })
+                    .map(
+                      (_, idx) => `<tr style="color: #64748b;">
+                    <td style="text-align: center;">${activeDocs.length + idx + 1}</td>
+                    <td style="text-align: center;"><div class="box-check"></div></td>
+                    <td><span style="font-style: italic;">Additional / Optional Certificate: _________________________</span></td>
+                    <td>Original / Xerox</td>
+                    <td></td>
+                  </tr>`
+                    )
+                    .join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="footer-wrap">
+              <div style="font-size: 8px; color: #64748b; margin-bottom: 12px; line-height: 1.3;">
+                <strong>Office Record Mandate:</strong> This physical audit sheet must remain bound inside the student's central office file. Any pending mandatory documents must be collected before university enrollment submission.
+              </div>
+
+              <div class="sig-row">
+                <div class="sig-item">
+                  <div class="sig-line">Candidate / Parent Signature</div>
+                  <div class="sig-sub">Candidate Acknowledgement</div>
+                </div>
+                <div class="sig-item">
+                  <div class="sig-line">Verifying Counsellor Seal & Signature</div>
+                  <div class="sig-sub">SAHI RAAH CONSULTANCY (Official Seal)</div>
+                </div>
+              </div>
             </div>
           </div>
-          <table class="table">
-            <thead>
-              <tr><th style="width: 50px;">Verify</th><th>Required Document Name (Active)</th><th>Copies / Type</th><th>Verification Remarks</th></tr>
-            </thead>
-            <tbody>
-              ${masterDocs.filter(d => d.isRequired).map((doc, i) => `<tr>
-                <td style="text-align: center;"><div class="checkbox"></div></td>
-                <td><strong>${doc.name}</strong></td>
-                <td>Original + 2 Xerox</td>
-                <td></td>
-              </tr>`).join('')}
-            </tbody>
-          </table>
-          <div class="footer">
-            <div class="sig"><div class="sig-line">Student / Parent Signature</div></div>
-            <div class="sig"><div class="sig-line">Verifying Counsellor Seal & Sign</div></div>
-          </div>
-          <script>window.onload = function() { window.print(); }</script>
+
+          <script>
+            window.addEventListener('load', function() {
+              setTimeout(function() {
+                window.print();
+              }, 150);
+            });
+          </script>
         </body>
       </html>
     `;
