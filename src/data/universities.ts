@@ -50,7 +50,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Enacted by Uttarakhand Legislative Act. Specific technical, professional, or distance education permissions are subject to prevailing UGC and regulatory notices for each academic year.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-blib', 'c-dnys'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-dlib', 'c-blib', 'c-mlib', 'c-dnys'],
     campusFeatures: ['Mountain Campus Environment', 'Computer Center', 'Science Laboratories', 'Sports Facilities'],
     summary: 'Set amidst the Himalayan foothills of Pauri Garhwal, offering degrees across science, commerce, humanities, yoga, and management disciplines.',
     address: 'Shiv Nagar, Dhaid Gaon, Pokhra, Pauri Garhwal, Uttarakhand – 246169'
@@ -68,7 +68,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Recognized under Chhattisgarh Private Universities Act. Programme offerings across Management, Commerce, Information Technology, and Library Sciences require session-based verification.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-pgdca', 'c-blib', 'c-mlib'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-pgdca', 'c-dlib', 'c-blib', 'c-mlib'],
     campusFeatures: ['Digital Learning Infrastructure', 'Management Incubation Cell', 'Hostel & Sports Complex'],
     summary: 'A multi-disciplinary private university established in Chhattisgarh, providing diverse academic streams with modern infrastructure and student support.',
     address: 'Nawapara (Kosmi), Tehsil Chhura, Gariyaband, Chhattisgarh – 493996'
@@ -86,7 +86,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Gujarat State Act. Originating with focus on teacher education; now operating as Sabarmati University. NCTE/UGC approval statuses vary by discipline.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-pgdca', 'c-blib'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-pgdca', 'c-dlib', 'c-blib', 'c-mlib'],
     campusFeatures: ['Pedagogical Training Labs', 'Central Library', 'Digital Seminar Halls'],
     summary: 'Originally established with a distinctive focus on pedagogical innovation and teacher education, situated near Ahmedabad, Gujarat.',
     address: 'Near Greenwood Lake Resort, Vaishno Devi Circle, Ahmedabad, Gujarat – 382481'
@@ -414,7 +414,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Rajasthan State Legislature Act No. 2 of 2017, recognized by UGC under Section 2(f). Approved by AICTE, PCI, and BCI for applicable courses.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-bed', 'c-blib'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-bed', 'c-dlib', 'c-blib', 'c-mlib'],
     campusFeatures: ['Eco-Friendly Campus near Jaipur', 'Agriculture Farms & Greenhouses', 'Engineering Workshops', 'Library & Innovation Center'],
     summary: 'Located on the Agra-Jaipur Highway, Nirwan University offers dynamic industry-linked programs in agriculture, engineering, safety, and business studies.',
     address: 'Near Bassi, Agra Road, Jaipur, Rajasthan – 303305'
@@ -432,7 +432,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Jharkhand State Legislature Act No. 15 of 2017. Recognized by UGC under Section 2(f). Approvals for specialized courses should be verified per academic session.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-blib', 'c-dnys'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-dlib', 'c-blib', 'c-mlib', 'c-dnys'],
     campusFeatures: ['Integrated Campus in Ranchi', 'Paramedical & Nursing Training Facilities', 'Computer Laboratories', 'Hostel Accommodations'],
     summary: 'Multi-stream private university in Ranchi catering to technical, healthcare, paramedical, arts, and professional education in Jharkhand.',
     address: 'Panchwati Pahar, Kawali, Namkum, Ranchi, Jharkhand – 834010'
@@ -450,7 +450,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Tripura State Legislative Act. Dedicated open learning university aimed at expanding accessible distance, vocational, and higher education across North-East India.',
     modesOffered: ['Distance', 'Online', 'Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bba', 'c-mba', 'c-bca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bvoc-graphic-multimedia'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bba', 'c-mba', 'c-bca', 'c-dlib', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bvoc-graphic-multimedia'],
     campusFeatures: ['Open & Distance Learning Study Centers', 'Digital LMS Platform', 'Regional Student Facilitation Centers'],
     summary: 'Established in Tripura to deliver affordable open and distance learning degrees, vocational training certificates, and skill upgrades for working professionals and remote students.',
     address: 'Radhakishorepur, Udaipur, Gomati District, Tripura – 799120'
@@ -468,7 +468,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Statutory State University established under Bihar State Universities Act, 1976 (amended 1998), recognized by UGC under Section 2(f) and 12(B). AIU Member. Conducts UG, PG, Vocational, and professional programmes across its affiliated Knowledge Resource Centres (KRCs).',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia', 'c-bed', 'c-deled', 'c-bmlt'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-dlib', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia', 'c-bed', 'c-deled', 'c-bmlt'],
     campusFeatures: ['State University Campus at Mithapur, Patna', 'Central Computing & Language Labs', 'Affiliated Knowledge Resource Centres across Bihar', 'Extensive Urdu, Arabic, Persian & General Library'],
     summary: 'Established State University in Patna, Bihar, recognized for accessible degree programs, vocational certifications, BBA, BCA, BLIS, and humanities across Bihar.',
     address: 'Mithapur Farm Area, Mithapur, Patna, Bihar – 800001'
@@ -574,7 +574,7 @@ export const initialUniversities: University[] = [
       'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-pharmd', 'c-mpharm', 
       'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bsc-allied-health', 'c-msc-paramedical', 
       'c-bed', 'c-med', 'c-deled', 'c-llb', 'c-ballb', 'c-llm', 
-      'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-blib', 'c-mlib', 'c-phd'
+      'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-dlib', 'c-blib', 'c-mlib', 'c-phd'
     ],
     campusFeatures: [
       'NAAC "A+" Accredited Multi-Faculty University',

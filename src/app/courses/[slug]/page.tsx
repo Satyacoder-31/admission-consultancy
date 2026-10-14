@@ -3,6 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
 import { getCourseWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
@@ -152,6 +153,55 @@ function CourseDetailContent() {
 
       {/* Course Details Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 space-y-12">
+        {/* Official Course Poster / Banner Display */}
+        {course.image && (
+          <div className="bg-white p-4 sm:p-6 rounded-3xl border-2 border-amber-300/80 shadow-lg flex flex-col md:flex-row items-center gap-6 overflow-hidden">
+            <div className="relative w-full md:w-1/2 aspect-[16/9] sm:aspect-[16/10] max-h-80 rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md">
+              <Image
+                src={course.image}
+                alt={`${course.name} Official Overview`}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+            </div>
+            <div className="space-y-3 md:w-1/2">
+              <span className="text-xs font-bold text-amber-600 uppercase tracking-wider block">
+                Official Programme Profile
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
+                {course.name}
+              </h2>
+              {course.tagline && (
+                <p className="text-sm font-semibold text-teal-800 italic">
+                  &ldquo;{course.tagline}&rdquo;
+                </p>
+              )}
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Admissions guidance and bonafide documentation assistance available for Sessions 2026–2027 & 2027–2028 across our accredited partner universities.
+              </p>
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <button
+                  onClick={() => setEnquiryOpen(true)}
+                  className="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold shadow-md transition-all cursor-pointer"
+                >
+                  Apply for this Course
+                </button>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold flex items-center gap-1.5 shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp Inquiry</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Eligibility & Regulatory Box */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-3">

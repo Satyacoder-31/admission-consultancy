@@ -37,6 +37,8 @@ export interface Course {
   approxFeePerYear?: string;
   regulatoryNote?: string;
   popular?: boolean;
+  image?: string;
+  tagline?: string;
 }
 
 export interface University {

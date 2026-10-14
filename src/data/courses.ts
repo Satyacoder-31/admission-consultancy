@@ -232,6 +232,37 @@ export const initialCourses: Course[] = [
 
   // Library & Information Science
   {
+    id: 'c-dlib',
+    slug: 'dlib-diploma-in-library-and-information-science',
+    name: 'Diploma in Library and Information Science (D.Lib)',
+    shortName: 'D.Lib',
+    category: 'Library & Information Science',
+    level: 'Diploma',
+    duration: '1 Year (2 Semesters / Annual)',
+    eligibility: '10+2 (12th Pass) in any stream (Arts, Commerce, or Science) from any recognized central or state board.',
+    modes: ['Regular', 'Distance', 'Online'],
+    description: 'Build your future in the world of knowledge & information. This diploma programme equips students with foundational skills in modern library management, cataloguing, classification, and information technology. Your career in libraries starts here!',
+    careerProspects: [
+      'School & College Library Assistant',
+      'Information Centers & Documentation Bureaus',
+      'Research Institutions & Archival Units',
+      'Public & District Libraries Staff',
+      'Corporate Knowledge & Records Manager'
+    ],
+    keySubjects: [
+      'Library Management (Operations & User Services)',
+      'Information Technology (Digital Tools, OPAC & Databases)',
+      'Cataloguing & Classification (Information Organization Systems & DDC)',
+      'Digital Libraries & Records Preservation',
+      'Reference Sources & User Services'
+    ],
+    approxFeePerYear: '₹8,000 – ₹18,000 (Total course fee)',
+    regulatoryNote: 'Offered through recognized state and central universities in regular, distance, or online learning modes. Highly recognized for library attendant, assistant, and clerical posts.',
+    popular: true,
+    image: '/images/courses/dlib-poster.jpg',
+    tagline: 'Build Your Future in the World of Knowledge & Information. Your Career in Libraries Starts Here!'
+  },
+  {
     id: 'c-blib',
     slug: 'blib-bachelor-of-library-science',
     name: 'Bachelor of Library & Information Science',
@@ -244,22 +275,39 @@ export const initialCourses: Course[] = [
     description: 'Specialized professional degree focusing on modern library administration, digital indexing, classification systems (Dewey Decimal, Colon), and digital archives management.',
     careerProspects: ['School / College Librarian', 'Information Officer in R&D Labs', 'Digital Archival Specialist', 'Public Library Administrator'],
     keySubjects: ['Library Classification (DDC)', 'Library Cataloguing (AACR-2)', 'Information Sources & Services', 'Library Automation Software (Koha)'],
-    approxFeePerYear: '₹12,000 – ₹28,000 (Total course fee)'
+    approxFeePerYear: '₹12,000 – ₹28,000 (Total course fee)',
+    popular: true
   },
   {
     id: 'c-mlib',
     slug: 'mlib-master-of-library-science',
-    name: 'Master of Library & Information Science',
-    shortName: 'M.Lib / M.Lib.I.Sc',
+    name: 'Master of Library Science (M.Lib / M.Lib.I.Sc)',
+    shortName: 'M.Lib (Library Science)',
     category: 'Library & Information Science',
     level: 'PG',
     duration: '1 Year (2 Semesters / Annual)',
-    eligibility: 'B.Lib / B.Lib.I.Sc from a recognized university with minimum 50% marks.',
+    eligibility: 'Bachelor of Library and Information Science (B.Lib / B.Lib.I.Sc) or equivalent degree with minimum 50% marks from a recognized university.',
     modes: ['Regular', 'Distance', 'Online'],
-    description: 'Advanced degree in modern information retrieval, scientific documentation centers, metadata standards, electronic journals management, and automated library networking.',
-    careerProspects: ['University Chief Librarian', 'Knowledge Management Consultant', 'Research Documentalist', 'Government Documentation Officer'],
-    keySubjects: ['Information Retrieval Systems', 'Digital Libraries & Institutional Repositories', 'Research Methods in LIS', 'Knowledge Organization Systems'],
-    approxFeePerYear: '₹15,000 – ₹32,000 (Total course fee)'
+    description: 'Explore. Organize. Empower. Build the future of knowledge. An advanced postgraduate professional program in modern information retrieval, scientific documentation centers, metadata standards, electronic journal management, digital institutional repositories, and automated university library networking.',
+    careerProspects: [
+      'University Chief Librarian & Deputy Librarian',
+      'Knowledge Management Consultant & Analyst',
+      'Research Documentalist in CSIR / ICMR / DRDO Labs',
+      'Government Documentation & Archival Officer',
+      'Digital Assets & Metadata Specialist'
+    ],
+    keySubjects: [
+      'Information Retrieval Systems',
+      'Digital Libraries & Institutional Repositories',
+      'Knowledge Organization Systems & Web Metadata',
+      'Research Methods & Statistical Techniques in LIS',
+      'Automated Library Networking & Cloud Solutions'
+    ],
+    approxFeePerYear: '₹15,000 – ₹32,000 (Total course fee)',
+    regulatoryNote: 'Valid for UGC-NET (Library and Information Science) for Assistant Professorship and College Librarian appointments across India.',
+    popular: true,
+    image: '/images/courses/mlib-banner.jpg',
+    tagline: 'Explore. Organize. Empower. Build the future of knowledge.'
   },
 
   // Medical, Wellness & Research
