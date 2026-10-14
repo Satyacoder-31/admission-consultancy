@@ -93,11 +93,28 @@ export interface CouncilAffiliation {
   shortName: string;
   category: string;
   logo: string;
-  website: string;
-  displayUrl: string;
+  website?: string;
+  displayUrl?: string;
   tagline: string;
   description: string;
   recognition: string;
   location: string;
   featuredCourses: string[];
 }
+
+export interface RecognizedBoard {
+  id: string;
+  name: string;
+  shortName: string;
+  nativeName?: string;
+  category: string;
+  logo: string;
+  badge: string;
+  tagline: string;
+  description: string;
+  recognition: string;
+  location: string;
+  levels: string[];
+  features: string[];
+}
+

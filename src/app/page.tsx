@@ -7,6 +7,7 @@ import Hero from '@/components/Hero';
 import EducationModesPreview from '@/components/EducationModesPreview';
 import ProcessTimeline from '@/components/ProcessTimeline';
 import AffiliatedCouncils from '@/components/AffiliatedCouncils';
+import RecognizedBoards from '@/components/RecognizedBoards';
 import CourseCard from '@/components/CourseCard';
 import UniversityCard from '@/components/UniversityCard';
 import EligibilityModal from '@/components/EligibilityModal';
@@ -356,7 +357,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      {/* 5. Recognized Open Schooling & Secondary Boards (BBOSE, BOSSE, TNSOS, Jamia Urdu) */}
+      <RecognizedBoards onOpenEnquiry={handleGeneralEnquiry} />
+
+      {/* 6. Recognized Paramedical & Alternative Health Councils */}
       <AffiliatedCouncils onOpenEnquiry={handleGeneralEnquiry} />
 
       {/* 6. Interactive 5-Step Admission Guidance Journey */}

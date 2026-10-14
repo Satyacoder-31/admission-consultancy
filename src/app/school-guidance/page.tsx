@@ -8,6 +8,7 @@ import EnquiryFormModal from '@/components/EnquiryFormModal';
 import EligibilityModal from '@/components/EligibilityModal';
 import { Course } from '@/types';
 import { FileCheck2, ShieldAlert, CheckCircle2, AlertCircle } from 'lucide-react';
+import RecognizedBoards from '@/components/RecognizedBoards';
 
 export default function SchoolGuidancePage() {
   const schoolCourses = initialCourses.filter((c) => c.category === 'School-Level Education');
@@ -108,6 +109,33 @@ export default function SchoolGuidancePage() {
               className="w-full py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold transition-colors"
             >
               Get Class 12th Guidance
+            </button>
+          </div>
+        </div>
+
+        {/* 4 Recognized Boards Showcase */}
+        <RecognizedBoards onOpenEnquiry={() => setEnquiryOpen(true)} showTitle={true} />
+
+        {/* Credit Transfer (TOC) & Failed Students Special Counseling */}
+        <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-[#082B59] rounded-3xl p-8 sm:p-10 text-white space-y-6 shadow-xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <span className="px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-bold uppercase tracking-wider inline-block">
+                Special Admission Category
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Failed or Incomplete in Other Boards?
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                If you appeared in CBSE, ICSE, BSEB, UP Board, or any State Board and could not clear 1 or 2 subjects, you can save your academic year through <strong>Transfer of Credit (TOC)</strong> in recognized Open Boards (such as BBOSE, BOSSE, or TNSOS). Passed subject marks can be credited directly so you only re-appear for remaining subjects.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setEnquiryOpen(true)}
+              className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-transform shadow-lg whitespace-nowrap active:scale-95"
+            >
+              Consult for TOC / Re-Admission
             </button>
           </div>
         </div>

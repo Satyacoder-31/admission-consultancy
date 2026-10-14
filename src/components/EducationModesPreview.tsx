@@ -60,11 +60,11 @@ export default function EducationModesPreview({ onOpenEnquiry }: EducationModesP
       badge: 'Secondary & Senior Secondary',
       badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       description:
-        'Guidance for candidates who experienced school gaps, failed prior board attempts, or require flexible board certification through recognized open schooling boards (NIOS / State Boards).',
+        'Guidance for candidates who experienced school gaps, failed prior board attempts, or require flexible board certification through recognized boards (BBOSE Bihar, BOSSE Sikkim, TNSOS, and Jamia Urdu Aligarh).',
       highlights: [
-        'Registration guidance for Class 10th & 12th',
-        'Science, Commerce, and Arts subject streams',
-        'Syllabus planning, practical record guidance & admit cards',
+        'Registration for BBOSE, BOSSE, TNSOS & Jamia Urdu',
+        'Class 10th & 12th in Science, Commerce, and Arts',
+        'Transfer of Credit (TOC) for failed / gap students',
         'Strict statutory compliance: Valid for government & higher studies'
       ],
       disclaimer:
