@@ -10,7 +10,8 @@ import {
   Sparkles, 
   GraduationCap, 
   ShieldCheck,
-  Check
+  Check,
+  Coins
 } from 'lucide-react';
 
 interface ProcessTimelineProps {
@@ -71,14 +72,15 @@ export default function ProcessTimeline({ onOpenEnquiry }: ProcessTimelineProps)
     },
     {
       number: 5,
-      title: 'Application Follow-Up',
-      icon: CheckCheck,
-      tag: 'Enrollment & Confirmation',
-      summary: 'Monitor your application status through official admission confirmation and enrolment number issuance.',
+      title: 'BSCC & Scholarship Guidance',
+      icon: Coins,
+      tag: 'Financial & Scheme Support',
+      summary: 'Financial issue किसी भी student की पढ़ाई में बाधा ना बने – इसी सोच के साथ हम Bihar Student Credit Card (BSCC) और available scholarship options की complete guidance देते हैं। Registration से लेकर documentation और process understanding तक, हर step में student और parents को support किया जाता है।',
       details: [
-        'Official admission receipt and university acknowledgement receipt',
-        'Enrolment / Registration number tracking and student ID card assistance',
-        'Ongoing guidance for semester exam schedules and syllabus material'
+        'Financial issue किसी भी student की पढ़ाई में बाधा ना बने – इसी सोच के साथ हम BSCC और scholarship options की complete guidance देते हैं।',
+        'Registration से लेकर documentation और DRCC process understanding तक संपूर्ण सहायता',
+        'College Bonafide Certificate, fee structure validation और ऑनलाइन आवेदन प्रक्रिया में मदद',
+        'हर step में student और parents को support किया जाता है।'
       ]
     }
   ];
@@ -160,7 +162,7 @@ export default function ProcessTimeline({ onOpenEnquiry }: ProcessTimelineProps)
                       <span className="text-xs font-bold text-teal-700 uppercase tracking-wider block">
                         Step 0{current.number}
                       </span>
-                      <h3 className="text-xl md:text-2xl font-bold text-slate-900">
+                      <h3 className={`text-xl md:text-2xl font-black ${current.number === 5 ? 'text-amber-600' : 'text-slate-900'}`}>
                         {current.title}
                       </h3>
                     </div>
@@ -174,12 +176,15 @@ export default function ProcessTimeline({ onOpenEnquiry }: ProcessTimelineProps)
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
                       Key Highlights of this stage:
                     </p>
-                    {current.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                        <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span>{detail}</span>
-                      </div>
-                    ))}
+                    {current.details.map((detail, idx) => {
+                      const isHighlighted = detail.includes('हर step में');
+                      return (
+                        <div key={idx} className={`flex items-start gap-2.5 text-xs sm:text-sm ${isHighlighted ? 'text-amber-700 font-bold bg-amber-50/80 p-2.5 rounded-xl border border-amber-300' : 'text-slate-700'}`}>
+                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${isHighlighted ? 'text-amber-600' : 'text-emerald-600'}`} />
+                          <span>{detail}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 

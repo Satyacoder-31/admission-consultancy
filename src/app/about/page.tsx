@@ -117,6 +117,25 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* OUR VISION Spotlight Banner */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-white border-2 border-amber-300 p-8 sm:p-12 shadow-lg relative overflow-hidden">
+            <div className="max-w-3xl space-y-4">
+              <span className="text-xs sm:text-sm font-black text-amber-600 tracking-widest uppercase block">
+                OUR VISION
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                Bihar का <span className="underline decoration-amber-400 decoration-4 sm:decoration-8 underline-offset-8">Most</span> <span className="underline decoration-amber-400 decoration-4 sm:decoration-8 underline-offset-8">Trusted</span> Admission Guidance Platform बनना।
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed pt-2">
+                To empower every student in Bihar with honest, transparent, and verified educational opportunities. We strive to be the beacon of trust in the education sector.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Mission & Approach Cards */}
       <section className="py-16 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

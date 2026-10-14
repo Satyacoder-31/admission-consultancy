@@ -413,6 +413,19 @@ export default function HomePage() {
                 </p>
               </div>
 
+              {/* OUR VISION Spotlight Banner */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-amber-50/90 via-orange-50/50 to-white border-2 border-amber-300 shadow-sm space-y-2">
+                <span className="text-[11px] font-black text-amber-600 tracking-widest uppercase block">
+                  OUR VISION
+                </span>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 leading-snug">
+                  Bihar का <span className="underline decoration-amber-400 decoration-4 underline-offset-4">Most</span> <span className="underline decoration-amber-400 decoration-4 underline-offset-4">Trusted</span> Admission Guidance Platform बनना।
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pt-1">
+                  To empower every student in Bihar with honest, transparent, and verified educational opportunities. We strive to be the beacon of trust in the education sector.
+                </p>
+              </div>
+
               <div className="space-y-3 pt-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Why Students Seek Our Guidance:
