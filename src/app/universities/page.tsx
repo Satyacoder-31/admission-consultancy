@@ -160,7 +160,7 @@ export default function UniversitiesPage() {
         </div>
       </div>
 
-      {/* Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      {/* Statutory Regulatory Commissions & School Boards (UGC & COBSE) */}
       <div className="mt-16">
         <AffiliatedCouncils onOpenEnquiry={() => setEnquiryOpen(true)} />
       </div>

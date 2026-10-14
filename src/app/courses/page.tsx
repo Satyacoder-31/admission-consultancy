@@ -199,7 +199,7 @@ export default function CoursesPage() {
         )}
       </div>
 
-      {/* Recognized Paramedical & Alternative Health Councils (AICPMF & BAYC Institute) */}
+      {/* Statutory Regulatory Commissions & School Boards (UGC & COBSE) */}
       <div className="mt-16">
         <AffiliatedCouncils onOpenEnquiry={() => { setEnquiryCourse(null); setEnquiryModalOpen(true); }} />
       </div>

@@ -24,28 +24,30 @@ export const brandColors = {
 
 export const councilAffiliations = [
   {
-    id: 'aicpmf',
-    name: 'All India Council of Paramedical Faculty',
-    shortName: 'AICPMF',
-    category: 'Paramedical & Allied Health Science Council',
-    logo: '/images/brand/aicpmf-logo.png',
-    tagline: 'Autonomous Council for Paramedical & Health Science Education',
-    description: 'Central council for health science and paramedical education established under Act 1882 and Section 20 Constitution of India, dedicated to standardizing allied health training, branch registrations, and student credentials across India.',
-    recognition: 'Established Under Act 1882 & Constitution of India',
-    location: 'Corporate: Kanpur, UP • Nangloi, New Delhi',
-    featuredCourses: ['Diploma in Medical Lab Technology (DMLT)', 'Emergency Medical Technician', 'Radiology & Imaging', 'Allied Health Sciences']
+    id: 'ugc',
+    name: 'University Grants Commission',
+    shortName: 'UGC Official',
+    category: 'Apex Statutory Higher Education Commission of India',
+    logo: '/images/brand/ugc-logo.png',
+    websiteUrl: 'https://www.ugc.gov.in',
+    tagline: 'Statutory Body Established by Govt. of India for University Standards',
+    description: 'The University Grants Commission (UGC) is the statutory apex body enacted under the UGC Act 1956 by the Ministry of Education, Government of India. UGC maintains standards of teaching, research, and examinations across Central, State, Deemed, and Private universities in India, and notifies approved regular, online, and distance (DEB) institutions.',
+    recognition: 'Statutory Body under Ministry of Education, Govt. of India (UGC Act 1956)',
+    location: 'Bahadur Shah Zafar Marg, New Delhi – 110002, India',
+    featuredCourses: ['Central & State Universities 2(f)/12(B) Directory', 'UGC-DEB Approved Distance & Online Degrees', 'National Equivalence & Qualification Recognition', 'Higher Education Research & Scholarships']
   },
   {
-    id: 'bayc',
-    name: 'Bihar Acupressure Yoga College',
-    shortName: 'BAYC Institute',
-    category: 'Yoga, Acupressure & Alternative Medicine Institute',
-    logo: '/images/brand/bayc-logo.png',
-    tagline: 'Premier Acupressure, Yoga & Natural Therapeutics College',
-    description: 'Pioneering educational institution in Patna, Bihar offering certified diploma, degree, and research programs in Acupressure therapy, Naturopathy, Yogic sciences, and drugless holistic healing.',
-    recognition: 'Registered Alternative Therapy College & Research Center',
-    location: 'Gandhi Setu Link Path, Patna – 800007, Bihar',
-    featuredCourses: ['Certificate in Acupressure Therapy', 'Diploma in Yogic Science (DYS)', 'DNYS & Naturopathy Guidance', 'Acupressure Point Treatment Training']
+    id: 'cobse',
+    name: 'Council of Boards of School Education in India',
+    shortName: 'COBSE Official',
+    category: 'Apex National Association of School Education Boards',
+    logo: '/images/brand/cobse-logo.png',
+    websiteUrl: 'https://www.cobse.org.in',
+    tagline: 'National Association of Recognized Secondary & Senior Secondary Boards',
+    description: 'The Council of Boards of School Education in India (COBSE) is the apex national body coordinating and confirming mutual recognition and equivalence among all authorized school education boards in India. COBSE membership guarantees pan-India validity of 10th (Matriculation) and 12th (Intermediate) certificates for higher studies, competitive exams, and government employment.',
+    recognition: 'Apex National Organization of Recognized Boards in India',
+    location: '6H, Bigjo’s Tower, A-8, Netaji Subhash Place, Pitampura, New Delhi – 110034',
+    featuredCourses: ['Class 10th (Secondary) Board Equivalence', 'Class 12th (Senior Secondary) Board Recognition', 'Recognized Open Boards (BBOSE, BOSSE, TNSOS)', 'Pan-India Employment & Higher Education Validity']
   }
 ];
 

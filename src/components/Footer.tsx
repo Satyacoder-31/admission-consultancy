@@ -161,16 +161,32 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/courses#medical" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                <Link href="/courses" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
                   <span>Paramedical & Allied Health</span>
                 </Link>
               </li>
               <li>
-                <Link href="/courses#medical" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
-                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Yoga & Acupressure Therapy</span>
-                </Link>
+                <a 
+                  href="https://www.ugc.gov.in" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-teal-300 font-semibold"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+                  <span>UGC Official Portal (Higher Education)</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://www.cobse.org.in" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-amber-300 transition-colors flex items-center gap-1.5 text-teal-300 font-semibold"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
+                  <span>COBSE Portal (School Boards Recognition)</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -222,7 +238,82 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Official Statutory Verification Portals Strip (UGC & COBSE) */}
+        <div className="py-6 border-b border-white/10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 mb-4">
+            <div>
+              <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider block">
+                Official Statutory Recognition & Verification Portals
+              </span>
+              <h5 className="text-sm font-extrabold text-white">
+                Apex Higher Education Commission & National School Boards Council
+              </h5>
+            </div>
+            <span className="text-xs text-slate-400">
+              Direct verification portals for university degrees & school board equivalencies
+            </span>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* UGC Portal Link Card */}
+            <a
+              href="https://www.ugc.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/60 transition-all flex items-center justify-between gap-3 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-white p-1 border border-blue-400 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/brand/ugc-logo.png"
+                    alt="UGC Logo"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h6 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                    University Grants Commission (UGC)
+                  </h6>
+                  <p className="text-[11px] text-teal-300 font-medium">
+                    www.ugc.gov.in • Apex Higher Education Authority of India
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-300 flex-shrink-0 transition-colors" />
+            </a>
+
+            {/* COBSE Portal Link Card */}
+            <a
+              href="https://www.cobse.org.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/60 transition-all flex items-center justify-between gap-3 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-white p-1 border border-amber-400 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                  <Image
+                    src="/images/brand/cobse-logo.png"
+                    alt="COBSE Logo"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div>
+                  <h6 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                    Council of Boards of School Education in India (COBSE)
+                  </h6>
+                  <p className="text-[11px] text-teal-300 font-medium">
+                    www.cobse.org.in • Apex National School Boards Association
+                  </p>
+                </div>
+              </div>
+              <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-300 flex-shrink-0 transition-colors" />
+            </a>
+          </div>
+        </div>
 
         {/* Regulatory Disclosure & Legal Notice */}
         <div className="py-6 border-b border-white/10 text-xs text-slate-400 leading-relaxed space-y-2">

@@ -130,7 +130,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Recognized Councils & Collaborations (AICPMF & BAYC) */}
+      {/* Statutory Commissions & Council Recognition (UGC & COBSE) */}
       <AffiliatedCouncils />
 
       {/* Why Students Seek Our Guidance */}

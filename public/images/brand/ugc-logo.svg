@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <radialGradient id="ugcBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f0f7ff"/>
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Circular background -->
+  <circle cx="400" cy="400" r="390" fill="url(#ugcBg)" stroke="#0c2340" stroke-width="14"/>
+  <circle cx="400" cy="400" r="365" fill="none" stroke="#d4af37" stroke-width="5"/>
+  <circle cx="400" cy="400" r="285" fill="#0c2340"/>
+  <circle cx="400" cy="400" r="275" fill="none" stroke="#d4af37" stroke-width="4"/>
+
+  <!-- Curved text paths -->
+  <path id="topArc" d="M 120 400 A 280 280 0 1 1 680 400" fill="none"/>
+  <path id="bottomArc" d="M 680 400 A 280 280 0 1 1 120 400" fill="none"/>
+
+  <text font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="900" fill="#0c2340" letter-spacing="3.5">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+      UNIVERSITY GRANTS COMMISSION
+    </textPath>
+  </text>
+
+  <text font-family="'Helvetica Neue', Arial, sans-serif" font-size="27" font-weight="bold" fill="#0c2340" letter-spacing="4">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+      विश्वविद्यालय अनुदान आयोग
+    </textPath>
+  </text>
+
+  <!-- Decorative stars -->
+  <polygon points="400,140 405,152 418,152 407,160 411,172 400,164 389,172 393,160 382,152 395,152" fill="#d4af37" transform="translate(-250, 240) scale(0.9)"/>
+  <polygon points="400,140 405,152 418,152 407,160 411,172 400,164 389,172 393,160 382,152 395,152" fill="#d4af37" transform="translate(250, 240) scale(0.9)"/>
+
+  <!-- Center: Torch of Knowledge, Open Book & UGC -->
+  <g transform="translate(400, 310)">
+    <!-- Torch Flame -->
+    <path d="M 0 -70 C 15 -45, 25 -25, 0 5 C -25 -25, -15 -45, 0 -70 Z" fill="#ff9933"/>
+    <path d="M 0 -50 C 8 -35, 12 -20, 0 0 C -12 -20, -8 -35, 0 -50 Z" fill="#ffe066"/>
+    <!-- Torch Handle -->
+    <path d="M -10 5 L 10 5 L 6 35 L -6 35 Z" fill="#d4af37"/>
+    <rect x="-14" y="0" width="28" height="6" rx="2" fill="#d4af37"/>
+
+    <!-- Open Book -->
+    <path d="M -70 55 C -35 48, -10 50, 0 65 C 10 50, 35 48, 70 55 L 70 85 C 35 78, 10 80, 0 95 C -10 80, -35 78, -70 85 Z" fill="#ffffff" stroke="#d4af37" stroke-width="3"/>
+    <line x1="0" y1="65" x2="0" y2="95" stroke="#d4af37" stroke-width="2"/>
+    <line x1="-55" y1="65" x2="-15" y2="63" stroke="#0c2340" stroke-width="2"/>
+    <line x1="-55" y1="73" x2="-15" y2="71" stroke="#0c2340" stroke-width="2"/>
+    <line x1="15" y1="63" x2="55" y2="65" stroke="#0c2340" stroke-width="2"/>
+    <line x1="15" y1="71" x2="55" y2="73" stroke="#0c2340" stroke-width="2"/>
+  </g>
+
+  <!-- Big Bold UGC Letters -->
+  <text x="400" y="475" font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-size="78" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="8" filter="url(#shadow)">
+    UGC
+  </text>
+
+  <!-- Motto ribbon at bottom of center -->
+  <g transform="translate(400, 515)">
+    <rect x="-140" y="0" width="280" height="28" rx="14" fill="#d4af37"/>
+    <text x="0" y="19" font-family="'Helvetica Neue', Arial, sans-serif" font-size="15" font-weight="bold" fill="#0c2340" text-anchor="middle" letter-spacing="1.5">
+      ज्ञान-विज्ञान विमुक्तये
+    </text>
+  </g>
+</svg>
