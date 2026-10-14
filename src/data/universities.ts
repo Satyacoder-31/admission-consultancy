@@ -490,5 +490,100 @@ export const initialUniversities: University[] = [
     campusFeatures: ['Premier State University Campus in Mithapur Patna', 'Advanced Nanotechnology & Research Centers', 'Technical & Medical Incubation Cell', 'Central Digital Library'],
     summary: 'The Government of Bihar\'s flagship technical and professional knowledge university, governing engineering, medicine, management, and technical education across Bihar.',
     address: 'CNLU Campus, Mithapur, Patna, Bihar – 800001'
+  },
+  {
+    id: 'u-usha-martin',
+    slug: 'usha-martin-university-ranchi',
+    name: 'Usha Martin University',
+    shortName: 'Usha Martin University',
+    location: 'Ranchi',
+    state: 'Jharkhand',
+    logo: '/images/universities/usha-martin.jpg',
+    established: '2012',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Jharkhand State Legislature Act No. 12 of 2012. Recognized by UGC under Section 2(f). Accredited with "A" Grade by NAAC. Approved by AICTE, PCI (Pharmacy), BCI (Law), and AIU Member.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
+      'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 'c-bsc', 'c-msc', 
+      'c-bsc-agriculture', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 
+      'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-bpt', 'c-bmlt', 
+      'c-dmlt-diploma', 'c-llb', 'c-ballb', 'c-llm', 'c-bed', 
+      'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia', 'c-phd'
+    ],
+    campusFeatures: [
+      'NAAC "A" Grade Accredited Campus in Ranchi',
+      'Inclusion, Innovation & Ethics Academic Foundation',
+      'Advanced Robotics, AI & Engineering Workshops',
+      'Pharmacy, Nursing & Paramedical Research Labs',
+      'Sprawling Residential Hostels & Active Placement Cell'
+    ],
+    summary: 'A leading NAAC "A" Grade accredited university in Ranchi, Jharkhand, recognized for academic excellence, innovation, and career placements across engineering, management, nursing, pharmacy, paramedical, law, and agriculture.',
+    address: 'At Village Narayansoso, Near Angara Block Office, Ranchi-Purulia Highway, Angara, Ranchi, Jharkhand – 835103'
+  },
+  {
+    id: 'u-vgu',
+    slug: 'vivekananda-global-university-jaipur',
+    name: 'Vivekananda Global University',
+    shortName: 'VGU Jaipur',
+    location: 'Jaipur',
+    state: 'Rajasthan',
+    logo: '/images/universities/vgu.jpg',
+    established: '2012',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Rajasthan State Legislature Act No. 11 of 2012. Recognized by UGC under Section 2(f). Prestigious NAAC "A+" Accredited University. Approved by AICTE, Council of Architecture (COA), BCI, PCI, and AIU Member.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-bsc', 'c-msc', 
+      'c-bsc-agriculture', 'c-bpharm', 'c-dpharm', 'c-bpharm-le', 
+      'c-bpt', 'c-bmlt', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 
+      'c-fire-safety', 'c-llb', 'c-ballb', 'c-llm', 
+      'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-phd'
+    ],
+    campusFeatures: [
+      'Prestigious NAAC "A+" Grade University Accreditation',
+      '45+ Acre Modern Eco-Friendly Wi-Fi Campus in Jaipur',
+      'Mitsubishi Electric & Siemens Robotics Centers of Excellence',
+      'Design, Architecture & Agriculture Research Farms',
+      'Extensive Sports Complex, Separate Hostels & Global Tie-Ups'
+    ],
+    summary: 'A top-tier NAAC "A+" accredited private university in Jaipur, Rajasthan, celebrated for cutting-edge engineering, design, architecture, agricultural sciences, pharmacy, law, and vibrant corporate incubation.',
+    address: 'Sector 36, NRI Road, Jagatpura, Jaipur, Rajasthan – 303012'
+  },
+  {
+    id: 'u-jnu-jaipur',
+    slug: 'jaipur-national-university',
+    name: 'Jaipur National University',
+    shortName: 'JNU Jaipur',
+    location: 'Jaipur',
+    state: 'Rajasthan',
+    logo: '/images/universities/jnu-jaipur.jpg',
+    established: '2007',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Rajasthan State Legislature Act No. 5 of 2007. Approved by UGC under Section 2(f) of UGC Act (1956) and NAAC "A+" Accredited. Recognized by AICTE, NCTE, BCI, PCI, and National Medical Commission (NMC). A venture of The Seedling Group of Educational Institutions.',
+    modesOffered: ['Regular', 'Distance'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-pgdca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 
+      'c-bsc', 'c-msc', 'c-bsc-agriculture', 'c-bsc-nursing', 
+      'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 
+      'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-pharmd', 'c-mpharm', 
+      'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bsc-allied-health', 'c-msc-paramedical', 
+      'c-bed', 'c-med', 'c-deled', 'c-llb', 'c-ballb', 'c-llm', 
+      'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-blib', 'c-mlib', 'c-phd'
+    ],
+    campusFeatures: [
+      'NAAC "A+" Accredited Multi-Faculty University',
+      '1000+ Bedded Super-Speciality Teaching Hospital & Medical College',
+      'Seedling Group Educational Legacy with Global Collaborations',
+      'Approved under Section 2(f) of UGC Act 1956',
+      'State-of-the-Art Media Studios, Engineering Complexes & Central Library'
+    ],
+    summary: 'A premier NAAC "A+" accredited university in Jaipur, Rajasthan, sponsored by the Seedling Group. Offers comprehensive programmes across medical & health sciences, nursing, pharmacy, engineering, education, law, and management with world-class hospital and laboratory infrastructure.',
+    address: 'Jaipur-Agra Bypass, Near New RTO Office, Jagatpura, Jaipur, Rajasthan – 302017'
   }
 ];
