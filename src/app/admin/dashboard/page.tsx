@@ -51,7 +51,9 @@ import {
   X,
   CreditCard,
   MapPin,
-  GraduationCap
+  GraduationCap,
+  Printer,
+  FileCheck
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -236,6 +238,178 @@ export default function AdminDashboardPage() {
       });
     }
     showToast('Counsellor note logged');
+  };
+
+  const MANDATORY_DOCS = [
+    '10th Matriculation Marksheet & Passing Certificate',
+    '12th Intermediate Marksheet & Migration / TC',
+    'Aadhaar Card (Student + Parent)',
+    'Residential / Domicile Certificate (Bihar Government)',
+    'Bank Account Passbook with IFSC',
+    'Passport Size Photographs (6 Copies)'
+  ];
+
+  const handleToggleDocument = (id: string, docName: string) => {
+    const updated = enquiries.map((enq) => {
+      if (enq.id === id) {
+        const currentDocs = enq.verifiedDocuments || [];
+        const newDocs = currentDocs.includes(docName)
+          ? currentDocs.filter((d) => d !== docName)
+          : [...currentDocs, docName];
+        return {
+          ...enq,
+          verifiedDocuments: newDocs
+        };
+      }
+      return enq;
+    });
+
+    setEnquiries(updated);
+    saveStoredEnquiries(updated);
+    if (selectedEnquiry && selectedEnquiry.id === id) {
+      const currentDocs = selectedEnquiry.verifiedDocuments || [];
+      const newDocs = currentDocs.includes(docName)
+        ? currentDocs.filter((d) => d !== docName)
+        : [...currentDocs, docName];
+      setSelectedEnquiry({
+        ...selectedEnquiry,
+        verifiedDocuments: newDocs
+      });
+    }
+  };
+
+  const handlePrintDossierReceipt = (enq: AdmissionEnquiry) => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const docs = enq.verifiedDocuments || [];
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Admission Document Receipt - ${enq.studentName}</title>
+          <style>
+            body { font-family: system-ui, -apple-system, sans-serif; padding: 30px; color: #1e293b; line-height: 1.5; }
+            .header { border-bottom: 2px solid #082B59; padding-bottom: 15px; margin-bottom: 20px; text-align: center; }
+            .title { font-size: 20px; font-weight: 800; color: #082B59; margin: 0; text-transform: uppercase; }
+            .subtitle { font-size: 12px; color: #64748b; margin: 4px 0 0 0; }
+            .badge { display: inline-block; padding: 4px 10px; background: #e0f2fe; color: #0369a1; border-radius: 9999px; font-size: 11px; font-weight: bold; margin-top: 6px; }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 13px; }
+            .grid div { background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0; }
+            .label { font-size: 10px; color: #64748b; text-transform: uppercase; font-weight: bold; display: block; }
+            .value { font-weight: 700; color: #0f172a; }
+            .table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px; }
+            .table th, .table td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+            .table th { background: #082B59; color: white; }
+            .status-rec { color: #15803d; font-weight: bold; }
+            .status-pen { color: #b45309; font-weight: bold; }
+            .footer { margin-top: 40px; display: flex; justify-content: space-between; font-size: 12px; padding-top: 20px; border-top: 1px dashed #cbd5e1; }
+            .sig { text-align: center; width: 180px; }
+            .sig-line { border-top: 1px solid #0f172a; margin-top: 40px; padding-top: 4px; font-size: 11px; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1 class="title">SAHI RAAH CONSULTANCY</h1>
+            <p class="subtitle">Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: 8092911956</p>
+            <div class="badge">Official Admission File Document Receipt & Audit Slip</div>
+          </div>
+          <div class="grid">
+            <div><span class="label">Candidate Name:</span><span class="value">${enq.studentName}</span></div>
+            <div><span class="label">Application / Ref ID:</span><span class="value">${enq.id}</span></div>
+            <div><span class="label">Course & Mode:</span><span class="value">${enq.interestedCourse} (${enq.preferredMode})</span></div>
+            <div><span class="label">Registered Phone:</span><span class="value">${enq.mobileNumber}</span></div>
+            <div><span class="label">Preferred University:</span><span class="value">${enq.preferredUniversity || 'University Directory Matching'}</span></div>
+            <div><span class="label">Date of Verification:</span><span class="value">${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
+          </div>
+          <h3 style="font-size: 14px; margin: 15px 0 5px 0;">Document Audit Status (${docs.length}/6 Collected)</h3>
+          <table class="table">
+            <thead><tr><th>#</th><th>Document Name</th><th>Status</th><th>Notes</th></tr></thead>
+            <tbody>
+              ${MANDATORY_DOCS.map((doc, i) => {
+                const received = docs.includes(doc);
+                return `<tr>
+                  <td>${i + 1}</td>
+                  <td><strong>${doc}</strong></td>
+                  <td class="${received ? 'status-rec' : 'status-pen'}">${received ? '✓ RECEIVED & VERIFIED' : '⏳ PENDING SUBMISSION'}</td>
+                  <td>${received ? 'Self-attested copy on file' : 'To be submitted before final admission'}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+          <div class="footer">
+            <div class="sig"><div class="sig-line">Candidate / Parent Signature</div></div>
+            <div class="sig"><div class="sig-line">Authorized Counsellor Seal & Sign</div></div>
+          </div>
+          <script>window.onload = function() { window.print(); }</script>
+        </body>
+      </html>
+    `;
+    printWindow.document.write(html);
+    printWindow.document.close();
+  };
+
+  const handlePrintBlankChecklist = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Student Admission File Document Checklist - Blank</title>
+          <style>
+            body { font-family: system-ui, -apple-system, sans-serif; padding: 30px; color: #1e293b; line-height: 1.5; }
+            .header { border-bottom: 2px solid #082B59; padding-bottom: 12px; margin-bottom: 20px; text-align: center; }
+            .title { font-size: 20px; font-weight: 800; color: #082B59; margin: 0; text-transform: uppercase; }
+            .subtitle { font-size: 12px; color: #64748b; margin: 4px 0 0 0; }
+            .box { border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; margin-bottom: 20px; }
+            .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 13px; }
+            .line { border-bottom: 1px dashed #94a3b8; height: 20px; margin-top: 4px; }
+            .table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+            .table th, .table td { border: 1px solid #94a3b8; padding: 10px 12px; text-align: left; }
+            .table th { background: #082B59; color: white; }
+            .checkbox { width: 22px; height: 22px; border: 2px solid #082B59; display: inline-block; border-radius: 4px; }
+            .footer { margin-top: 50px; display: flex; justify-content: space-between; font-size: 12px; }
+            .sig { text-align: center; width: 200px; }
+            .sig-line { border-top: 1px solid #0f172a; margin-top: 40px; padding-top: 4px; font-size: 11px; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1 class="title">SAHI RAAH CONSULTANCY</h1>
+            <p class="subtitle">Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: 8092911956</p>
+            <h2 style="font-size: 14px; margin: 6px 0 0 0; color: #b45309;">Candidate Admission Folder — Document Verification Checklist</h2>
+          </div>
+          <div class="box">
+            <div class="fields">
+              <div>Student Full Name: <div class="line"></div></div>
+              <div>Contact Mobile No.: <div class="line"></div></div>
+              <div>Course Enrolled: <div class="line"></div></div>
+              <div>Allotted University: <div class="line"></div></div>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr><th style="width: 50px;">Verify</th><th>Mandatory Document Name</th><th>Copies / Type</th><th>Verification Remarks</th></tr>
+            </thead>
+            <tbody>
+              ${MANDATORY_DOCS.map((doc, i) => `<tr>
+                <td style="text-align: center;"><div class="checkbox"></div></td>
+                <td><strong>${doc}</strong></td>
+                <td>Original + 2 Xerox</td>
+                <td></td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+          <div class="footer">
+            <div class="sig"><div class="sig-line">Student / Parent Signature</div></div>
+            <div class="sig"><div class="sig-line">Verifying Counsellor Seal & Sign</div></div>
+          </div>
+          <script>window.onload = function() { window.print(); }</script>
+        </body>
+      </html>
+    `;
+    printWindow.document.write(html);
+    printWindow.document.close();
   };
 
   const handleDeleteLead = (id: string) => {
@@ -1590,11 +1764,21 @@ export default function AdminDashboardPage() {
 
             {/* Document Checklist for Student File */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
-                <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Student Admission File Document Checklist</span>
-                </h3>
+              <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                  <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>Student Admission File Document Checklist</span>
+                  </h3>
+                  <button
+                    onClick={handlePrintBlankChecklist}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                    title="Print blank checklist form for physical candidate folders"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-slate-600" />
+                    <span>Print Blank Form</span>
+                  </button>
+                </div>
                 <div className="space-y-2 text-xs text-slate-700">
                   <label className="flex items-center gap-2 p-2 rounded-lg bg-slate-50">
                     <input type="checkbox" defaultChecked className="rounded text-teal-600" />
@@ -1830,6 +2014,66 @@ export default function AdminDashboardPage() {
                 <p className="text-slate-700">{selectedEnquiry.questions}</p>
               </div>
             )}
+
+            {/* Student Document Verification Checklist & Receipt */}
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+                    <FileCheck className="w-4 h-4 text-emerald-600" />
+                    <span>Admission Documents Collected & Verified</span>
+                  </h4>
+                  <p className="text-[11px] text-slate-500">
+                    {(selectedEnquiry.verifiedDocuments || []).length} of {MANDATORY_DOCS.length} documents verified on file
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handlePrintDossierReceipt(selectedEnquiry)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold border border-slate-300 shadow-sm transition-colors cursor-pointer"
+                  title="Print official document submission receipt for candidate"
+                >
+                  <Printer className="w-3.5 h-3.5 text-slate-600" />
+                  <span>Print Receipt</span>
+                </button>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="h-full bg-emerald-500 transition-all duration-300"
+                  style={{
+                    width: `${((selectedEnquiry.verifiedDocuments || []).length / MANDATORY_DOCS.length) * 100}%`
+                  }}
+                />
+              </div>
+
+              {/* Checklist items */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {MANDATORY_DOCS.map((doc) => {
+                  const isChecked = (selectedEnquiry.verifiedDocuments || []).includes(doc);
+                  return (
+                    <label
+                      key={doc}
+                      onClick={() => handleToggleDocument(selectedEnquiry.id, doc)}
+                      className={`flex items-center gap-2 p-2 rounded-xl border text-xs cursor-pointer transition-colors ${
+                        isChecked
+                          ? 'bg-emerald-50/70 border-emerald-300 text-emerald-900 font-semibold'
+                          : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => {}} // handled by label onClick
+                        className="rounded text-emerald-600 focus:ring-emerald-500 pointer-events-none"
+                      />
+                      <span className="truncate">{doc}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Counsellor Notes Timeline */}
             <div className="space-y-2">

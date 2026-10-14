@@ -84,6 +84,7 @@ export interface AdmissionEnquiry {
   followUpDate?: string;
   source?: string;
   counselorNotes?: string[];
+  verifiedDocuments?: string[];
   createdAt: string;
 }
 
