@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { siteConfig } from '@/data/siteConfig';
 import { formatIndianPhone } from '@/lib/utils';
+import { useTheme } from '@/context/ThemeContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   Phone, 
   Mail, 
@@ -17,6 +19,8 @@ import {
 } from 'lucide-react';
 
 export default function Footer() {
+  const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
   return (
     <footer className="bg-[#051D3C] text-slate-300 pt-16 pb-8 border-t-2 border-amber-400/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -337,9 +341,29 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <p>
-            &copy; 2026 SAHI RAAH CONSULTANCY. All Rights Reserved. Raxaul, Bihar – 845305.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <p>
+              &copy; 2026 SAHI RAAH CONSULTANCY. All Rights Reserved. Raxaul, Bihar – 845305.
+            </p>
+            <div className="flex items-center gap-2 text-slate-400">
+              <span className="hidden sm:inline">•</span>
+              <button
+                onClick={toggleLanguage}
+                className="hover:text-amber-300 text-teal-300 font-semibold transition-colors cursor-pointer"
+                title="Change Language"
+              >
+                🌐 {language === 'en' ? 'हिन्दी' : 'English'}
+              </button>
+              <span>•</span>
+              <button
+                onClick={toggleTheme}
+                className="hover:text-amber-300 text-amber-300 font-semibold transition-colors cursor-pointer"
+                title="Toggle Dark / Light Mode"
+              >
+                {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+              </button>
+            </div>
+          </div>
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy

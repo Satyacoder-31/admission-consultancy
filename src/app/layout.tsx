@@ -9,6 +9,8 @@ import Footer from '@/components/Footer';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
 import CircleCursor from '@/components/CircleCursor';
 import { siteConfig } from '@/data/siteConfig';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -68,11 +70,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${jakarta.variable} scroll-smooth antialiased max-w-full overflow-x-hidden`}>
+    <html lang="en" suppressHydrationWarning className={`${jakarta.variable} scroll-smooth antialiased max-w-full overflow-x-hidden`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('sahiraah_theme');
+                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                  var lang = localStorage.getItem('sahiraah_lang');
+                  if (lang) {
+                    document.documentElement.lang = lang;
+                  }
+                } catch (e) {}
+              })();
               if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
               }
@@ -81,20 +97,24 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] selection:bg-amber-400 selection:text-slate-950 max-w-full overflow-x-hidden">
-        <Suspense fallback={null}>
-          <ScrollToTop />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Preloader />
-        </Suspense>
-        <CircleCursor />
-        <Suspense fallback={<div className="h-20 bg-[#082B59]" />}>
-          <Navbar />
-        </Suspense>
-        <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
-        <Footer />
-        <WhatsAppWidget />
+      <body className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] selection:bg-amber-400 selection:text-slate-950 max-w-full overflow-x-hidden transition-colors duration-200">
+        <ThemeProvider>
+          <LanguageProvider>
+            <Suspense fallback={null}>
+              <ScrollToTop />
+            </Suspense>
+            <Suspense fallback={null}>
+              <Preloader />
+            </Suspense>
+            <CircleCursor />
+            <Suspense fallback={<div className="h-20 bg-[#082B59]" />}>
+              <Navbar />
+            </Suspense>
+            <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
+            <Footer />
+            <WhatsAppWidget />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

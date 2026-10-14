@@ -18,6 +18,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { SlideImageRightToLeft } from '@/components/ScrollReveal';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface HeroProps {
   onOpenEnquiry: () => void;
@@ -30,6 +31,7 @@ const HERO_SLIDES = [
     mobileImage: '/images/hero/slide-1-campus-mobile.jpg',
     alt: 'Prestigious University Campus Environment',
     badge: '25+ Leading Partner Universities',
+    badgeHi: '25+ प्रमुख सहयोगी विश्वविद्यालय',
     caption: 'Prestigious Campuses',
   },
   {
@@ -38,6 +40,7 @@ const HERO_SLIDES = [
     mobileImage: '/images/hero/slide-2-library-mobile.jpg',
     alt: 'Modern Academic Research & Library Learning',
     badge: '50+ Recognized Degrees & Diplomas',
+    badgeHi: '50+ मान्यता प्राप्त डिग्री व डिप्लोमा',
     caption: 'Modern Learning',
   },
   {
@@ -46,6 +49,7 @@ const HERO_SLIDES = [
     mobileImage: '/images/hero/slide-3-convocation-mobile.jpg',
     alt: 'Graduation Convocation & Recognized Degrees',
     badge: 'UGC & Council Approved Pathways',
+    badgeHi: 'UGC एवं काउंसिल मान्यता प्राप्त',
     caption: 'Convocation & Degrees',
   },
   {
@@ -54,6 +58,7 @@ const HERO_SLIDES = [
     mobileImage: '/images/hero/slide-4-counselling-mobile.jpg',
     alt: 'Personalized Educational Admission Guidance at Raxaul',
     badge: 'One-on-One Counselling Desk',
+    badgeHi: 'व्यक्तिगत काउंसलिंग सहायता केंद्र',
     caption: 'Personalized Guidance',
   },
 ];
@@ -62,6 +67,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
   const whatsappUrl = getWhatsAppUrl(getGeneralWhatsAppMessage());
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { language } = useLanguage();
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -194,20 +200,37 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
             {/* Top pill badge with current slide spotlight */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-amber-400/30 text-xs text-amber-300 font-semibold shadow-inner">
               <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0" />
-              <span>{HERO_SLIDES[currentSlide].badge} • Sessions 2026–2028</span>
+              <span>
+                {language === 'hi' 
+                  ? `${HERO_SLIDES[currentSlide].badgeHi} • सत्र 2026–2028`
+                  : `${HERO_SLIDES[currentSlide].badge} • Sessions 2026–2028`}
+              </span>
             </div>
 
             {/* Headline */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]">
-              Your Dreams Deserve{' '}
-              <span className="block gold-gradient-text mt-1">
-                The Right Direction.
-              </span>
+              {language === 'hi' ? (
+                <>
+                  आपके सपनों को मिले{' '}
+                  <span className="block gold-gradient-text mt-1">
+                    सही दिशा और सही राह।
+                  </span>
+                </>
+              ) : (
+                <>
+                  Your Dreams Deserve{' '}
+                  <span className="block gold-gradient-text mt-1">
+                    The Right Direction.
+                  </span>
+                </>
+              )}
             </h1>
 
             {/* Supporting text */}
             <p className="text-base sm:text-lg text-slate-200/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Explore courses, discover universities, and receive personalized admission guidance for the next step in your academic journey. From Raxaul to leading universities across India.
+              {language === 'hi'
+                ? 'कोर्स खोजें, मान्यता प्राप्त विश्वविद्यालय चुनें और अपने शैक्षणिक सफर के लिए व्यक्तिगत मार्गदर्शन प्राप्त करें। रक्सौल केंद्र से भारत के शीर्ष विश्वविद्यालयों तक।'
+                : 'Explore courses, discover universities, and receive personalized admission guidance for the next step in your academic journey. From Raxaul to leading universities across India.'}
             </p>
 
             {/* CTAs */}
@@ -217,7 +240,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 shadow-xl shadow-amber-400/20 hover:scale-[1.02] active:scale-[0.98] transition-all border border-amber-300 cursor-pointer"
               >
                 <GraduationCap className="w-5 h-5 text-slate-900" />
-                <span>Get Admission Guidance</span>
+                <span>{language === 'hi' ? 'प्रवेश मार्गदर्शन पाएं' : 'Get Admission Guidance'}</span>
               </button>
 
               <Link
@@ -225,7 +248,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-amber-400/50 shadow-md transition-all hover:scale-[1.02]"
               >
                 <Compass className="w-4 h-4 text-teal-300" />
-                <span>Explore Courses</span>
+                <span>{language === 'hi' ? 'कोर्स देखें' : 'Explore Courses'}</span>
               </Link>
 
               <a
@@ -235,7 +258,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-sm text-white bg-[#25D366]/90 hover:bg-[#25D366] transition-transform active:scale-95 shadow-md"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp</span>
+                <span>{language === 'hi' ? 'व्हाट्सएप चैट' : 'Chat on WhatsApp'}</span>
               </a>
             </div>
 
@@ -246,8 +269,8 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">50+ Courses</h4>
-                  <p className="text-[11px] text-slate-300">Paramedical, Nursing, Pharmacy, B.Ed & Tech</p>
+                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '50+ कोर्स' : '50+ Courses'}</h4>
+                  <p className="text-[11px] text-slate-300">{language === 'hi' ? 'पैरामेडिकल, नर्सिंग, फार्मेसी, B.Ed व कृषि' : 'Paramedical, Nursing, Pharmacy, B.Ed & Tech'}</p>
                 </div>
               </div>
 
@@ -256,8 +279,8 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <Building2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">25+ Universities</h4>
-                  <p className="text-[11px] text-slate-300">Regular, Distance & Online</p>
+                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '25+ विश्वविद्यालय' : '25+ Universities'}</h4>
+                  <p className="text-[11px] text-slate-300">{language === 'hi' ? 'रेगुलर, डिस्टेंस एवं ऑनलाइन' : 'Regular, Distance & Online'}</p>
                 </div>
               </div>
 
@@ -266,8 +289,8 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">Direct Guidance</h4>
-                  <p className="text-[11px] text-slate-300">Kaurihar Chouk, Raxaul</p>
+                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? 'सीधा मार्गदर्शन' : 'Direct Guidance'}</h4>
+                  <p className="text-[11px] text-slate-300">{language === 'hi' ? 'कौड़िहार चौक, रक्सौल' : 'Kaurihar Chouk, Raxaul'}</p>
                 </div>
               </div>
             </div>

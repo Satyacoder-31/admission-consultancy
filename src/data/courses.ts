@@ -509,6 +509,39 @@ export const initialCourses: Course[] = [
     approxFeePerYear: '₹40,000 – ₹90,000/yr',
     popular: true
   },
+  {
+    id: 'c-msc-agronomy',
+    slug: 'msc-agriculture-agronomy',
+    name: 'M.Sc Agriculture in Agronomy',
+    shortName: 'M.Sc Agronomy',
+    category: 'Agriculture & Applied Sciences',
+    level: 'PG',
+    duration: '2 Years (4 Semesters)',
+    eligibility: "Bachelor's degree (B.Sc Agriculture / B.Sc Horticulture / allied biological or agricultural sciences) from a recognized university.",
+    modes: ['Regular'],
+    description: "Advance your future with a Master's degree in Agronomy. Rigorous two-year postgraduate programme focusing on modern crop production, soil-water-crop relations, precision agriculture, sustainable cropping systems, weed management, and agricultural research dissertation.",
+    careerProspects: [
+      'Senior Agronomist & Crop Production Specialist',
+      'Agricultural Research Scientist (ARS / ICAR Labs)',
+      'Assistant Professor / Lecturer in Agricultural Colleges',
+      'Seed Technology & Agro-Chemical Production Lead',
+      'Farm Management & Precision Agriculture Consultant',
+      'Direct Entry into Ph.D in Agronomy & Agricultural Sciences'
+    ],
+    keySubjects: [
+      'Modern Concepts in Crop Production',
+      'Soil Fertility & Fertilizer Management',
+      'Principles and Practices of Weed Management',
+      'Dryland Farming and Watershed Management',
+      'Cropping Systems and Sustainable Agriculture',
+      'Agronomic Research Methodologies & Master Thesis'
+    ],
+    approxFeePerYear: '₹48,000 – ₹95,000/yr',
+    regulatoryNote: 'Approved postgraduate degree aligned with UGC and ICAR guidelines across affiliated universities with experimental farm facilities.',
+    popular: true,
+    image: '/images/courses/msc-agriculture-agronomy.jpg',
+    tagline: "Advance Your Future with a Master's Degree — Limited Seats!"
+  },
 
   // Faculty of Fire & Safety
   {

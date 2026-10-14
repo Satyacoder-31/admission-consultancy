@@ -124,3 +124,101 @@ aside {
 .animate-pulse-subtle {
   animation: pulseSubtle 4s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   Comprehensive Dark Theme System
+   ========================================================================== */
+.dark {
+  color-scheme: dark;
+}
+
+.dark html,
+.dark body {
+  background-color: #050E1D !important;
+  color: #E2E8F0 !important;
+}
+
+.dark main {
+  background-color: #050E1D !important;
+}
+
+/* White background cards & panels become sleek deep midnight navy */
+.dark .bg-white {
+  background-color: #0B192C !important;
+  color: #E2E8F0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: #071526 !important;
+  color: #CBD5E1 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .bg-slate-100 {
+  background-color: #0F223D !important;
+  color: #CBD5E1 !important;
+}
+
+.dark .bg-slate-200 {
+  background-color: #162E52 !important;
+  color: #E2E8F0 !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-950,
+.dark .text-gray-900,
+.dark .text-gray-800 {
+  color: #F8FAFC !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-gray-700,
+.dark .text-gray-600 {
+  color: #94A3B8 !important;
+}
+
+.dark [class*="text-[#172033]"] {
+  color: #E2E8F0 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-gray-200,
+.dark .border-gray-100 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .shadow-sm,
+.dark .shadow-md,
+.dark .shadow-lg,
+.dark .shadow-xl {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Glass panel adaptation */
+.dark .glass-panel {
+  background: rgba(11, 25, 44, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .bg-white\/95 {
+  background-color: rgba(11, 25, 44, 0.95) !important;
+}
+
+/* Form inputs & select dropdowns */
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+  background-color: #071526 !important;
+  color: #F8FAFC !important;
+  border-color: #1E3A63 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748B !important;
+}
+
