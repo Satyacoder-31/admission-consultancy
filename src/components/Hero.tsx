@@ -37,7 +37,7 @@ const HERO_SLIDES = [
     image: '/images/hero/slide-2-library.jpg',
     mobileImage: '/images/hero/slide-2-library-mobile.jpg',
     alt: 'Modern Academic Research & Library Learning',
-    badge: '21+ Recognized Degrees & Diplomas',
+    badge: '50+ Recognized Degrees & Diplomas',
     caption: 'Modern Learning',
   },
   {
@@ -246,8 +246,8 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">21+ Courses</h4>
-                  <p className="text-[11px] text-slate-300">UG, PG, Tech, Medical & Diploma</p>
+                  <h4 className="text-xs font-bold text-white">50+ Courses</h4>
+                  <p className="text-[11px] text-slate-300">Paramedical, Nursing, Pharmacy, B.Ed & Tech</p>
                 </div>
               </div>
 

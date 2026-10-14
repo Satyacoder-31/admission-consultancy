@@ -23,6 +23,7 @@ const NAV_LINKS = [
   { name: 'About Us', href: '/about' },
   { name: 'Universities', href: '/universities' },
   { name: 'Courses', href: '/courses' },
+  { name: 'Vocational Programs', href: '/vocational-courses' },
   { name: 'Admission Process', href: '/admission-process' },
   { name: 'FAQs', href: '/faqs' },
   { name: 'Contact', href: '/contact' },

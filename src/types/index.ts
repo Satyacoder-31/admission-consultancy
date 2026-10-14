@@ -5,11 +5,15 @@ export type CourseCategory =
   | 'Computer Applications'
   | 'Library & Information Science'
   | 'Medical, Wellness & Research'
+  | 'Paramedical & Allied Health'
+  | 'Nursing'
+  | 'Pharmacy'
+  | 'Education & Teaching'
   | 'Vocational & Skill Development'
   | 'Agriculture & Applied Sciences'
   | 'School-Level Education';
 
-export type CourseLevel = 'UG' | 'PG' | 'Diploma' | 'Doctorate' | 'School' | 'Vocational';
+export type CourseLevel = 'UG' | 'PG' | 'Diploma' | 'Certificate' | 'Doctorate' | 'School' | 'Vocational';
 
 export type StudyMode = 'Regular' | 'Distance' | 'Online' | 'Open Board';
 

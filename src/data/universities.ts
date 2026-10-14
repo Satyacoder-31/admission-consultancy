@@ -158,9 +158,13 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Specialized Skill University established under Sikkim Legislative Assembly. Focuses on vocational, skill-aligned, and applied programmes. Verification of council approvals recommended per batch.',
     modesOffered: ['Regular', 'Distance', 'Online'],
-    availableCourseIds: ['c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bvoc-graphic-multimedia', 'c-bsc-agriculture', 'c-fire-safety', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-diploma-eng', 'c-bca', 'c-bba', 'c-pgdca', 'c-blib', 'c-dnys'],
-    campusFeatures: ['Vocational Training Workshops & Studios', 'Faculty of Agriculture & Allied Sciences', 'Fire & Safety Labs', 'Skill Assessment Centre'],
-    summary: 'Specialized skill university providing industry-aligned vocational programs (Certificate, Diploma, Adv. Diploma, B.Voc, M.Voc), Agriculture Sciences, Fire & Safety, Hotel Management, and Animation.',
+    availableCourseIds: [
+      'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bvoc-graphic-multimedia',
+      'c-bph', 'c-mph', 'c-bpt', 'c-bmlt', 'c-bsc-allied-health', 'c-msc-paramedical', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-paramedical-certificate',
+      'c-bsc-agriculture', 'c-fire-safety', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-diploma-eng', 'c-bca', 'c-bba', 'c-pgdca', 'c-blib', 'c-dnys'
+    ],
+    campusFeatures: ['Faculty of Paramedical Sciences & Pathology Labs', 'Vocational Training Workshops & Studios', 'Faculty of Agriculture & Allied Sciences', 'Fire & Safety Labs', 'Skill Assessment Centre'],
+    summary: 'Specialized skill university providing industry-aligned vocational programs (Certificate, Diploma, Adv. Diploma, B.Voc, M.Voc), Paramedical Sciences (BPH, MPH, BPT, BMLT, CMS & ED), Agriculture, and IT.',
     address: 'Namthang, South Sikkim, Sikkim – 737137'
   },
   {
@@ -284,7 +288,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Rajasthan State Legislature and recognized by UGC under Section 2(f). NAAC Accredited. Recognized by AICTE, PCI, NCTE, and BCI for respective professional faculties.',
     modesOffered: ['Regular', 'Distance', 'Online'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-bca', 'c-mca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-phd'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-bca', 'c-mca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-bpt', 'c-bmlt', 'c-bed', 'c-med', 'c-phd'],
     campusFeatures: ['NAAC Accredited Campus', 'Multi-Disciplinary Research Centers', 'Modern Laboratories & Simulation Units', 'Hostel & Sports Complex'],
     summary: 'One of Rajasthan\'s premier private universities, recognized for academic excellence, professional degrees, modern infrastructure, and diverse student career opportunities.',
     address: 'Jaipur-Agra Bypass, Near New RTO Office, Jagatpura, Jaipur, Rajasthan – 302017'
@@ -302,7 +306,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established by Rajasthan State Legislature Act No. 11/2012. NAAC Grade "A+" Accredited University, UGC recognized, AICTE approved for engineering and management, and ICAR accredited for Agriculture.',
     modesOffered: ['Regular', 'Online'],
-    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bhm-hotel-mgmt', 'c-ba', 'c-bcom', 'c-bsc'],
+    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bhm-hotel-mgmt', 'c-ba', 'c-bcom', 'c-bsc', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bsc-allied-health', 'c-bed'],
     campusFeatures: ['NAAC A+ Accredited Campus', 'Design & Innovation Labs', 'Agricultural Research Farm', 'Smart Tech Auditoriums & Sports Arena'],
     summary: 'Premier NAAC A+ accredited global university in Jaipur known for engineering innovation, design, agriculture sciences, management, and high-impact placement partnerships.',
     address: 'Sector 36, NRI Road, Jagatpura, Jaipur, Rajasthan – 303012'
@@ -320,7 +324,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Jharkhand State Legislature Act No. 2 of 2013, recognized by UGC under Section 2(f). Member of AIU. Professional programs approved by PCI and BCI.',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-software-dev', 'c-phd'],
+    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-phd'],
     campusFeatures: ['Modern Ranchi Campus', 'Advanced Engineering & Computing Labs', 'Digital Library & Seminar Halls', 'Hostels & Placement Cell'],
     summary: 'Prominent higher education institution in Jharkhand providing career-centric programs in engineering, agriculture, management, and vocational disciplines.',
     address: 'Village Narayansoso, Bedeti, Ranchi-Purulia Highway, Angara, Ranchi, Jharkhand – 835103'
@@ -338,7 +342,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under UP Act No. 29 of 2008, recognized by UGC. NAAC Grade "A" Accredited. Renowned for comprehensive Regular and UGC-DEB approved Distance Education offerings across India.',
     modesOffered: ['Regular', 'Distance', 'Online'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-fire-safety'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['NAAC A Grade Accredited', 'Subhartipuram 250+ Acre Campus', 'Super-Specialty Hospital & Medical Labs', 'Vast Distance Education Support Network'],
     summary: 'Renowned NAAC "A" Grade university in Meerut (NCR), popular nationwide for quality distance, online, and regular programmes with robust academic examinations.',
     address: 'Subhartipuram, NH-58, Delhi-Haridwar Bypass Road, Meerut, Uttar Pradesh – 250005'
@@ -374,7 +378,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Punjab State Act No. 9 of 2012 and recognized by UGC. NAAC Accredited. Approvals from AICTE, PCI, and INC for respective technical and health science faculties.',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-paramedical-dmlt'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['Sprawling Green Campus in Punjab', 'Hi-Tech Research Laboratories', 'Agricultural & Horticultural Fields', 'Hostels & Placement Cell'],
     summary: 'Well-established multidisciplinary university in Punjab with a legacy of vocational and technical excellence, agricultural research, and healthcare sciences.',
     address: 'Amloh Road, Mandi Gobindgarh, District Fatehgarh Sahib, Punjab – 147301'
@@ -392,7 +396,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Uttar Pradesh State Act. NAAC Grade "A" Accredited. Recognized by UGC and respective regulatory councils (AICTE, PCI, BCI, NCTE).',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-paramedical-dmlt'],
+    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['NAAC A Grade Campus', 'Center of Excellence & Incubation', 'Hospital & Paramedical Research Wings', 'Air-Conditioned Smart Classrooms'],
     summary: 'Top-ranked NAAC Grade "A" university located in Mathura (NCR), recognized for holistic education, 360-degree personality development, and outstanding corporate placements.',
     address: '28 K. M. Stone, Mathura-Delhi Highway, Chhata, Mathura, Uttar Pradesh – 281401'
@@ -410,7 +414,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Rajasthan State Legislature Act No. 2 of 2017, recognized by UGC under Section 2(f). Approved by AICTE, PCI, and BCI for applicable courses.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-blib'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-bed', 'c-blib'],
     campusFeatures: ['Eco-Friendly Campus near Jaipur', 'Agriculture Farms & Greenhouses', 'Engineering Workshops', 'Library & Innovation Center'],
     summary: 'Located on the Agra-Jaipur Highway, Nirwan University offers dynamic industry-linked programs in agriculture, engineering, safety, and business studies.',
     address: 'Near Bassi, Agra Road, Jaipur, Rajasthan – 303305'
@@ -428,7 +432,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Jharkhand State Legislature Act No. 15 of 2017. Recognized by UGC under Section 2(f). Approvals for specialized courses should be verified per academic session.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-paramedical-dmlt', 'c-fire-safety', 'c-blib', 'c-dnys'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-blib', 'c-dnys'],
     campusFeatures: ['Integrated Campus in Ranchi', 'Paramedical & Nursing Training Facilities', 'Computer Laboratories', 'Hostel Accommodations'],
     summary: 'Multi-stream private university in Ranchi catering to technical, healthcare, paramedical, arts, and professional education in Jharkhand.',
     address: 'Panchwati Pahar, Kawali, Namkum, Ranchi, Jharkhand – 834010'
@@ -464,7 +468,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Statutory State University established under Bihar State Universities Act, 1976 (amended 1998), recognized by UGC under Section 2(f) and 12(B). AIU Member. Conducts UG, PG, Vocational, and professional programmes across its affiliated Knowledge Resource Centres (KRCs).',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia', 'c-bed', 'c-deled', 'c-bmlt'],
     campusFeatures: ['State University Campus at Mithapur, Patna', 'Central Computing & Language Labs', 'Affiliated Knowledge Resource Centres across Bihar', 'Extensive Urdu, Arabic, Persian & General Library'],
     summary: 'Established State University in Patna, Bihar, recognized for accessible degree programs, vocational certifications, BBA, BCA, BLIS, and humanities across Bihar.',
     address: 'Mithapur Farm Area, Mithapur, Patna, Bihar – 800001'
@@ -482,7 +486,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Apex State University established by the Government of Bihar under Aryabhatta Knowledge University Act, 2008. UGC recognized under Section 2(f) and 12(B). Affiliating authority for technical, medical, educational, and professional institutions across Bihar.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-paramedical-dmlt', 'c-bsc-agriculture', 'c-fire-safety', 'c-phd'],
+    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bpharm', 'c-bsc-nursing', 'c-bed', 'c-bmlt', 'c-bsc-agriculture', 'c-fire-safety', 'c-phd'],
     campusFeatures: ['Premier State University Campus in Mithapur Patna', 'Advanced Nanotechnology & Research Centers', 'Technical & Medical Incubation Cell', 'Central Digital Library'],
     summary: 'The Government of Bihar\'s flagship technical and professional knowledge university, governing engineering, medicine, management, and technical education across Bihar.',
     address: 'CNLU Campus, Mithapur, Patna, Bihar – 800001'

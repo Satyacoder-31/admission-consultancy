@@ -137,7 +137,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/courses#engineering" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                <Link href="/vocational-courses" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Vocational Programs (B.Voc / M.Voc)</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/courses" className="hover:text-teal-300 transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3.5 h-3.5 text-amber-400" />
                   <span>B.Tech & Polytechnic</span>
                 </Link>

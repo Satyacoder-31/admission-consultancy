@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/regular-education',
     '/distance-online-education',
     '/school-guidance',
+    '/vocational-courses',
     '/admission-process',
     '/faqs',
     '/contact',

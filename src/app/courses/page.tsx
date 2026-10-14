@@ -27,6 +27,10 @@ export default function CoursesPage() {
     'Management',
     'Engineering & Technology',
     'Computer Applications',
+    'Paramedical & Allied Health',
+    'Nursing',
+    'Pharmacy',
+    'Education & Teaching',
     'Library & Information Science',
     'Medical, Wellness & Research',
     'Vocational & Skill Development',
@@ -34,7 +38,7 @@ export default function CoursesPage() {
     'School-Level Education'
   ];
 
-  const levels = ['All', 'UG', 'PG', 'Diploma', 'Doctorate', 'Vocational', 'School'];
+  const levels = ['All', 'UG', 'PG', 'Diploma', 'Certificate', 'Doctorate', 'Vocational', 'School'];
   const modes = ['All', 'Regular', 'Distance', 'Online', 'Open Board'];
 
   const filtered = useMemo(() => {
@@ -76,7 +80,7 @@ export default function CoursesPage() {
             All Courses & Degrees
           </h1>
           <p className="text-sm sm:text-base text-slate-200 mt-3 leading-relaxed">
-            Discover verified programmes across Arts, Commerce, Science, Engineering, Computer Applications, Management, Naturopathy, and School Boards.
+            Discover 50+ verified programmes across Arts, Commerce, Science, Engineering, Paramedical & Allied Health, Nursing, Pharmacy, B.Ed & Education, Vocational B.Voc, and School Boards.
           </p>
         </div>
       </section>
