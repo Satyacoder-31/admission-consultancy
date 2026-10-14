@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
 import { addEnquiry, getStoredCourses, getStoredUniversities } from '@/lib/storage';
@@ -22,6 +22,7 @@ export default function EnquiryPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const stepChangeTimestamp = useRef<number>(0);
 
   // Form fields
   const [studentName, setStudentName] = useState('');
@@ -91,8 +92,57 @@ export default function EnquiryPage() {
     return true;
   };
 
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (step === 1 && validateStep1()) {
+      setError(null);
+      stepChangeTimestamp.current = Date.now();
+      setStep(2);
+    } else if (step === 2 && validateStep2()) {
+      setError(null);
+      stepChangeTimestamp.current = Date.now();
+      setStep(3);
+    }
+  };
+
+  const handleBack = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setError(null);
+    stepChangeTimestamp.current = Date.now();
+    if (step > 1) setStep(step - 1);
+  };
+
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      if (step < 3) {
+        handleNext();
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    // Guard 1: Strictly reject any submission if not explicitly on Step 3
+    if (step !== 3) {
+      handleNext();
+      return;
+    }
+
+    // Guard 2: Prevent premature auto-submission if triggered within 500ms of entering Step 3
+    if (Date.now() - stepChangeTimestamp.current < 500) {
+      console.warn('Ignored premature auto-submission right upon entering step 3');
+      return;
+    }
+
     if (!validateStep3()) return;
 
     setIsSubmitting(true);
@@ -235,7 +285,7 @@ export default function EnquiryPage() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} onKeyDown={handleFormKeyDown} className="space-y-6">
                 {/* Step 1 */}
                 {step === 1 && (
                   <div className="space-y-4 animate-in fade-in duration-200">
@@ -523,11 +573,8 @@ export default function EnquiryPage() {
                   {step > 1 ? (
                     <button
                       type="button"
-                      onClick={() => {
-                        setError(null);
-                        setStep(step - 1);
-                      }}
-                      className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-2"
+                      onClick={handleBack}
+                      className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-2 cursor-pointer transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -538,21 +585,20 @@ export default function EnquiryPage() {
 
                   {step < 3 ? (
                     <button
+                      key={`step-btn-continue-${step}`}
                       type="button"
-                      onClick={() => {
-                        if (step === 1 && validateStep1()) setStep(2);
-                        else if (step === 2 && validateStep2()) setStep(3);
-                      }}
-                      className="px-7 py-3 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold flex items-center gap-2 shadow-md"
+                      onClick={handleNext}
+                      className="px-7 py-3 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold flex items-center gap-2 shadow-md cursor-pointer active:scale-95 transition-all"
                     >
                       <span>Continue</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   ) : (
                     <button
+                      key="step-btn-submit"
                       type="submit"
                       disabled={isSubmitting}
-                      className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-black shadow-xl flex items-center gap-2"
+                      className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-black shadow-xl flex items-center gap-2 cursor-pointer active:scale-95 transition-all disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <span>Submitting Application...</span>

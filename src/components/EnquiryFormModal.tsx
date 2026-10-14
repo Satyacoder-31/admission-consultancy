@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Course, University } from '@/types';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
@@ -36,6 +36,7 @@ export default function EnquiryFormModal({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedData, setSubmittedData] = useState<{ name: string; course: string; phone: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const stepChangeTimestamp = useRef<number>(0);
 
   // Form State
   const [studentName, setStudentName] = useState('');
@@ -141,18 +142,58 @@ export default function EnquiryFormModal({
     return true;
   };
 
-  const handleNext = () => {
-    if (step === 1 && validateStep1()) setStep(2);
-    else if (step === 2 && validateStep2()) setStep(3);
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (step === 1 && validateStep1()) {
+      setError(null);
+      stepChangeTimestamp.current = Date.now();
+      setStep(2);
+    } else if (step === 2 && validateStep2()) {
+      setError(null);
+      stepChangeTimestamp.current = Date.now();
+      setStep(3);
+    }
   };
 
-  const handleBack = () => {
+  const handleBack = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setError(null);
+    stepChangeTimestamp.current = Date.now();
     if (step > 1) setStep(step - 1);
+  };
+
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    // If Enter key is pressed inside regular inputs (not textarea), navigate next instead of submitting
+    if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      if (step < 3) {
+        handleNext();
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    // Guard 1: Strictly reject any form submission if not explicitly on Step 3
+    if (step !== 3) {
+      handleNext();
+      return;
+    }
+
+    // Guard 2: Prevent premature instant submit upon transitioning to Step 3 (cooldown 500ms)
+    if (Date.now() - stepChangeTimestamp.current < 500) {
+      console.warn('Ignored premature auto-submission right upon entering step 3');
+      return;
+    }
+
     if (!validateStep3()) return;
 
     setIsSubmitting(true);
@@ -344,7 +385,7 @@ export default function EnquiryFormModal({
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} onKeyDown={handleFormKeyDown} className="space-y-4">
               {/* Step 1: Personal & Contact */}
               {step === 1 && (
                 <div className="space-y-4 animate-in fade-in duration-200">
@@ -650,18 +691,20 @@ export default function EnquiryFormModal({
 
                 {step < 3 ? (
                   <button
+                    key={`step-btn-continue-${step}`}
                     type="button"
                     onClick={handleNext}
-                    className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold transition-all shadow-md"
+                    className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold transition-all shadow-md cursor-pointer active:scale-95"
                   >
                     <span>Continue</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
                   <button
+                    key="step-btn-submit"
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-extrabold shadow-lg transition-all hover:scale-[1.02] disabled:opacity-50"
+                    className="inline-flex items-center gap-2 px-7 py-2.5 rounded-lg bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-extrabold shadow-lg transition-all hover:scale-[1.02] disabled:opacity-50 cursor-pointer active:scale-95"
                   >
                     {isSubmitting ? (
                       <span>Submitting Enquiry...</span>
