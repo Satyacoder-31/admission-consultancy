@@ -160,7 +160,7 @@ export const initialUniversities: University[] = [
     modesOffered: ['Regular', 'Distance', 'Online'],
     availableCourseIds: [
       'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bvoc-graphic-multimedia',
-      'c-bph', 'c-mph', 'c-bpt', 'c-bmlt', 'c-bsc-allied-health', 'c-msc-paramedical', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-paramedical-certificate',
+      'c-bph', 'c-mph', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-bsc-allied-health', 'c-msc-paramedical', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-paramedical-certificate',
       'c-bsc-agriculture', 'c-fire-safety', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-diploma-eng', 'c-bca', 'c-bba', 'c-pgdca', 'c-blib', 'c-dnys'
     ],
     campusFeatures: ['Faculty of Paramedical Sciences & Pathology Labs', 'Vocational Training Workshops & Studios', 'Faculty of Agriculture & Allied Sciences', 'Fire & Safety Labs', 'Skill Assessment Centre'],
@@ -288,7 +288,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Rajasthan State Legislature and recognized by UGC under Section 2(f). NAAC Accredited. Recognized by AICTE, PCI, NCTE, and BCI for respective professional faculties.',
     modesOffered: ['Regular', 'Distance', 'Online'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-bca', 'c-mca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-bpt', 'c-bmlt', 'c-bed', 'c-med', 'c-phd'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-bca', 'c-mca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-bed', 'c-med', 'c-phd'],
     campusFeatures: ['NAAC Accredited Campus', 'Multi-Disciplinary Research Centers', 'Modern Laboratories & Simulation Units', 'Hostel & Sports Complex'],
     summary: 'One of Rajasthan\'s premier private universities, recognized for academic excellence, professional degrees, modern infrastructure, and diverse student career opportunities.',
     address: 'Jaipur-Agra Bypass, Near New RTO Office, Jagatpura, Jaipur, Rajasthan – 302017'
@@ -306,7 +306,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established by Rajasthan State Legislature Act No. 11/2012. NAAC Grade "A+" Accredited University, UGC recognized, AICTE approved for engineering and management, and ICAR accredited for Agriculture.',
     modesOffered: ['Regular', 'Online'],
-    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bhm-hotel-mgmt', 'c-ba', 'c-bcom', 'c-bsc', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bsc-allied-health', 'c-bed'],
+    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bvoc-fashion-interior', 'c-bsc-animation', 'c-bhm-hotel-mgmt', 'c-ba', 'c-bcom', 'c-bsc', 'c-bpharm', 'c-dpharm', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bsc-allied-health', 'c-bed'],
     campusFeatures: ['NAAC A+ Accredited Campus', 'Design & Innovation Labs', 'Agricultural Research Farm', 'Smart Tech Auditoriums & Sports Arena'],
     summary: 'Premier NAAC A+ accredited global university in Jaipur known for engineering innovation, design, agriculture sciences, management, and high-impact placement partnerships.',
     address: 'Sector 36, NRI Road, Jagatpura, Jaipur, Rajasthan – 303012'
@@ -342,7 +342,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under UP Act No. 29 of 2008, recognized by UGC. NAAC Grade "A" Accredited. Renowned for comprehensive Regular and UGC-DEB approved Distance Education offerings across India.',
     modesOffered: ['Regular', 'Distance', 'Online'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 'c-pgdca', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['NAAC A Grade Accredited', 'Subhartipuram 250+ Acre Campus', 'Super-Specialty Hospital & Medical Labs', 'Vast Distance Education Support Network'],
     summary: 'Renowned NAAC "A" Grade university in Meerut (NCR), popular nationwide for quality distance, online, and regular programmes with robust academic examinations.',
     address: 'Subhartipuram, NH-58, Delhi-Haridwar Bypass Road, Meerut, Uttar Pradesh – 250005'
@@ -378,7 +378,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Punjab State Act No. 9 of 2012 and recognized by UGC. NAAC Accredited. Approvals from AICTE, PCI, and INC for respective technical and health science faculties.',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['Sprawling Green Campus in Punjab', 'Hi-Tech Research Laboratories', 'Agricultural & Horticultural Fields', 'Hostels & Placement Cell'],
     summary: 'Well-established multidisciplinary university in Punjab with a legacy of vocational and technical excellence, agricultural research, and healthcare sciences.',
     address: 'Amloh Road, Mandi Gobindgarh, District Fatehgarh Sahib, Punjab – 147301'
@@ -396,7 +396,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Uttar Pradesh State Act. NAAC Grade "A" Accredited. Recognized by UGC and respective regulatory councils (AICTE, PCI, BCI, NCTE).',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
+    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-pharmd', 'c-llb', 'c-ballb', 'c-llm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['NAAC A Grade Campus', 'Center of Excellence & Incubation', 'Hospital & Paramedical Research Wings', 'Air-Conditioned Smart Classrooms'],
     summary: 'Top-ranked NAAC Grade "A" university located in Mathura (NCR), recognized for holistic education, 360-degree personality development, and outstanding corporate placements.',
     address: '28 K. M. Stone, Mathura-Delhi Highway, Chhata, Mathura, Uttar Pradesh – 281401'
@@ -414,7 +414,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Rajasthan State Legislature Act No. 2 of 2017, recognized by UGC under Section 2(f). Approved by AICTE, PCI, and BCI for applicable courses.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-bed', 'c-dlib', 'c-blib', 'c-mlib'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-bsc-agriculture', 'c-fire-safety', 'c-bvoc-tourism-hospitality', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-bed', 'c-dlib', 'c-blib', 'c-mlib'],
     campusFeatures: ['Eco-Friendly Campus near Jaipur', 'Agriculture Farms & Greenhouses', 'Engineering Workshops', 'Library & Innovation Center'],
     summary: 'Located on the Agra-Jaipur Highway, Nirwan University offers dynamic industry-linked programs in agriculture, engineering, safety, and business studies.',
     address: 'Near Bassi, Agra Road, Jaipur, Rajasthan – 303305'
@@ -432,7 +432,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Jharkhand State Legislature Act No. 15 of 2017. Recognized by UGC under Section 2(f). Approvals for specialized courses should be verified per academic session.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-dlib', 'c-blib', 'c-mlib', 'c-dnys'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-dpharm-ayurveda', 'c-bpharm-ayurveda', 'c-bpharm-le', 'c-llb', 'c-ballb', 'c-llm', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-dlib', 'c-blib', 'c-mlib', 'c-dnys'],
     campusFeatures: ['Integrated Campus in Ranchi', 'Paramedical & Nursing Training Facilities', 'Computer Laboratories', 'Hostel Accommodations'],
     summary: 'Multi-stream private university in Ranchi catering to technical, healthcare, paramedical, arts, and professional education in Jharkhand.',
     address: 'Panchwati Pahar, Kawali, Namkum, Ranchi, Jharkhand – 834010'
@@ -508,7 +508,7 @@ export const initialUniversities: University[] = [
       'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
       'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 'c-bsc', 'c-msc', 
       'c-bsc-agriculture', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 
-      'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-bpt', 'c-bmlt', 
+      'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 
       'c-dmlt-diploma', 'c-llb', 'c-ballb', 'c-llm', 'c-bed', 
       'c-bvoc-software-dev', 'c-bvoc-graphic-multimedia', 'c-phd'
     ],
@@ -539,7 +539,7 @@ export const initialUniversities: University[] = [
       'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
       'c-bba', 'c-mba', 'c-bcom', 'c-bsc', 'c-msc', 
       'c-bsc-agriculture', 'c-bpharm', 'c-dpharm', 'c-bpharm-le', 
-      'c-bpt', 'c-bmlt', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 
+      'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 
       'c-fire-safety', 'c-llb', 'c-ballb', 'c-llm', 
       'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-phd'
     ],
@@ -572,7 +572,7 @@ export const initialUniversities: University[] = [
       'c-bsc', 'c-msc', 'c-bsc-agriculture', 'c-bsc-nursing', 
       'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 
       'c-bpharm', 'c-dpharm', 'c-bpharm-le', 'c-pharmd', 'c-mpharm', 
-      'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bsc-allied-health', 'c-msc-paramedical', 
+      'c-dpt', 'c-bpt', 'c-mpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bsc-allied-health', 'c-msc-paramedical', 
       'c-bed', 'c-med', 'c-deled', 'c-llb', 'c-ballb', 'c-llm', 
       'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-dlib', 'c-blib', 'c-mlib', 'c-phd'
     ],

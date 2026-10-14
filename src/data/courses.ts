@@ -595,6 +595,38 @@ export const initialCourses: Course[] = [
     popular: true
   },
   {
+    id: 'c-dpt',
+    slug: 'dpt-diploma-in-physiotherapy',
+    name: 'Diploma in Physiotherapy (DPT)',
+    shortName: 'DPT',
+    category: 'Paramedical & Allied Health',
+    level: 'Diploma',
+    duration: '2 Years (Annual / 4 Semesters)',
+    eligibility: '10th / 12th Pass (10th Matriculation or 10+2 with Science / PCB preferred) from any recognized central or state board.',
+    modes: ['Regular'],
+    description: 'Two-year clinical diploma providing foundational training in physical rehabilitation, exercise therapy, electrotherapy modalities, patient mobilization, and post-injury musculoskeletal recovery. Enables direct 2nd-year Lateral Entry into Bachelor of Physiotherapy (BPT).',
+    careerProspects: [
+      'Assistant Physiotherapist in Hospitals & Nursing Homes',
+      'Physiotherapy Clinic & Rehabilitation Assistant',
+      'Sports & Fitness Center Support Specialist',
+      'Community Health & Geriatric Care Worker',
+      'Direct Lateral Entry into BPT 2nd Year'
+    ],
+    keySubjects: [
+      'Basic Human Anatomy & Physiology',
+      'Fundamentals of Biomechanics & Movement',
+      'Basic Electrotherapy Modalities',
+      'Exercise Therapy & Therapeutic Massage',
+      'First Aid & Patient Handling',
+      'Hospital Ward Practical Training'
+    ],
+    approxFeePerYear: '₹35,000 – ₹55,000/yr',
+    regulatoryNote: 'Clinical paramedical diploma conducted in affiliated teaching hospitals. Approved for hospital practice and lateral entry progression.',
+    popular: true,
+    image: '/images/courses/dpt-banner.jpg',
+    tagline: 'Professional Clinical Rehabilitation Training — 2 Years Diploma'
+  },
+  {
     id: 'c-bpt',
     slug: 'bpt-bachelor-of-physiotherapy',
     name: 'Bachelor of Physiotherapy (BPT & BPT Lateral Entry)',
@@ -609,6 +641,37 @@ export const initialCourses: Course[] = [
     keySubjects: ['Human Anatomy & Clinical Physiology', 'Biomechanics & Kinesiology', 'Exercise Therapy & Electrotherapy', 'Orthopedics & Traumatology', 'Neurological Rehabilitation', 'Cardiopulmonary Physical Therapy'],
     approxFeePerYear: '₹58,000/yr',
     popular: true
+  },
+  {
+    id: 'c-mpt',
+    slug: 'mpt-master-of-physiotherapy',
+    name: 'Master of Physiotherapy (MPT)',
+    shortName: 'MPT',
+    category: 'Paramedical & Allied Health',
+    level: 'PG',
+    duration: '2 Years (4 Semesters)',
+    eligibility: 'BPT (Bachelor of Physiotherapy) pass with minimum 50% aggregate marks from a recognized university along with completed compulsory rotatory internship.',
+    modes: ['Regular'],
+    description: 'Advanced postgraduate master degree preparing clinical specialists in Orthopedics, Neurology, Cardiopulmonary, Sports Medicine, and Pediatric physiotherapy. Focuses on advanced diagnostic clinical skills, evidence-based manual therapy, hospital intensive care, and research foundations for Ph.D.',
+    careerProspects: [
+      'Senior Consultant Physiotherapist / Clinical Specialist',
+      'Sports Medicine Physiotherapist (State / National Sports Teams)',
+      'Assistant Professor / Lecturer in Physiotherapy Colleges',
+      'Head of Physiotherapy & Rehabilitation Center',
+      'Clinical Researcher / Direct Entry into Ph.D in Physiotherapy'
+    ],
+    keySubjects: [
+      'Advanced Physical & Functional Clinical Diagnosis',
+      'Specialized Orthopedics & Musculoskeletal Rehabilitation',
+      'Neuro-Physiotherapy & Stroke Rehabilitation',
+      'Cardiopulmonary & ICU Physical Therapy',
+      'Research Methodology, Biostatistics & Dissertation'
+    ],
+    approxFeePerYear: '₹65,000 – ₹1,20,000/yr',
+    regulatoryNote: 'Recognized for specialist clinician posts, academic professorships, and international licensing exams (DHA, HAAD, Prometric, NPTE).',
+    popular: true,
+    image: '/images/courses/mpt-banner.jpg',
+    tagline: 'Advanced Clinical Specialization in Musculoskeletal, Neuro & Sports Physiotherapy'
   },
   {
     id: 'c-bmlt',
