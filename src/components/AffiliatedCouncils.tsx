@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { councilAffiliations } from '@/data/siteConfig';
 import { 
-  ExternalLink, 
   ShieldCheck, 
   Sparkles, 
   GraduationCap, 
@@ -106,31 +105,16 @@ export default function AffiliatedCouncils({ onOpenEnquiry, showTitle = true }: 
                       </div>
                     </div>
 
-                    {/* Official Portal Link Callout Banner */}
-                    <div className="mt-5 p-3.5 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
+                    {/* Institutional Status Badge */}
+                    <div className="mt-5 p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between gap-3 shadow-inner">
                       <div className="flex items-center gap-2 text-xs">
                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-slate-600 font-medium">Official Portal:</span>
-                        <a
-                          href={item.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-bold text-[#082B59] hover:text-[#1355A5] hover:underline flex items-center gap-1"
-                        >
-                          <span>{item.displayUrl}</span>
-                          <ExternalLink className="w-3.5 h-3.5 text-teal-600" />
-                        </a>
+                        <span className="text-slate-600 font-medium">Recognition:</span>
+                        <span className="font-bold text-[#082B59]">{item.recognition}</span>
                       </div>
-
-                      <a
-                        href={item.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3.5 py-1.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 hover:text-white text-xs font-bold transition-colors inline-flex items-center gap-1.5 shadow-sm whitespace-nowrap"
-                      >
-                        <span>Visit {item.displayUrl}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
+                      <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                        Verified Partner
+                      </span>
                     </div>
 
                     {/* Description Narrative */}
@@ -168,22 +152,12 @@ export default function AffiliatedCouncils({ onOpenEnquiry, showTitle = true }: 
                   </div>
 
                   {/* Actions Bar */}
-                  <div className="mt-6 pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
-                    <a
-                      href={item.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold text-[#082B59] hover:text-[#1355A5] inline-flex items-center gap-1 hover:underline"
-                    >
-                      <span>Open Website ({item.displayUrl})</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-
+                  <div className="mt-6 pt-5 border-t border-slate-200 flex items-center justify-end">
                     <button
                       onClick={() => onOpenEnquiry && onOpenEnquiry(item.name)}
-                      className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer ml-auto"
                     >
-                      <span>Enquire for {item.shortName}</span>
+                      <span>Enquire for {item.shortName} Admission</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -197,7 +171,7 @@ export default function AffiliatedCouncils({ onOpenEnquiry, showTitle = true }: 
         <div className="mt-10 p-4 rounded-2xl bg-teal-50/70 border border-teal-200 flex items-start gap-3 text-xs text-teal-950">
           <ShieldCheck className="w-4 h-4 text-teal-700 flex-shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            <strong>Admissions Notice:</strong> SAHI RAAH CONSULTANCY acts as an educational guidance facilitator connecting eligible candidates to accredited faculties, councils, and universities. For syllabus downloads, verification of autonomous council gazettes, or branch registrations, please refer directly to the official websites (<a href="https://www.aicpmf.com" target="_blank" rel="noopener noreferrer" className="text-[#082B59] underline font-bold">www.aicpmf.com</a> and <a href="https://www.bayc.in" target="_blank" rel="noopener noreferrer" className="text-[#082B59] underline font-bold">www.bayc.in</a>) or visit our counseling desk in Raxaul.
+            <strong>Admissions Notice:</strong> SAHI RAAH CONSULTANCY acts as an educational guidance facilitator connecting eligible candidates to accredited faculties, councils, and universities. For syllabus downloads, verification of autonomous council gazettes, or branch registrations, please contact our counseling desk in Raxaul.
           </p>
         </div>
       </div>
