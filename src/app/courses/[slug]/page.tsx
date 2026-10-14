@@ -224,7 +224,7 @@ function CourseDetailContent() {
               href="/universities"
               className="text-xs font-bold text-[#082B59] hover:underline"
             >
-              View all 15 universities
+              View all universities
             </Link>
           </div>
 

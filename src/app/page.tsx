@@ -262,7 +262,7 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
                 <Building2 className="w-3.5 h-3.5 text-amber-600" />
-                <span>15 Institutions from Official Poster</span>
+                <span>25+ Leading Partner Universities</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                 Partner Institutions & University Directory
@@ -276,7 +276,7 @@ export default function HomePage() {
               href="/universities"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#082B59] hover:text-[#1355A5] transition-colors"
             >
-              <span>View All 15 Universities</span>
+              <span>View All Universities</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -291,7 +291,7 @@ export default function HomePage() {
                 Recognized Institutions Across India
               </h3>
               <p className="text-xs text-slate-600 max-w-xl">
-                All 15 universities below are sourced directly from our verified institutional poster. We guide students according to each university’s specific statutory approvals and current UGC/council regulations.
+                All universities below are sourced directly from verified institutional partnerships. We guide students according to each university’s specific statutory approvals and current UGC/council regulations.
               </p>
             </div>
 
@@ -351,7 +351,7 @@ export default function HomePage() {
                 href="/universities"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 shadow-md transition-transform active:scale-95"
               >
-                <span>View All 15 Universities</span>
+                <span>View All Universities Directory</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>

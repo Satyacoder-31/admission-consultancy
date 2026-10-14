@@ -29,7 +29,7 @@ const HERO_SLIDES = [
     image: '/images/hero/slide-1-campus.jpg',
     mobileImage: '/images/hero/slide-1-campus-mobile.jpg',
     alt: 'Prestigious University Campus Environment',
-    badge: '15+ Leading Partner Universities',
+    badge: '25+ Leading Partner Universities',
     caption: 'Prestigious Campuses',
   },
   {
@@ -256,7 +256,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <Building2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">15+ Universities</h4>
+                  <h4 className="text-xs font-bold text-white">25+ Universities</h4>
                   <p className="text-[11px] text-slate-300">Regular, Distance & Online</p>
                 </div>
               </div>
