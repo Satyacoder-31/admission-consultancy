@@ -11,7 +11,8 @@ import {
   Clock, 
   ShieldCheck, 
   MessageCircle, 
-  GraduationCap 
+  GraduationCap,
+  Award
 } from 'lucide-react';
 
 interface EligibilityModalProps {
@@ -98,6 +99,17 @@ export default function EligibilityModal({ course, onClose, onApply }: Eligibili
                 {course.modes.join(', ')}
               </p>
             </div>
+            {course.admissionCriteria && (
+              <div className="col-span-2 sm:col-span-3 pt-2.5 mt-1 border-t border-slate-200 flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-slate-600 uppercase flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5 text-emerald-600" />
+                  Admission / Selection Process:
+                </span>
+                <span className="text-xs font-bold text-emerald-800 bg-white px-2.5 py-1 rounded-md border border-emerald-300 shadow-sm">
+                  {course.admissionCriteria}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Official Eligibility Requirement */}

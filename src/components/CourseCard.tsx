@@ -9,7 +9,8 @@ import {
   CheckCircle, 
   MessageCircle, 
   ArrowRight,
-  ShieldAlert
+  ShieldAlert,
+  Award
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -63,6 +64,18 @@ export default function CourseCard({ course, onCheckEligibility, onApply }: Cour
           </span>
           <span className="font-semibold text-slate-800">{course.level}</span>
         </div>
+
+        {course.admissionCriteria && (
+          <div className="flex items-center justify-between text-slate-600">
+            <span className="flex items-center gap-1.5 font-medium text-[11px] text-slate-500">
+              <Award className="w-3.5 h-3.5 text-teal-600" />
+              Admission:
+            </span>
+            <span className="font-bold text-[10px] text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              {course.admissionCriteria}
+            </span>
+          </div>
+        )}
 
         {/* Study Modes Pill List */}
         <div className="flex items-center justify-between pt-1">

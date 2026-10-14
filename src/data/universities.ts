@@ -378,7 +378,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Punjab State Act No. 9 of 2012 and recognized by UGC. NAAC Accredited. Approvals from AICTE, PCI, and INC for respective technical and health science faculties.',
     modesOffered: ['Regular', 'Distance'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-fire-safety', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['Sprawling Green Campus in Punjab', 'Hi-Tech Research Laboratories', 'Agricultural & Horticultural Fields', 'Hostels & Placement Cell'],
     summary: 'Well-established multidisciplinary university in Punjab with a legacy of vocational and technical excellence, agricultural research, and healthcare sciences.',
     address: 'Amloh Road, Mandi Gobindgarh, District Fatehgarh Sahib, Punjab – 147301'
@@ -396,7 +396,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Established under Uttar Pradesh State Act. NAAC Grade "A" Accredited. Recognized by UGC and respective regulatory councils (AICTE, PCI, BCI, NCTE).',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
+    availableCourseIds: ['c-btech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bvoc-fashion-interior', 'c-bvoc-software-dev', 'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpt', 'c-bmlt', 'c-dmlt-diploma', 'c-bed', 'c-deled'],
     campusFeatures: ['NAAC A Grade Campus', 'Center of Excellence & Incubation', 'Hospital & Paramedical Research Wings', 'Air-Conditioned Smart Classrooms'],
     summary: 'Top-ranked NAAC Grade "A" university located in Mathura (NCR), recognized for holistic education, 360-degree personality development, and outstanding corporate placements.',
     address: '28 K. M. Stone, Mathura-Delhi Highway, Chhata, Mathura, Uttar Pradesh – 281401'
@@ -432,7 +432,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verification Required',
     accreditationNote: 'Established under Jharkhand State Legislature Act No. 15 of 2017. Recognized by UGC under Section 2(f). Approvals for specialized courses should be verified per academic session.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-blib', 'c-dnys'],
+    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 'c-cms-ed', 'c-dmlt-diploma', 'c-mphw', 'c-bed', 'c-fire-safety', 'c-blib', 'c-dnys'],
     campusFeatures: ['Integrated Campus in Ranchi', 'Paramedical & Nursing Training Facilities', 'Computer Laboratories', 'Hostel Accommodations'],
     summary: 'Multi-stream private university in Ranchi catering to technical, healthcare, paramedical, arts, and professional education in Jharkhand.',
     address: 'Panchwati Pahar, Kawali, Namkum, Ranchi, Jharkhand – 834010'
@@ -486,7 +486,7 @@ export const initialUniversities: University[] = [
     verificationStatus: 'Verified',
     accreditationNote: 'Apex State University established by the Government of Bihar under Aryabhatta Knowledge University Act, 2008. UGC recognized under Section 2(f) and 12(B). Affiliating authority for technical, medical, educational, and professional institutions across Bihar.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bpharm', 'c-bsc-nursing', 'c-bed', 'c-bmlt', 'c-bsc-agriculture', 'c-fire-safety', 'c-phd'],
+    availableCourseIds: ['c-btech', 'c-mtech', 'c-diploma-eng', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bpharm', 'c-bsc-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-bed', 'c-bmlt', 'c-bsc-agriculture', 'c-fire-safety', 'c-phd'],
     campusFeatures: ['Premier State University Campus in Mithapur Patna', 'Advanced Nanotechnology & Research Centers', 'Technical & Medical Incubation Cell', 'Central Digital Library'],
     summary: 'The Government of Bihar\'s flagship technical and professional knowledge university, governing engineering, medicine, management, and technical education across Bihar.',
     address: 'CNLU Campus, Mithapur, Patna, Bihar – 800001'

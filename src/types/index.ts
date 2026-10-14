@@ -28,6 +28,7 @@ export interface Course {
   level: CourseLevel;
   duration: string;
   eligibility: string;
+  admissionCriteria?: string;
   modes: StudyMode[];
   description: string;
   careerProspects: string[];

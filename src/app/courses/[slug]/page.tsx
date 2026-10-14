@@ -134,6 +134,13 @@ function CourseDetailContent() {
                 <span className="font-bold text-slate-200">{course.approxFeePerYear || 'Variable by institution'}</span>
               </div>
 
+              {course.admissionCriteria && (
+                <div className="flex justify-between py-1 border-b border-white/5">
+                  <span className="text-slate-400">Admission Process:</span>
+                  <span className="font-bold text-emerald-300">{course.admissionCriteria}</span>
+                </div>
+              )}
+
               <div className="flex justify-between py-1">
                 <span className="text-slate-400">Admission Session:</span>
                 <span className="font-bold text-emerald-400">2026–2027 (Open)</span>
@@ -155,6 +162,14 @@ function CourseDetailContent() {
             <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium bg-slate-50 p-4 rounded-xl border border-slate-200">
               {course.eligibility}
             </p>
+            {course.admissionCriteria && (
+              <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                <span className="text-xs font-bold text-emerald-900">Admission Selection Mode:</span>
+                <span className="text-xs font-extrabold text-emerald-800 bg-white px-2.5 py-1 rounded border border-emerald-300 shadow-sm">
+                  {course.admissionCriteria}
+                </span>
+              </div>
+            )}
             <p className="text-[11px] text-slate-500 italic">
               Note: Minimum percentage requirements may vary for reserved categories (SC/ST/OBC) as per statutory guidelines.
             </p>
