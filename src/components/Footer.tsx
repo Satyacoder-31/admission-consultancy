@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { siteConfig } from '@/data/siteConfig';
+import { getStoredSettings } from '@/lib/storage';
 import { formatIndianPhone } from '@/lib/utils';
 import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -21,6 +22,18 @@ import {
 export default function Footer() {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
+  const [settings, setSettings] = useState(siteConfig);
+
+  useEffect(() => {
+    setSettings(getStoredSettings());
+    const handleSync = () => setSettings(getStoredSettings());
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
   return (
     <footer className="bg-[#051D3C] text-slate-300 pt-16 pb-8 border-t-2 border-amber-400/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -210,28 +223,28 @@ export default function Footer() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
                 <address className="not-italic text-xs leading-relaxed">
-                  {siteConfig.address}
+                  {settings.address}
                 </address>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                <a href={`tel:${siteConfig.phone}`} className="text-white hover:text-amber-300 font-semibold text-xs transition-colors">
-                  {formatIndianPhone(siteConfig.phone)}
+                <a href={`tel:${settings.phone}`} className="text-white hover:text-amber-300 font-semibold text-xs transition-colors">
+                  {formatIndianPhone(settings.phone)}
                 </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                <a href={`mailto:${siteConfig.email}`} className="text-xs hover:text-amber-300 transition-colors break-all">
-                  {siteConfig.email}
+                <a href={`mailto:${settings.email}`} className="text-xs hover:text-amber-300 transition-colors break-all">
+                  {settings.email}
                 </a>
               </div>
 
               <div className="flex items-start gap-2.5 pt-1">
                 <Clock className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                 <span className="text-xs text-slate-400">
-                  {siteConfig.officeHours}
+                  {settings.officeHours}
                 </span>
               </div>
 

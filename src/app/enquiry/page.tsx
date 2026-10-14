@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
-import { addEnquiry } from '@/lib/storage';
+import { addEnquiry, getStoredCourses, getStoredUniversities } from '@/lib/storage';
 import { validateIndianPhone, getWhatsAppUrl } from '@/lib/utils';
 import confetti from 'canvas-confetti';
 import { 
@@ -35,13 +35,26 @@ export default function EnquiryPage() {
   const [highestQualification, setHighestQualification] = useState('12th Science (PCM)');
   const [yearOfPassing, setYearOfPassing] = useState('2025');
 
-  const [interestedCourse, setInterestedCourse] = useState(initialCourses[0].name);
+  const [courses, setCourses] = useState(initialCourses);
+  const [universities, setUniversities] = useState(initialUniversities);
+
+  const [interestedCourse, setInterestedCourse] = useState(initialCourses[0]?.name || '');
   const [preferredUniversity, setPreferredUniversity] = useState('');
   const [preferredMode, setPreferredMode] = useState<'Regular' | 'Distance' | 'Online' | 'Open Board'>('Regular');
   const [budget, setBudget] = useState('₹40,000 – ₹80,000/yr');
   const [admissionSession, setAdmissionSession] = useState('2026-2027');
   const [questions, setQuestions] = useState('');
   const [consent, setConsent] = useState(true);
+
+  useEffect(() => {
+    const loadedCourses = getStoredCourses();
+    const loadedUnis = getStoredUniversities();
+    setCourses(loadedCourses);
+    setUniversities(loadedUnis);
+    if (loadedCourses.length > 0 && !interestedCourse) {
+      setInterestedCourse(loadedCourses[0].name);
+    }
+  }, []);
 
   const validateStep1 = () => {
     if (!studentName.trim()) {
@@ -415,7 +428,7 @@ export default function EnquiryPage() {
                         onChange={(e) => setInterestedCourse(e.target.value)}
                         className="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-300 bg-white font-semibold text-[#082B59]"
                       >
-                        {initialCourses.map((c) => (
+                        {courses.map((c) => (
                           <option key={c.id} value={c.name}>
                             {c.shortName} — {c.name} ({c.level})
                           </option>
@@ -450,7 +463,7 @@ export default function EnquiryPage() {
                           className="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-300 bg-white"
                         >
                           <option value="">Any Suitable & Verified University</option>
-                          {initialUniversities.map((u) => (
+                          {universities.map((u) => (
                             <option key={u.id} value={u.name}>
                               {u.name} ({u.state})
                             </option>

@@ -156,9 +156,19 @@ export function getStoredCourses(): Course[] {
   if (typeof window === 'undefined') return initialCourses;
   try {
     const raw = localStorage.getItem(COURSES_KEY);
-    if (!raw) return initialCourses;
+    if (!raw) {
+      localStorage.setItem(COURSES_KEY, JSON.stringify(initialCourses));
+      return initialCourses;
+    }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length >= initialCourses.length) {
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      const existingIds = new Set(parsed.map((p: Course) => p.id));
+      const missingInitial = initialCourses.filter(ic => !existingIds.has(ic.id));
+      if (missingInitial.length > 0) {
+        const merged = [...parsed, ...missingInitial];
+        localStorage.setItem(COURSES_KEY, JSON.stringify(merged));
+        return merged;
+      }
       return parsed;
     }
     return initialCourses;
@@ -171,6 +181,8 @@ export function saveStoredCourses(courses: Course[]): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(COURSES_KEY, JSON.stringify(courses));
+    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'courses', data: courses } }));
+    window.dispatchEvent(new Event('storage'));
   } catch (e) {
     console.error('Failed to save courses to localStorage', e);
   }
@@ -180,9 +192,19 @@ export function getStoredUniversities(): University[] {
   if (typeof window === 'undefined') return initialUniversities;
   try {
     const raw = localStorage.getItem(UNIVERSITIES_KEY);
-    if (!raw) return initialUniversities;
+    if (!raw) {
+      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(initialUniversities));
+      return initialUniversities;
+    }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length >= initialUniversities.length) {
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      const existingIds = new Set(parsed.map((p: University) => p.id));
+      const missingInitial = initialUniversities.filter(iu => !existingIds.has(iu.id));
+      if (missingInitial.length > 0) {
+        const merged = [...parsed, ...missingInitial];
+        localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(merged));
+        return merged;
+      }
       return parsed;
     }
     return initialUniversities;
@@ -195,6 +217,8 @@ export function saveStoredUniversities(unis: University[]): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(unis));
+    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'universities', data: unis } }));
+    window.dispatchEvent(new Event('storage'));
   } catch (e) {
     console.error('Failed to save universities to localStorage', e);
   }
@@ -219,6 +243,8 @@ export function saveStoredEnquiries(enquiries: AdmissionEnquiry[]): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(ENQUIRIES_KEY, JSON.stringify(enquiries));
+    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'enquiries', data: enquiries } }));
+    window.dispatchEvent(new Event('storage'));
   } catch (e) {
     console.error('Failed to save enquiries to localStorage', e);
   }
@@ -241,7 +267,12 @@ export function getStoredSettings(): SiteSettings {
   if (typeof window === 'undefined') return siteConfig;
   try {
     const raw = localStorage.getItem(SETTINGS_KEY);
-    return raw ? JSON.parse(raw) : siteConfig;
+    if (!raw) {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(siteConfig));
+      return siteConfig;
+    }
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? { ...siteConfig, ...parsed } : siteConfig;
   } catch {
     return siteConfig;
   }
@@ -251,6 +282,8 @@ export function saveStoredSettings(settings: SiteSettings): void {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'settings', data: settings } }));
+    window.dispatchEvent(new Event('storage'));
   } catch (e) {
     console.error('Failed to save settings', e);
   }

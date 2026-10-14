@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/siteConfig';
+import { getStoredSettings } from '@/lib/storage';
 import { formatIndianPhone } from '@/lib/utils';
 import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -41,6 +42,18 @@ export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
+  const [settings, setSettings] = useState(siteConfig);
+
+  useEffect(() => {
+    setSettings(getStoredSettings());
+    const handleSync = () => setSettings(getStoredSettings());
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,11 +86,11 @@ export default function Navbar() {
             </span>
             <span className="text-slate-500 hidden sm:inline">|</span>
             <a 
-              href={`tel:${siteConfig.phone}`} 
+              href={`tel:${settings.phone}`} 
               className="flex items-center gap-1.5 hover:text-white transition-colors whitespace-nowrap"
             >
               <Phone className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
-              <span>{formatIndianPhone(siteConfig.phone)}</span>
+              <span>{formatIndianPhone(settings.phone)}</span>
             </a>
             <span className="text-slate-500 hidden lg:inline">|</span>
             <Link 
@@ -327,7 +340,7 @@ export default function Navbar() {
 
             <div className="grid grid-cols-2 gap-2 pt-2">
               <a
-                href={`tel:${siteConfig.phone}`}
+                href={`tel:${settings.phone}`}
                 className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-teal-800/60 text-teal-200 text-xs font-semibold border border-teal-500/30"
               >
                 <Phone className="w-3.5 h-3.5" />

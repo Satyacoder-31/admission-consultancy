@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Hero from '@/components/Hero';
@@ -18,8 +18,9 @@ import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
 import { initialFaqs } from '@/data/faqs';
 import { siteConfig } from '@/data/siteConfig';
+import { getStoredCourses, getStoredUniversities, getStoredSettings } from '@/lib/storage';
 import { formatIndianPhone, getWhatsAppUrl, getGeneralWhatsAppMessage } from '@/lib/utils';
-import { Course, University, CourseCategory } from '@/types';
+import { Course, University, CourseCategory, SiteSettings } from '@/types';
 import { 
   Search, 
   Sparkles, 
@@ -58,9 +59,33 @@ export default function HomePage() {
   // FAQ Accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
+  // Dynamic Data States synced with Admin Panel
+  const [courses, setCourses] = useState<Course[]>(initialCourses);
+  const [universities, setUniversities] = useState<University[]>(initialUniversities);
+  const [settings, setSettings] = useState<SiteSettings>(siteConfig);
+
+  useEffect(() => {
+    setCourses(getStoredCourses());
+    setUniversities(getStoredUniversities());
+    setSettings(getStoredSettings());
+
+    const handleSync = () => {
+      setCourses(getStoredCourses());
+      setUniversities(getStoredUniversities());
+      setSettings(getStoredSettings());
+    };
+
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
+
   // Filtered courses
   const filteredCourses = useMemo(() => {
-    return initialCourses.filter((course) => {
+    return courses.filter((course) => {
       const matchSearch =
         course.name.toLowerCase().includes(courseSearch.toLowerCase()) ||
         course.shortName.toLowerCase().includes(courseSearch.toLowerCase()) ||
@@ -74,11 +99,11 @@ export default function HomePage() {
 
       return matchSearch && matchCat && matchMode;
     });
-  }, [courseSearch, selectedCategory, selectedMode]);
+  }, [courses, courseSearch, selectedCategory, selectedMode]);
 
   // Filtered universities
   const filteredUniversities = useMemo(() => {
-    return initialUniversities.filter((uni) => {
+    return universities.filter((uni) => {
       const matchSearch =
         uni.name.toLowerCase().includes(uniSearch.toLowerCase()) ||
         uni.shortName.toLowerCase().includes(uniSearch.toLowerCase()) ||
@@ -89,13 +114,13 @@ export default function HomePage() {
 
       return matchSearch && matchState;
     });
-  }, [uniSearch, selectedState]);
+  }, [universities, uniSearch, selectedState]);
 
   // Unique university states
   const statesList = useMemo(() => {
-    const list = Array.from(new Set(initialUniversities.map((u) => u.state)));
+    const list = Array.from(new Set(universities.map((u) => u.state)));
     return ['All', ...list];
-  }, []);
+  }, [universities]);
 
   const courseCategories = [
     'All',
@@ -251,7 +276,7 @@ export default function HomePage() {
                 href="/courses"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-xs font-bold text-white bg-[#082B59] hover:bg-[#1355A5] shadow-lg transition-transform active:scale-95"
               >
-                <span>Browse All {initialCourses.length} Courses in Directory</span>
+                <span>Browse All {courses.length} Courses in Directory</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -267,7 +292,7 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
                 <Building2 className="w-3.5 h-3.5 text-amber-600" />
-                <span>25+ Leading Partner Universities</span>
+                <span>{universities.length}+ Leading Partner Universities</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
                 Partner Institutions & University Directory
@@ -491,24 +516,24 @@ export default function HomePage() {
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
                     <p className="leading-relaxed">
-                      {siteConfig.address}
+                      {settings.address}
                     </p>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
-                    <a href={`tel:${siteConfig.phone}`} className="text-amber-300 font-bold hover:underline">
-                      {formatIndianPhone(siteConfig.phone)}
+                    <a href={`tel:${settings.phone}`} className="text-amber-300 font-bold hover:underline">
+                      {formatIndianPhone(settings.phone)}
                     </a>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Clock className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                    <span>{siteConfig.officeHours}</span>
+                    <span>{settings.officeHours}</span>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <a
-                    href={getWhatsAppUrl(getGeneralWhatsAppMessage())}
+                    href={getWhatsAppUrl(getGeneralWhatsAppMessage(), settings.whatsapp)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-md"
@@ -599,24 +624,24 @@ export default function HomePage() {
               <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-2 text-xs text-slate-700">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                  <span className="font-semibold">{siteConfig.address}</span>
+                  <span className="font-semibold">{settings.address}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-teal-600 flex-shrink-0" />
-                  <span>Helpline / WhatsApp: <strong>{siteConfig.phone}</strong></span>
+                  <span>Helpline / WhatsApp: <strong>{settings.phone}</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-teal-600 flex-shrink-0" />
-                  <span>Email: {siteConfig.email}</span>
+                  <span>Email: {settings.email}</span>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={`tel:${settings.phone}`}
                   className="px-5 py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold shadow-md transition-colors"
                 >
-                  Call Now: {siteConfig.phone}
+                  Call Now: {settings.phone}
                 </a>
                 <Link
                   href="/contact"
@@ -631,7 +656,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 h-80 sm:h-96 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md relative bg-slate-200">
               <iframe
                 title="SAHI RAAH CONSULTANCY Location Map - Kaurihar Chouk, Raxaul"
-                src={siteConfig.googleMapsEmbedUrl}
+                src={settings.googleMapsEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

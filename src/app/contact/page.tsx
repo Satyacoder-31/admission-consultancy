@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { siteConfig } from '@/data/siteConfig';
+import { getStoredSettings } from '@/lib/storage';
 import { formatIndianPhone, getWhatsAppUrl, getGeneralWhatsAppMessage } from '@/lib/utils';
 import { 
   Phone, 
@@ -20,6 +21,18 @@ export default function ContactPage() {
   const [phone, setPhone] = useState('');
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [settings, setSettings] = useState(siteConfig);
+
+  useEffect(() => {
+    setSettings(getStoredSettings());
+    const handleSync = () => setSettings(getStoredSettings());
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +40,7 @@ export default function ContactPage() {
 
     // Send query to WhatsApp or store
     const msg = `Hello SAHI RAAH CONSULTANCY,\n*Contact Form Submission*\nName: ${name}\nPhone: ${phone}\nQuery: ${query || 'Need general admission details'}`;
-    window.open(getWhatsAppUrl(msg), '_blank', 'noopener,noreferrer');
+    window.open(getWhatsAppUrl(msg, settings.whatsapp), '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -59,10 +72,10 @@ export default function ContactPage() {
                 Official Business Information
               </span>
               <h2 className="text-2xl font-black text-slate-900 mt-1">
-                {siteConfig.businessName}
+                {settings.businessName}
               </h2>
               <p className="text-xs text-amber-600 font-bold tracking-wider uppercase">
-                {siteConfig.tagline}
+                {settings.tagline}
               </p>
             </div>
 
@@ -72,7 +85,7 @@ export default function ContactPage() {
                 <div>
                   <strong className="block text-slate-900 font-bold mb-0.5">Office Address:</strong>
                   <address className="not-italic leading-relaxed text-slate-600">
-                    {siteConfig.address}
+                    {settings.address}
                   </address>
                 </div>
               </div>
@@ -82,10 +95,10 @@ export default function ContactPage() {
                 <div>
                   <strong className="block text-slate-900 font-bold mb-0.5">Direct Helpline / WhatsApp:</strong>
                   <a
-                    href={`tel:${siteConfig.phone}`}
+                    href={`tel:${settings.phone}`}
                     className="text-[#082B59] font-bold text-sm hover:underline"
                   >
-                    {formatIndianPhone(siteConfig.phone)}
+                    {formatIndianPhone(settings.phone)}
                   </a>
                 </div>
               </div>
@@ -95,10 +108,10 @@ export default function ContactPage() {
                 <div>
                   <strong className="block text-slate-900 font-bold mb-0.5">Email Inquiries:</strong>
                   <a
-                    href={`mailto:${siteConfig.email}`}
+                    href={`mailto:${settings.email}`}
                     className="text-[#082B59] hover:underline break-all"
                   >
-                    {siteConfig.email}
+                    {settings.email}
                   </a>
                 </div>
               </div>
@@ -107,7 +120,7 @@ export default function ContactPage() {
                 <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <strong className="block text-slate-900 font-bold mb-0.5">Official Working Hours:</strong>
-                  <p className="text-slate-600">{siteConfig.officeHours}</p>
+                  <p className="text-slate-600">{settings.officeHours}</p>
                 </div>
               </div>
             </div>
@@ -115,7 +128,7 @@ export default function ContactPage() {
             {/* Quick Contact Action Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-2">
               <a
-                href={`tel:${siteConfig.phone}`}
+                href={`tel:${settings.phone}`}
                 className="py-3 px-4 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all text-center"
               >
                 <Phone className="w-4 h-4" />
@@ -123,7 +136,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href={getWhatsAppUrl(getGeneralWhatsAppMessage())}
+                href={getWhatsAppUrl(getGeneralWhatsAppMessage(), settings.whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all text-center"
@@ -213,7 +226,7 @@ export default function ContactPage() {
             <div className="h-72 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md relative bg-slate-200">
               <iframe
                 title="SAHI RAAH CONSULTANCY Official Map"
-                src={siteConfig.googleMapsEmbedUrl}
+                src={settings.googleMapsEmbedUrl}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

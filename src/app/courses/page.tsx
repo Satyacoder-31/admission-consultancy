@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { initialCourses } from '@/data/courses';
+import { getStoredCourses } from '@/lib/storage';
 import CourseCard from '@/components/CourseCard';
 import EligibilityModal from '@/components/EligibilityModal';
 import EnquiryFormModal from '@/components/EnquiryFormModal';
@@ -11,10 +12,22 @@ import { Course, CourseCategory, CourseLevel, StudyMode } from '@/types';
 import { Search, Filter, BookOpen, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function CoursesPage() {
+  const [courses, setCourses] = useState<Course[]>(initialCourses);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedLevel, setSelectedLevel] = useState<string>('All');
   const [selectedMode, setSelectedMode] = useState<string>('All');
+
+  useEffect(() => {
+    setCourses(getStoredCourses());
+    const handleSync = () => setCourses(getStoredCourses());
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
 
   // Modals
   const [eligibilityCourse, setEligibilityCourse] = useState<Course | null>(null);
@@ -43,7 +56,7 @@ export default function CoursesPage() {
   const modes = ['All', 'Regular', 'Distance', 'Online', 'Open Board'];
 
   const filtered = useMemo(() => {
-    return initialCourses.filter((course) => {
+    return courses.filter((course) => {
       const matchSearch =
         course.name.toLowerCase().includes(search.toLowerCase()) ||
         course.shortName.toLowerCase().includes(search.toLowerCase()) ||
@@ -61,7 +74,7 @@ export default function CoursesPage() {
 
       return matchSearch && matchCategory && matchLevel && matchMode;
     });
-  }, [search, selectedCategory, selectedLevel, selectedMode]);
+  }, [courses, search, selectedCategory, selectedLevel, selectedMode]);
 
   const handleOpenEnquiry = (course: Course) => {
     setEnquiryCourse(course);
@@ -158,7 +171,7 @@ export default function CoursesPage() {
           {/* Active summary */}
           <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
             <span>
-              Showing <strong>{filtered.length}</strong> of {initialCourses.length} courses
+              Showing <strong>{filtered.length}</strong> of {courses.length} courses
             </span>
             {(search || selectedCategory !== 'All' || selectedLevel !== 'All' || selectedMode !== 'All') && (
               <button

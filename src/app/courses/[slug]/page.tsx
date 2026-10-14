@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
+import { getStoredCourses, getStoredUniversities } from '@/lib/storage';
 import { getCourseWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import EligibilityModal from '@/components/EligibilityModal';
 import EnquiryFormModal from '@/components/EnquiryFormModal';
@@ -29,7 +30,25 @@ function CourseDetailContent() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  const course = initialCourses.find((c) => c.slug === slug);
+  const [courses, setCourses] = useState<Course[]>(initialCourses);
+  const [universities, setUniversities] = useState<University[]>(initialUniversities);
+
+  useEffect(() => {
+    setCourses(getStoredCourses());
+    setUniversities(getStoredUniversities());
+    const handleSync = () => {
+      setCourses(getStoredCourses());
+      setUniversities(getStoredUniversities());
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
+
+  const course = courses.find((c) => c.slug === slug);
 
   const [eligibilityOpen, setEligibilityOpen] = useState(false);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
@@ -40,8 +59,8 @@ function CourseDetailContent() {
   }
 
   // Find universities offering this course
-  const offeringUniversities = initialUniversities.filter((u) =>
-    u.availableCourseIds.includes(course.id)
+  const offeringUniversities = universities.filter((u) =>
+    u.availableCourseIds?.includes(course.id)
   );
 
   const whatsappUrl = getWhatsAppUrl(getCourseWhatsAppMessage(course.name));

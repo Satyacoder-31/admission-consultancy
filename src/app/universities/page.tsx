@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initialUniversities } from '@/data/universities';
+import { getStoredUniversities } from '@/lib/storage';
 import UniversityCard from '@/components/UniversityCard';
 import EnquiryFormModal from '@/components/EnquiryFormModal';
 import AffiliatedCouncils from '@/components/AffiliatedCouncils';
@@ -11,22 +12,34 @@ import { University, VerificationStatus } from '@/types';
 import { Search, Building2, ShieldAlert, Sparkles, Filter, ExternalLink } from 'lucide-react';
 
 export default function UniversitiesPage() {
+  const [universities, setUniversities] = useState<University[]>(initialUniversities);
   const [search, setSearch] = useState('');
   const [selectedState, setSelectedState] = useState<string>('All');
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
+
+  useEffect(() => {
+    setUniversities(getStoredUniversities());
+    const handleSync = () => setUniversities(getStoredUniversities());
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
 
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [selectedUni, setSelectedUni] = useState<University | null>(null);
 
   const states = useMemo(() => {
-    const list = Array.from(new Set(initialUniversities.map((u) => u.state)));
+    const list = Array.from(new Set(universities.map((u) => u.state)));
     return ['All', ...list];
-  }, []);
+  }, [universities]);
 
   const statuses = ['All', 'Verification Required', 'Verified'];
 
   const filtered = useMemo(() => {
-    return initialUniversities.filter((uni) => {
+    return universities.filter((uni) => {
       const matchSearch =
         uni.name.toLowerCase().includes(search.toLowerCase()) ||
         uni.shortName.toLowerCase().includes(search.toLowerCase()) ||
@@ -41,7 +54,7 @@ export default function UniversitiesPage() {
 
       return matchSearch && matchState && matchStatus;
     });
-  }, [search, selectedState, selectedStatus]);
+  }, [universities, search, selectedState, selectedStatus]);
 
   const handleApply = (uni: University) => {
     setSelectedUni(uni);
@@ -131,7 +144,7 @@ export default function UniversitiesPage() {
 
           <div className="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
             <span>
-              Showing <strong>{filtered.length}</strong> of {initialUniversities.length} universities
+              Showing <strong>{filtered.length}</strong> of {universities.length} universities
             </span>
             {(search || selectedState !== 'All' || selectedStatus !== 'All') && (
               <button

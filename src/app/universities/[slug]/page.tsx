@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { initialUniversities } from '@/data/universities';
 import { initialCourses } from '@/data/courses';
+import { getStoredUniversities, getStoredCourses } from '@/lib/storage';
 import { getUniversityWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import CourseCard from '@/components/CourseCard';
 import EligibilityModal from '@/components/EligibilityModal';
@@ -18,7 +19,7 @@ import {
   MessageCircle, 
   ArrowLeft, 
   GraduationCap, 
-  Calendar,
+  Calendar, 
   CheckCircle2,
   BookOpen
 } from 'lucide-react';
@@ -27,7 +28,25 @@ function UniversityDetailContent() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  const university = initialUniversities.find((u) => u.slug === slug);
+  const [universities, setUniversities] = useState<University[]>(initialUniversities);
+  const [courses, setCourses] = useState<Course[]>(initialCourses);
+
+  useEffect(() => {
+    setUniversities(getStoredUniversities());
+    setCourses(getStoredCourses());
+    const handleSync = () => {
+      setUniversities(getStoredUniversities());
+      setCourses(getStoredCourses());
+    };
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
+  }, []);
+
+  const university = universities.find((u) => u.slug === slug);
 
   const [eligibilityCourse, setEligibilityCourse] = useState<Course | null>(null);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
@@ -38,8 +57,8 @@ function UniversityDetailContent() {
   }
 
   // Find courses offered by this university
-  const offeredCourses = initialCourses.filter((c) =>
-    university.availableCourseIds.includes(c.id)
+  const offeredCourses = courses.filter((c) =>
+    university.availableCourseIds?.includes(c.id)
   );
 
   const whatsappUrl = getWhatsAppUrl(getUniversityWhatsAppMessage(university.name));

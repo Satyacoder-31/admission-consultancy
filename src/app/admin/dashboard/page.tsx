@@ -15,7 +15,7 @@ import {
   saveStoredSettings,
   addEnquiry
 } from '@/lib/storage';
-import { Course, University, AdmissionEnquiry, LeadStatus, VerificationStatus, CourseCategory } from '@/types';
+import { Course, University, AdmissionEnquiry, LeadStatus, VerificationStatus, CourseCategory, StudyMode } from '@/types';
 import { siteConfig } from '@/data/siteConfig';
 import { formatIndianPhone, getWhatsAppUrl } from '@/lib/utils';
 import { 
@@ -86,6 +86,26 @@ export default function AdminDashboardPage() {
   const [whatsAppModalLead, setWhatsAppModalLead] = useState<AdmissionEnquiry | null>(null);
   const [courseModalOpen, setCourseModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const [uniModalOpen, setUniModalOpen] = useState(false);
+  const [editingUni, setEditingUni] = useState<University | null>(null);
+
+  // University Form State
+  const [uniForm, setUniForm] = useState({
+    name: '',
+    shortName: '',
+    location: '',
+    state: 'Bihar',
+    logo: '/images/hero-admission-1.jpg',
+    established: '2015',
+    type: 'State Private University' as University['type'],
+    verificationStatus: 'Verified' as VerificationStatus,
+    accreditationNote: 'UGC Approved Section 2(f)',
+    summary: '',
+    address: '',
+    websiteNote: '',
+    modesOffered: ['Regular', 'Distance'] as StudyMode[],
+    availableCourseIds: [] as string[]
+  });
 
   // New Walk-in Lead Form State
   const [newLeadForm, setNewLeadForm] = useState({
@@ -140,6 +160,20 @@ export default function AdminDashboardPage() {
     setCourses(getStoredCourses());
     setUniversities(getStoredUniversities());
     setSettings(getStoredSettings());
+
+    const handleSync = () => {
+      setEnquiries(getStoredEnquiries());
+      setCourses(getStoredCourses());
+      setUniversities(getStoredUniversities());
+      setSettings(getStoredSettings());
+    };
+
+    window.addEventListener('storage', handleSync);
+    window.addEventListener('sr_data_updated', handleSync);
+    return () => {
+      window.removeEventListener('storage', handleSync);
+      window.removeEventListener('sr_data_updated', handleSync);
+    };
   }, [router]);
 
   const handleLogout = () => {
@@ -306,6 +340,105 @@ export default function AdminDashboardPage() {
 
     setCourseModalOpen(false);
     setEditingCourse(null);
+  };
+
+  // University Management Handlers
+  const handleOpenAddUni = () => {
+    setEditingUni(null);
+    setUniForm({
+      name: '',
+      shortName: '',
+      location: '',
+      state: 'Bihar',
+      logo: '/images/hero-admission-1.jpg',
+      established: '2015',
+      type: 'State Private University',
+      verificationStatus: 'Verified',
+      accreditationNote: 'UGC Approved Section 2(f)',
+      summary: '',
+      address: '',
+      websiteNote: '',
+      modesOffered: ['Regular', 'Distance'],
+      availableCourseIds: courses.slice(0, 4).map((c) => c.id)
+    });
+    setUniModalOpen(true);
+  };
+
+  const handleOpenEditUni = (u: University) => {
+    setEditingUni(u);
+    setUniForm({
+      name: u.name,
+      shortName: u.shortName,
+      location: u.location,
+      state: u.state,
+      logo: u.logo || '/images/hero-admission-1.jpg',
+      established: u.established || '2015',
+      type: u.type,
+      verificationStatus: u.verificationStatus,
+      accreditationNote: u.accreditationNote,
+      summary: u.summary,
+      address: u.address,
+      websiteNote: u.websiteNote || '',
+      modesOffered: u.modesOffered || ['Regular'],
+      availableCourseIds: u.availableCourseIds || []
+    });
+    setUniModalOpen(true);
+  };
+
+  const handleDeleteUni = (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to remove ${name} from partner universities?`)) return;
+    const updated = universities.filter((u) => u.id !== id);
+    setUniversities(updated);
+    saveStoredUniversities(updated);
+    showToast(`Removed ${name} from partner institutions`);
+  };
+
+  const handleSaveUni = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!uniForm.name.trim()) return;
+
+    if (editingUni) {
+      const updated = universities.map((u) => {
+        if (u.id === editingUni.id) {
+          return {
+            ...u,
+            ...uniForm,
+            slug: u.slug || uniForm.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+          };
+        }
+        return u;
+      });
+      setUniversities(updated);
+      saveStoredUniversities(updated);
+      showToast(`Updated ${uniForm.name} successfully`);
+    } else {
+      const slug = uniForm.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const newUni: University = {
+        id: `uni-${Date.now().toString().slice(-6)}`,
+        slug: slug || `uni-${Date.now()}`,
+        name: uniForm.name,
+        shortName: uniForm.shortName || uniForm.name.slice(0, 8),
+        location: uniForm.location || `${uniForm.state}, India`,
+        state: uniForm.state,
+        logo: uniForm.logo || '/images/hero-admission-1.jpg',
+        established: uniForm.established,
+        type: uniForm.type,
+        verificationStatus: uniForm.verificationStatus,
+        accreditationNote: uniForm.accreditationNote || 'UGC Approved',
+        summary: uniForm.summary || `${uniForm.name} is a partner university offering accredited degree programs.`,
+        address: uniForm.address || `${uniForm.location}, ${uniForm.state}`,
+        websiteNote: uniForm.websiteNote,
+        modesOffered: uniForm.modesOffered.length > 0 ? uniForm.modesOffered : ['Regular'],
+        availableCourseIds: uniForm.availableCourseIds.length > 0 ? uniForm.availableCourseIds : courses.slice(0, 3).map((c) => c.id),
+        campusFeatures: ['Modern Academic Campus', 'Digital Library', 'Hostel Facilities', 'Career Placement Cell']
+      };
+      const updated = [newUni, ...universities];
+      setUniversities(updated);
+      saveStoredUniversities(updated);
+      showToast(`Added ${newUni.name} to university directory`);
+    }
+
+    setUniModalOpen(false);
   };
 
   // CSV Export
@@ -1290,15 +1423,25 @@ export default function AdminDashboardPage() {
                 <p className="text-xs text-slate-500">Direct university partnerships, statutory approvals, and state affiliations</p>
               </div>
 
-              <div className="relative w-full md:w-72">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Search university or state..."
-                  value={uniSearch}
-                  onChange={(e) => setUniSearch(e.target.value)}
-                  className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none"
-                />
+              <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto">
+                <div className="relative w-full sm:w-64">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search university or state..."
+                    value={uniSearch}
+                    onChange={(e) => setUniSearch(e.target.value)}
+                    className="w-full text-xs pl-9 pr-3 py-2 rounded-xl border border-slate-300 focus:outline-none"
+                  />
+                </div>
+
+                <button
+                  onClick={handleOpenAddUni}
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 shadow-md cursor-pointer transition-all whitespace-nowrap"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+ Add Partner University</span>
+                </button>
               </div>
             </div>
 
@@ -1342,27 +1485,28 @@ export default function AdminDashboardPage() {
                       <p className="font-medium line-clamp-2">{u.accreditationNote}</p>
                       <div className="pt-1 flex items-center justify-between font-bold text-[#082B59]">
                         <span>Courses Available:</span>
-                        <span className="bg-white px-2 py-0.5 rounded border border-slate-200">{u.availableCourseIds.length} Programmes</span>
+                        <span className="bg-white px-2 py-0.5 rounded border border-slate-200">{u.availableCourseIds?.length || 0} Programmes</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 mt-4 flex items-center justify-between text-xs">
-                    <button
-                      onClick={() => {
-                        const note = prompt('Update Statutory Accreditation Note:', u.accreditationNote);
-                        if (!note) return;
-                        const updated = universities.map((x) =>
-                          x.id === u.id ? { ...x, accreditationNote: note } : x
-                        );
-                        setUniversities(updated);
-                        saveStoredUniversities(updated);
-                        showToast('Accreditation note updated');
-                      }}
-                      className="text-teal-700 font-bold hover:underline cursor-pointer"
-                    >
-                      Update Note
-                    </button>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleOpenEditUni(u)}
+                        className="text-teal-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+                      >
+                        <Edit className="w-3 h-3" />
+                        <span>Edit</span>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUni(u.id, u.name)}
+                        className="text-red-600 hover:text-red-800 font-bold hover:underline cursor-pointer flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
 
                     <Link
                       href={`/universities/${u.slug}`}
@@ -2054,6 +2198,205 @@ export default function AdminDashboardPage() {
                 className="w-full py-3 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 font-bold transition-all shadow-md text-xs cursor-pointer"
               >
                 {editingCourse ? 'Save Changes' : 'Create Course'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* MODAL 5: ADD / EDIT UNIVERSITY MODAL                           */}
+      {/* ============================================================== */}
+      {uniModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-amber-300 space-y-4 animate-in zoom-in-95 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Building2 className="w-4 h-4 text-emerald-600" />
+                  <span>{editingUni ? `Edit ${editingUni.name}` : 'Add New Partner University'}</span>
+                </h3>
+                <span className="text-xs text-slate-500">Configure university details, recognition & location</span>
+              </div>
+              <button onClick={() => setUniModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveUni} className="space-y-3 text-xs">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">University Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Apex University"
+                  value={uniForm.name}
+                  onChange={(e) => setUniForm({ ...uniForm, name: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-slate-300"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Short Name / Code *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. APEX"
+                    value={uniForm.shortName}
+                    onChange={(e) => setUniForm({ ...uniForm, shortName: e.target.value })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">State *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rajasthan / Bihar / UP"
+                    value={uniForm.state}
+                    onChange={(e) => setUniForm({ ...uniForm, state: e.target.value })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">City / Location</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Jaipur, Rajasthan"
+                    value={uniForm.location}
+                    onChange={(e) => setUniForm({ ...uniForm, location: e.target.value })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Institution Type</label>
+                  <select
+                    value={uniForm.type}
+                    onChange={(e) => setUniForm({ ...uniForm, type: e.target.value as any })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300 bg-white"
+                  >
+                    <option value="Private University">Private University</option>
+                    <option value="State Private University">State Private University</option>
+                    <option value="State University">State University</option>
+                    <option value="Autonomous Institution">Autonomous Institution</option>
+                    <option value="Skill University">Skill University</option>
+                    <option value="State Open University">State Open University</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Verification Status</label>
+                  <select
+                    value={uniForm.verificationStatus}
+                    onChange={(e) => setUniForm({ ...uniForm, verificationStatus: e.target.value as VerificationStatus })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300 bg-white"
+                  >
+                    <option value="Verified">Verified</option>
+                    <option value="Verification Required">Verification Required</option>
+                    <option value="Institutional Review">Institutional Review</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Established Year</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2012"
+                    value={uniForm.established}
+                    onChange={(e) => setUniForm({ ...uniForm, established: e.target.value })}
+                    className="w-full p-2.5 rounded-xl border border-slate-300"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Statutory Approvals & Accreditation Note</label>
+                <input
+                  type="text"
+                  placeholder="e.g. UGC Approved, NAAC 'A' Grade, PCI & BCI Approved"
+                  value={uniForm.accreditationNote}
+                  onChange={(e) => setUniForm({ ...uniForm, accreditationNote: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-slate-300"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Summary / About the University</label>
+                <textarea
+                  rows={2}
+                  placeholder="e.g. Leading university offering recognized professional programs in healthcare, engineering and management."
+                  value={uniForm.summary}
+                  onChange={(e) => setUniForm({ ...uniForm, summary: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-slate-300"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Full Campus Address</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Jaipur-Agra National Highway, Rajasthan"
+                  value={uniForm.address}
+                  onChange={(e) => setUniForm({ ...uniForm, address: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-slate-300"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Official Website Note / Verification URL</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Verified on UGC Portal: Section 2(f)"
+                  value={uniForm.websiteNote}
+                  onChange={(e) => setUniForm({ ...uniForm, websiteNote: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-slate-300"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Assign Available Courses ({uniForm.availableCourseIds.length} Selected)
+                </label>
+                <div className="max-h-28 overflow-y-auto bg-slate-50 border border-slate-200 rounded-xl p-2 space-y-1">
+                  {courses.map((c) => {
+                    const isChecked = uniForm.availableCourseIds.includes(c.id);
+                    return (
+                      <label key={c.id} className="flex items-center gap-2 cursor-pointer hover:bg-white p-1 rounded">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setUniForm({
+                                ...uniForm,
+                                availableCourseIds: [...uniForm.availableCourseIds, c.id]
+                              });
+                            } else {
+                              setUniForm({
+                                ...uniForm,
+                                availableCourseIds: uniForm.availableCourseIds.filter((id) => id !== c.id)
+                              });
+                            }
+                          }}
+                          className="rounded text-[#082B59] focus:ring-0 cursor-pointer"
+                        />
+                        <span className="text-[11px] text-slate-800">{c.name} ({c.shortName})</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 font-bold transition-all shadow-md text-xs cursor-pointer"
+              >
+                {editingUni ? 'Save Changes' : 'Create Partner University'}
               </button>
             </form>
           </div>

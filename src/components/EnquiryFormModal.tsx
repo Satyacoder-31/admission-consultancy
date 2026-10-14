@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Course, University } from '@/types';
 import { initialCourses } from '@/data/courses';
 import { initialUniversities } from '@/data/universities';
-import { addEnquiry } from '@/lib/storage';
+import { addEnquiry, getStoredCourses, getStoredUniversities } from '@/lib/storage';
 import { validateIndianPhone, getWhatsAppUrl } from '@/lib/utils';
 import confetti from 'canvas-confetti';
 import { 
@@ -57,6 +57,14 @@ export default function EnquiryFormModal({
   const [questions, setQuestions] = useState('');
   const [consent, setConsent] = useState(true);
 
+  const [courses, setCourses] = useState<Course[]>(initialCourses);
+  const [universities, setUniversities] = useState<University[]>(initialUniversities);
+
+  useEffect(() => {
+    setCourses(getStoredCourses());
+    setUniversities(getStoredUniversities());
+  }, []);
+
   // Pre-fill from props when opened
   useEffect(() => {
     if (initialCourse) {
@@ -65,7 +73,10 @@ export default function EnquiryFormModal({
         setPreferredMode(initialCourse.modes[0]);
       }
     } else if (!interestedCourse) {
-      setInterestedCourse(initialCourses[0].name);
+      const activeCourses = getStoredCourses();
+      if (activeCourses.length > 0) {
+        setInterestedCourse(activeCourses[0].name);
+      }
     }
 
     if (initialUniversity) {
@@ -505,7 +516,7 @@ export default function EnquiryFormModal({
                       onChange={(e) => setInterestedCourse(e.target.value)}
                       className="w-full text-xs p-2.5 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#082B59]/30 font-medium"
                     >
-                      {initialCourses.map((c) => (
+                      {courses.map((c) => (
                         <option key={c.id} value={c.name}>
                           {c.shortName} — {c.name} ({c.level})
                         </option>
@@ -540,7 +551,7 @@ export default function EnquiryFormModal({
                         className="w-full text-xs p-2.5 rounded-lg border border-slate-300 bg-white"
                       >
                         <option value="">Any Suitable & Verified University</option>
-                        {initialUniversities.map((u) => (
+                        {universities.map((u) => (
                           <option key={u.id} value={u.name}>
                             {u.name} ({u.state})
                           </option>
