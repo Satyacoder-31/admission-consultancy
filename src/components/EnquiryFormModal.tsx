@@ -84,6 +84,18 @@ export default function EnquiryFormModal({
     }
   }, [initialCourse, initialUniversity]);
 
+  // Close on Escape key press
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const validateStep1 = () => {
@@ -208,10 +220,18 @@ export default function EnquiryFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[95vh] flex flex-col">
+    <div 
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200 cursor-pointer"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div 
+        className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[95vh] flex flex-col cursor-default"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Modal Top Header */}
-        <div className="bg-[#082B59] text-white p-5 flex items-start justify-between border-b border-amber-400/30">
+        <div className="bg-[#082B59] text-white p-5 flex items-start justify-between border-b border-amber-400/30 relative z-10">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-teal-800 text-teal-200 text-[10px] font-bold tracking-widest uppercase">
@@ -230,11 +250,17 @@ export default function EnquiryFormModal({
             </p>
           </div>
           <button
-            onClick={onClose}
-            className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
+            className="flex-shrink-0 text-white/90 hover:text-white p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 transition-all cursor-pointer relative z-30 focus:outline-none focus:ring-2 focus:ring-amber-400 ml-3"
             aria-label="Close enquiry form modal"
+            title="Close (Esc)"
           >
-            <X className="w-6 h-6" />
+            <X className="w-6 h-6 pointer-events-none" />
           </button>
         </div>
 

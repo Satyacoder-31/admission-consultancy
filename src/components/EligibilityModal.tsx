@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Course } from '@/types';
 import { getCourseWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import { 
@@ -26,6 +26,17 @@ export default function EligibilityModal({ course, onClose, onApply }: Eligibili
   const [marks, setMarks] = useState('');
   const [checkResult, setCheckResult] = useState<string | null>(null);
 
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!course) return null;
 
   const handleSelfCheck = (e: React.FormEvent) => {
@@ -50,10 +61,18 @@ export default function EligibilityModal({ course, onClose, onApply }: Eligibili
   const whatsappUrl = getWhatsAppUrl(getCourseWhatsAppMessage(course.name));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+    <div 
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200 cursor-pointer"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div 
+        className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col cursor-default"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Modal Header */}
-        <div className="bg-[#082B59] text-white p-5 flex items-start justify-between border-b border-amber-400/40">
+        <div className="bg-[#082B59] text-white p-5 flex items-start justify-between border-b border-amber-400/40 relative z-10">
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-800 text-teal-200 text-xs font-semibold uppercase tracking-wider mb-2">
               <GraduationCap className="w-3.5 h-3.5" />
@@ -67,11 +86,17 @@ export default function EligibilityModal({ course, onClose, onApply }: Eligibili
             </p>
           </div>
           <button
-            onClick={onClose}
-            className="text-white/80 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+            }}
+            className="flex-shrink-0 text-white/90 hover:text-white p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 transition-all cursor-pointer relative z-30 focus:outline-none focus:ring-2 focus:ring-amber-400 ml-3"
             aria-label="Close modal"
+            title="Close (Esc)"
           >
-            <X className="w-6 h-6" />
+            <X className="w-6 h-6 pointer-events-none" />
           </button>
         </div>
 
@@ -213,22 +238,32 @@ export default function EligibilityModal({ course, onClose, onApply }: Eligibili
 
         {/* Modal Actions */}
         <div className="p-4 bg-slate-100 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>Enquire on WhatsApp</span>
-          </a>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-sm transition-colors cursor-pointer"
+            >
+              Close
+            </button>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Enquire on WhatsApp</span>
+            </a>
+          </div>
 
           <button
+            type="button"
             onClick={() => {
               onClose();
               onApply(course);
             }}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold shadow-md transition-all hover:scale-[1.02]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold shadow-md transition-all hover:scale-[1.02] cursor-pointer"
           >
             <GraduationCap className="w-4 h-4 text-amber-400" />
             <span>Proceed to Admission Enquiry</span>
