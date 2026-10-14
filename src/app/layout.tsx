@@ -111,8 +111,12 @@ export default function RootLayout({
               <Navbar />
             </Suspense>
             <main className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">{children}</main>
-            <Footer />
-            <WhatsAppWidget />
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
+            <Suspense fallback={null}>
+              <WhatsAppWidget />
+            </Suspense>
           </LanguageProvider>
         </ThemeProvider>
       </body>

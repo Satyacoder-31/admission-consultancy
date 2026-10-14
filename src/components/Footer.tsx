@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/siteConfig';
 import { getStoredSettings } from '@/lib/storage';
 import { formatIndianPhone } from '@/lib/utils';
@@ -20,6 +21,7 @@ import {
 } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
   const [settings, setSettings] = useState(siteConfig);
@@ -34,6 +36,12 @@ export default function Footer() {
       window.removeEventListener('sr_data_updated', handleSync);
     };
   }, []);
+
+  // Hide the public website footer on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <footer className="bg-[#051D3C] text-slate-300 pt-16 pb-8 border-t-2 border-amber-400/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

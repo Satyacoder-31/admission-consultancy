@@ -73,6 +73,11 @@ export default function Navbar() {
     return pathname.startsWith(href);
   };
 
+  // Hide the public website navigation bar on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
       {/* Top verified utility & alert bar */}

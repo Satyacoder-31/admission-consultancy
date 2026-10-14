@@ -635,9 +635,10 @@ export default function AdminDashboardPage() {
             <Link
               href="/"
               target="_blank"
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium border border-white/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-medium border border-white/20 transition-colors"
+              title="Open Public Website"
             >
-              <span>Live Site</span>
+              <span className="hidden sm:inline">Live Site</span>
               <ExternalLink className="w-3.5 h-3.5 text-teal-300" />
             </Link>
 

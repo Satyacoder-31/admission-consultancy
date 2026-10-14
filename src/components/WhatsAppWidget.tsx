@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/siteConfig';
 import { getStoredSettings } from '@/lib/storage';
 import { getWhatsAppUrl, getGeneralWhatsAppMessage } from '@/lib/utils';
@@ -21,6 +22,7 @@ function WhatsAppIcon({ className = 'w-6 h-6' }: { className?: string }) {
 }
 
 export default function WhatsAppWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [customMsg, setCustomMsg] = useState('');
   const [settings, setSettings] = useState(siteConfig);
@@ -48,6 +50,11 @@ export default function WhatsAppWidget() {
     window.open(url, '_blank', 'noopener,noreferrer');
     setIsOpen(false);
   };
+
+  // Hide floating WhatsApp widget on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <aside
