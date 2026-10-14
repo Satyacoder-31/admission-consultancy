@@ -388,36 +388,29 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-teal-600" />
-                <span>About SAHI RAAH CONSULTANCY</span>
+                <span>About SAHI RAAH INDIA</span>
               </div>
 
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                Guiding Students Towards the Right Academic Future.
+                Career Counselling & University Admission Support Centre
               </h2>
 
-              <p className="text-slate-700 text-sm md:text-base leading-relaxed">
-                SAHI RAAH CONSULTANCY helps students explore educational opportunities, understand course options, and navigate the admission process with greater clarity. Our goal is to make educational information easier to understand and help students identify suitable academic pathways based on their qualifications, interests, and career goals.
+              <p className="text-slate-800 text-sm md:text-base leading-relaxed font-medium">
+                <strong>SAHI RAAH</strong> is a career counselling and university admission support centre. It helps students secure admission to top universities in India, including <strong>UGC-approved</strong> and <strong>NAAC-accredited</strong> universities.
               </p>
 
-              {/* 4 Core Pillars */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1">
-                  <h4 className="text-xs font-bold text-[#082B59] uppercase tracking-wider">
-                    Our Mission
-                  </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    To deliver transparent, verified, and accessible higher education counselling to every student across Raxaul, Champaran, and neighboring border regions.
-                  </p>
-                </div>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                We provide admission guidance for <strong>regular</strong>, <strong>online</strong>, and <strong>distance-learning</strong> programmes, keeping students’ individual requirements in mind. We help students choose the best courses and the best universities according to their needs.
+              </p>
 
-                <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1">
-                  <h4 className="text-xs font-bold text-teal-700 uppercase tracking-wider">
-                    Our Approach
-                  </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    Fact-based institutional matching, transparent regulatory disclosures, and personal guidance from registration to university enrolment.
-                  </p>
-                </div>
+              {/* Core Commitment Banner */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border-2 border-amber-300 text-slate-800 space-y-2 shadow-sm">
+                <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  SAHI RAAH INDIA is one of the leading university admission and counselling partners. It helps students find the right university and secure admission through proper guidance.
+                </p>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  We understand students’ needs, budgets, and career goals. Our team provides expert guidance to help students choose the best university and course for their future. Our goal is to make the university admission process simple, smooth, and convenient by providing students with the right advice and complete support at every step.
+                </p>
               </div>
 
               <div className="space-y-3 pt-2">

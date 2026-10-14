@@ -48,9 +48,9 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-slate-300 leading-relaxed pr-4">
-              Premium educational guidance and admission counselling based in Raxaul, Bihar. 
-              Empowering students with verified university options, transparent eligibility checks, 
-              and legitimate admission pathways across regular, distance, and online education modes.
+              Career counselling and university admission support centre based in Raxaul, Bihar. 
+              Helping students secure admission to top UGC-approved and NAAC-accredited universities 
+              across regular, online, and distance-learning programmes.
             </p>
 
             <div className="pt-2">

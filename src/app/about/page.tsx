@@ -30,13 +30,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-amber-400/40 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Dedicated Educational Facilitation</span>
+            <span>Career Counselling & University Admission Support</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-            Guiding Students Towards the Right Academic Future
+            About SAHI RAAH
           </h1>
-          <p className="text-sm sm:text-base text-slate-200 mt-4 leading-relaxed">
-            SAHI RAAH CONSULTANCY helps students explore educational opportunities, understand course options, and navigate the admission process with greater clarity.
+          <p className="text-sm sm:text-base text-slate-200 mt-4 leading-relaxed font-normal">
+            SAHI RAAH is a career counselling and university admission support centre. It helps students secure admission to top universities in India, including UGC-approved and NAAC-accredited universities.
           </p>
         </div>
       </section>
@@ -73,21 +73,35 @@ export default function AboutPage() {
 
             {/* Narrative Content (7 cols) */}
             <div className="lg:col-span-7 space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Our Foundation & Philosophy
-              </h2>
+              <div>
+                <span className="text-xs font-bold text-teal-700 uppercase tracking-wider block mb-1">
+                  Welcome to SAHI RAAH INDIA
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                  Your Trusted University Admission & Counselling Partner
+                </h2>
+              </div>
 
-              <p>
-                Navigating the complex landscape of higher education can often feel daunting for students and parents. With numerous universities, diverse study modes (Regular, Distance, Online), and strict statutory regulations, obtaining clear, verified, and unbiased advice is paramount.
+              <p className="text-base sm:text-lg font-medium text-slate-800 leading-relaxed">
+                <strong>SAHI RAAH</strong> is a career counselling and university admission support centre. It helps students secure admission to top universities in India, including <strong>UGC-approved</strong> and <strong>NAAC-accredited</strong> universities.
               </p>
 
               <p>
-                <strong>SAHI RAAH CONSULTANCY</strong> was established to bridge this information gap. Located strategically at Kaurihar Chouk in Raxaul, Bihar, our center provides personal, accessible academic counselling to students across North Bihar, East Champaran, and the Indo-Nepal border region.
+                We provide admission guidance for <strong>regular</strong>, <strong>online</strong>, and <strong>distance-learning</strong> programmes, keeping students’ individual requirements in mind. We help students choose the best courses and the best universities according to their needs.
               </p>
 
               <p>
-                Our goal is to make educational information easier to understand and help students identify suitable academic pathways based on their qualifications, interests, and career goals.
+                <strong>SAHI RAAH INDIA</strong> is one of the leading university admission and counselling partners. It helps students find the right university and secure admission through proper guidance.
               </p>
+
+              <div className="p-5 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-300 text-slate-800 space-y-2 shadow-sm">
+                <p className="font-semibold text-slate-900">
+                  &ldquo;We understand students’ needs, budgets, and career goals. Our team provides expert guidance to help students choose the best university and course for their future.&rdquo;
+                </p>
+                <p className="text-xs text-slate-600">
+                  Our goal is to make the university admission process simple, smooth, and convenient by providing students with the right advice and complete support at every step.
+                </p>
+              </div>
 
               <div className="p-4 bg-teal-50 rounded-2xl border border-teal-200 text-xs sm:text-sm text-teal-900 space-y-2">
                 <div className="flex items-center gap-2 font-bold text-teal-800">
