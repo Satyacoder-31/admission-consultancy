@@ -15,7 +15,8 @@ import {
   GraduationCap, 
   ChevronRight, 
   Sparkles,
-  Lock
+  Lock,
+  CreditCard
 } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -71,10 +72,13 @@ export default function Navbar() {
               <span>{formatIndianPhone(siteConfig.phone)}</span>
             </a>
             <span className="text-slate-400">|</span>
-            <span className="flex items-center gap-1.5 text-slate-300">
-              <MapPin className="w-3.5 h-3.5 text-teal-400" />
-              <span>Kaurihar Chouk, Raxaul, Bihar</span>
-            </span>
+            <Link 
+              href="/#bscc-scheme" 
+              className="flex items-center gap-1.5 text-amber-300 font-bold hover:text-white transition-colors bg-white/10 px-2.5 py-0.5 rounded-full border border-amber-400/30"
+            >
+              <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+              <span>Bihar Student Credit Card (BSCC) Scheme</span>
+            </Link>
           </div>
           
           <div className="flex items-center gap-4">

@@ -8,6 +8,7 @@ import EducationModesPreview from '@/components/EducationModesPreview';
 import ProcessTimeline from '@/components/ProcessTimeline';
 import AffiliatedCouncils from '@/components/AffiliatedCouncils';
 import RecognizedBoards from '@/components/RecognizedBoards';
+import BiharStudentCreditCard from '@/components/BiharStudentCreditCard';
 import CourseCard from '@/components/CourseCard';
 import UniversityCard from '@/components/UniversityCard';
 import EligibilityModal from '@/components/EligibilityModal';
@@ -366,10 +367,17 @@ export default function HomePage() {
       {/* 5. Recognized Open Schooling & Secondary Boards (BBOSE, BOSSE, TNSOS, Jamia Urdu) */}
       <RecognizedBoards onOpenEnquiry={handleGeneralEnquiry} />
 
-      {/* 6. Recognized Paramedical & Alternative Health Councils */}
+      {/* 6. Statutory Commissions & National Councils (UGC & COBSE) */}
       <AffiliatedCouncils onOpenEnquiry={handleGeneralEnquiry} />
 
-      {/* 6. Interactive 5-Step Admission Guidance Journey */}
+      {/* 7. Government of Bihar Scheme: Bihar Student Credit Card (BSCC) */}
+      <BiharStudentCreditCard onOpenEnquiry={(subj) => {
+        setEnquiryInitialCourse(null);
+        setEnquiryInitialUniversity(null);
+        setEnquiryModalOpen(true);
+      }} />
+
+      {/* 8. Interactive 5-Step Admission Guidance Journey */}
       <ProcessTimeline onOpenEnquiry={handleGeneralEnquiry} />
 
       {/* 6. About Us Section */}

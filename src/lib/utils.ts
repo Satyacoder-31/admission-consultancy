@@ -28,6 +28,10 @@ export function getUniversityWhatsAppMessage(universityName: string): string {
   return `Hello SAHI RAAH CONSULTANCY, I would like admission details for ${universityName}. Please share the available approved courses, recognition status, and fee details.`;
 }
 
+export function getBsccWhatsAppMessage(): string {
+  return `Hello SAHI RAAH CONSULTANCY, I want information and admission guidance under the Bihar Student Credit Card (BSCC) Scheme for my higher education. Please guide me about approved colleges and the DRCC documentation process.`;
+}
+
 export function formatIndianPhone(phone: string): string {
   const clean = phone.replace(/\D/g, '');
   if (clean.length === 10) {
