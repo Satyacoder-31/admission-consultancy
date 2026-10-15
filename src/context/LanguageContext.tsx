@@ -38,6 +38,7 @@ export const translations: Translations = {
   'top.admin': { en: 'Admin', hi: 'एडमिन' },
 
   // Buttons & CTAs
+  'cta.apply': { en: 'Apply', hi: 'आवेदन' },
   'cta.applyNow': { en: 'Apply Now', hi: 'अभी आवेदन करें' },
   'cta.applyGuidance': { en: 'Apply for Admission Guidance', hi: 'प्रवेश परामर्श के लिए आवेदन करें' },
   'cta.whatsapp': { en: 'Ask on WhatsApp', hi: 'व्हाट्सएप पर पूछें' },

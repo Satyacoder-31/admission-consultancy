@@ -169,10 +169,10 @@ export default function Navbar() {
             : 'bg-[#082B59] py-3.5 border-b border-white/10'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none flex-shrink-0">
-            <div className="relative w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-white p-1 shadow-md border-2 border-amber-400/80 group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group focus:outline-none min-w-0 flex-shrink">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-white p-1 shadow-md border-2 border-amber-400/80 group-hover:scale-105 transition-transform overflow-hidden flex-shrink-0">
               <Image
                 src="/images/brand/logo.jpg"
                 alt="SAHI RAAH CONSULTANCY Logo"
@@ -183,10 +183,10 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="text-base sm:text-lg md:text-xl font-extrabold tracking-tight text-white leading-tight truncate group-hover:text-amber-300 transition-colors">
+              <span className="text-sm sm:text-lg md:text-xl font-extrabold tracking-tight text-white leading-tight truncate group-hover:text-amber-300 transition-colors">
                 SAHI RAAH
               </span>
-              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-bold tracking-[0.2em] text-teal-300 uppercase leading-none truncate">
+              <span className="text-[8px] sm:text-[10px] md:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-teal-300 uppercase leading-none truncate">
                 CONSULTANCY
               </span>
               <span className="text-[9px] text-slate-300 italic hidden sm:inline-block leading-tight mt-0.5 truncate">
@@ -228,11 +228,11 @@ export default function Navbar() {
           </div>
 
           {/* Mobile & Tablet Toolbar (Shown ONLY on screens below lg: 1024px) */}
-          <div className="flex items-center gap-2 lg:hidden flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden flex-shrink-0">
             {/* Mobile Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="px-2 py-1.5 rounded-lg bg-white/10 text-white text-[11px] font-bold border border-white/20 hover:border-amber-400 flex items-center gap-1 cursor-pointer transition-colors"
+              className="px-2 py-1 sm:py-1.5 rounded-lg bg-white/10 text-white text-[11px] font-bold border border-white/20 hover:border-amber-400 flex items-center gap-1 cursor-pointer transition-colors"
               title="Change Language"
               aria-label="Change Language"
             >
@@ -243,7 +243,7 @@ export default function Navbar() {
             {/* Mobile Theme Switcher */}
             <button
               onClick={toggleTheme}
-              className="p-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:border-amber-400 cursor-pointer transition-colors"
+              className="p-1 sm:p-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:border-amber-400 cursor-pointer transition-colors"
               title="Toggle Theme"
               aria-label="Toggle theme"
             >
@@ -257,15 +257,15 @@ export default function Navbar() {
             {/* Mobile Apply Button */}
             <Link
               href="/enquiry"
-              className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-colors shadow-sm"
+              className="inline-flex items-center justify-center px-2.5 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 transition-colors shadow-sm whitespace-nowrap"
             >
-              {t('cta.applyNow', 'Apply')}
+              {t('cta.apply', 'Apply')}
             </Link>
 
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-lg text-white hover:bg-white/10 focus:outline-none transition-colors"
+              className="p-1 sm:p-1.5 rounded-lg text-white hover:bg-white/10 focus:outline-none transition-colors"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
