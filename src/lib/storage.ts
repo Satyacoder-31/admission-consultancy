@@ -1,6 +1,6 @@
 import { AdmissionEnquiry, Course, University, SiteSettings } from '@/types';
 import { initialCourses } from '@/data/courses';
-import { initialUniversities } from '@/data/universities';
+import { initialUniversities, sortUniversitiesByPriority } from '@/data/universities';
 import { siteConfig } from '@/data/siteConfig';
 
 const COURSES_KEY = 'sr_courses_data';
@@ -193,23 +193,47 @@ export function getStoredUniversities(): University[] {
   try {
     const raw = localStorage.getItem(UNIVERSITIES_KEY);
     if (!raw) {
-      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(initialUniversities));
-      return initialUniversities;
+      const sortedInit = sortUniversitiesByPriority(initialUniversities);
+      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(sortedInit));
+      return sortedInit;
     }
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      // Deduplicate by ID, slug, and name
+      // Deduplicate by ID, slug, and name while preserving admin overrides and priority ordering
       const seenIds = new Set<string>();
       const seenNames = new Set<string>();
       const seenSlugs = new Set<string>();
       const cleanList: University[] = [];
 
-      // 1. Process initialUniversities first to ensure latest canonical data
+      // 1. Process initialUniversities first, merging any admin overrides if present
       for (const iu of initialUniversities) {
-        cleanList.push(iu);
-        seenIds.add(iu.id);
-        seenNames.add(iu.name.toLowerCase().trim());
-        seenSlugs.add(iu.slug.toLowerCase().trim());
+        const normName = iu.name.toLowerCase().trim();
+        const normSlug = (iu.slug || '').toLowerCase().trim();
+        const matchingParsed = parsed.find(
+          (p: any) =>
+            p &&
+            (p.id === iu.id ||
+              (p.slug && p.slug.toLowerCase().trim() === normSlug) ||
+              (p.name && p.name.toLowerCase().trim() === normName))
+        );
+
+        let merged: University;
+        if (matchingParsed) {
+          // Keep user's custom edits, but if priorityOrder wasn't customized, preserve canonical priorityOrder
+          merged = {
+            ...iu,
+            ...matchingParsed,
+            isPriority: matchingParsed.isPriority !== undefined ? matchingParsed.isPriority : iu.isPriority,
+            priorityOrder: matchingParsed.priorityOrder !== undefined ? matchingParsed.priorityOrder : iu.priorityOrder
+          };
+        } else {
+          merged = iu;
+        }
+
+        cleanList.push(merged);
+        seenIds.add(merged.id);
+        seenNames.add(merged.name.toLowerCase().trim());
+        seenSlugs.add(merged.slug.toLowerCase().trim());
       }
 
       // 2. Append any custom admin-created universities not already in initialUniversities
@@ -225,24 +249,43 @@ export function getStoredUniversities(): University[] {
         }
       }
 
-      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(cleanList));
-      return cleanList;
+      const sorted = sortUniversitiesByPriority(cleanList);
+      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(sorted));
+      return sorted;
     }
-    return initialUniversities;
+    return sortUniversitiesByPriority(initialUniversities);
   } catch {
-    return initialUniversities;
+    return sortUniversitiesByPriority(initialUniversities);
   }
 }
 
 export function saveStoredUniversities(unis: University[]): void {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(unis));
-    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'universities', data: unis } }));
+    const sorted = sortUniversitiesByPriority(unis);
+    localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(sorted));
+    window.dispatchEvent(new CustomEvent('sr_data_updated', { detail: { type: 'universities', data: sorted } }));
     window.dispatchEvent(new Event('storage'));
   } catch (e) {
     console.error('Failed to save universities to localStorage', e);
   }
+}
+
+export function setUniversityPriority(id: string, isPriority: boolean, priorityOrder?: number): University[] {
+  const unis = getStoredUniversities();
+  const updated = unis.map((u) => {
+    if (u.id === id) {
+      return {
+        ...u,
+        isPriority,
+        priorityOrder: isPriority ? (priorityOrder ?? 1) : undefined
+      };
+    }
+    return u;
+  });
+  const sorted = sortUniversitiesByPriority(updated);
+  saveStoredUniversities(sorted);
+  return sorted;
 }
 
 export function getStoredEnquiries(): AdmissionEnquiry[] {

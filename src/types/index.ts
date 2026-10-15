@@ -59,6 +59,8 @@ export interface University {
   summary: string;
   address: string;
   websiteNote?: string;
+  isPriority?: boolean;
+  priorityOrder?: number;
 }
 
 export type LeadStatus = 'New' | 'Contacted' | 'Follow-Up' | 'Converted' | 'Closed';

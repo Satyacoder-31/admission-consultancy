@@ -56,7 +56,11 @@ import {
   FileCheck,
   Check,
   Copy,
-  RotateCcw
+  RotateCcw,
+  Star,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown
 } from 'lucide-react';
 
 export interface MasterDoc {
@@ -103,6 +107,8 @@ export default function AdminDashboardPage() {
   // Filters for Universities
   const [uniSearch, setUniSearch] = useState('');
   const [uniStateFilter, setUniStateFilter] = useState<string>('All');
+  const [uniPriorityFilter, setUniPriorityFilter] = useState<'All' | 'Priority' | 'Standard'>('All');
+  const [priorityManagerOpen, setPriorityManagerOpen] = useState(false);
 
   // Modals
   const [selectedEnquiry, setSelectedEnquiry] = useState<AdmissionEnquiry | null>(null);
@@ -136,7 +142,9 @@ export default function AdminDashboardPage() {
     address: '',
     websiteNote: '',
     modesOffered: ['Regular', 'Distance'] as StudyMode[],
-    availableCourseIds: [] as string[]
+    availableCourseIds: [] as string[],
+    isPriority: false,
+    priorityOrder: 1
   });
 
   // New Walk-in Lead Form State
@@ -1240,6 +1248,7 @@ export default function AdminDashboardPage() {
   // University Management Handlers
   const handleOpenAddUni = () => {
     setEditingUni(null);
+    const currentPriorityCount = universities.filter((u) => u.isPriority).length;
     setUniForm({
       name: '',
       shortName: '',
@@ -1254,13 +1263,16 @@ export default function AdminDashboardPage() {
       address: '',
       websiteNote: '',
       modesOffered: ['Regular', 'Distance'],
-      availableCourseIds: courses.slice(0, 4).map((c) => c.id)
+      availableCourseIds: courses.slice(0, 4).map((c) => c.id),
+      isPriority: false,
+      priorityOrder: currentPriorityCount + 1
     });
     setUniModalOpen(true);
   };
 
   const handleOpenEditUni = (u: University) => {
     setEditingUni(u);
+    const currentPriorityCount = universities.filter((x) => x.isPriority).length;
     setUniForm({
       name: u.name,
       shortName: u.shortName,
@@ -1275,7 +1287,9 @@ export default function AdminDashboardPage() {
       address: u.address,
       websiteNote: u.websiteNote || '',
       modesOffered: u.modesOffered || ['Regular'],
-      availableCourseIds: u.availableCourseIds || []
+      availableCourseIds: u.availableCourseIds || [],
+      isPriority: Boolean(u.isPriority),
+      priorityOrder: u.priorityOrder || currentPriorityCount + 1
     });
     setUniModalOpen(true);
   };
@@ -1288,9 +1302,78 @@ export default function AdminDashboardPage() {
     showToast(`Removed ${name} from partner institutions`);
   };
 
+  const handleTogglePriority = (id: string) => {
+    const target = universities.find((u) => u.id === id);
+    if (!target) return;
+    const newIsPriority = !target.isPriority;
+    const currentPriorityCount = universities.filter((u) => u.isPriority).length;
+    const updated = universities.map((u) => {
+      if (u.id === id) {
+        return {
+          ...u,
+          isPriority: newIsPriority,
+          priorityOrder: newIsPriority ? (target.priorityOrder || currentPriorityCount + 1) : undefined
+        };
+      }
+      return u;
+    });
+    setUniversities(updated);
+    saveStoredUniversities(updated);
+    showToast(newIsPriority ? `⭐ Set ${target.name} as Priority Partner` : `Removed ${target.name} from Priority`);
+  };
+
+  const handleUpdatePriorityRank = (id: string, rank: number) => {
+    if (isNaN(rank) || rank < 1) rank = 1;
+    const updated = universities.map((u) => {
+      if (u.id === id) {
+        return {
+          ...u,
+          isPriority: true,
+          priorityOrder: rank
+        };
+      }
+      return u;
+    });
+    setUniversities(updated);
+    saveStoredUniversities(updated);
+    showToast(`Updated Priority Rank to #${rank}`);
+  };
+
+  const handleMovePriority = (id: string, direction: 'up' | 'down') => {
+    const priorityUnis = universities
+      .filter((u) => u.isPriority)
+      .sort((a, b) => (a.priorityOrder || 0) - (b.priorityOrder || 0));
+    const currentIndex = priorityUnis.findIndex((u) => u.id === id);
+    if (currentIndex === -1) return;
+    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= priorityUnis.length) return;
+
+    const currentUni = priorityUnis[currentIndex];
+    const targetUni = priorityUnis[targetIndex];
+    const tempOrder = currentUni.priorityOrder || (currentIndex + 1);
+    const newTargetOrder = targetUni.priorityOrder || (targetIndex + 1);
+
+    const updated = universities.map((u) => {
+      if (u.id === currentUni.id) {
+        return { ...u, priorityOrder: newTargetOrder };
+      }
+      if (u.id === targetUni.id) {
+        return { ...u, priorityOrder: tempOrder };
+      }
+      return u;
+    });
+
+    setUniversities(updated);
+    saveStoredUniversities(updated);
+    showToast(`Moved ${currentUni.name} ${direction === 'up' ? 'Up' : 'Down'}`);
+  };
+
   const handleSaveUni = (e: React.FormEvent) => {
     e.preventDefault();
     if (!uniForm.name.trim()) return;
+
+    const isPrio = Boolean(uniForm.isPriority);
+    const prioOrder = isPrio ? (Number(uniForm.priorityOrder) || 1) : undefined;
 
     if (editingUni) {
       const updated = universities.map((u) => {
@@ -1298,6 +1381,8 @@ export default function AdminDashboardPage() {
           return {
             ...u,
             ...uniForm,
+            isPriority: isPrio,
+            priorityOrder: prioOrder,
             slug: u.slug || uniForm.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
           };
         }
@@ -1325,7 +1410,9 @@ export default function AdminDashboardPage() {
         websiteNote: uniForm.websiteNote,
         modesOffered: uniForm.modesOffered.length > 0 ? uniForm.modesOffered : ['Regular'],
         availableCourseIds: uniForm.availableCourseIds.length > 0 ? uniForm.availableCourseIds : courses.slice(0, 3).map((c) => c.id),
-        campusFeatures: ['Modern Academic Campus', 'Digital Library', 'Hostel Facilities', 'Career Placement Cell']
+        campusFeatures: ['Modern Academic Campus', 'Digital Library', 'Hostel Facilities', 'Career Placement Cell'],
+        isPriority: isPrio,
+        priorityOrder: prioOrder
       };
       const updated = [newUni, ...universities];
       setUniversities(updated);
@@ -1482,9 +1569,15 @@ export default function AdminDashboardPage() {
         u.location.toLowerCase().includes(uniSearch.toLowerCase());
 
       const matchState = uniStateFilter === 'All' || u.state === uniStateFilter;
-      return matchSearch && matchState;
+
+      const matchPriority =
+        uniPriorityFilter === 'All' ||
+        (uniPriorityFilter === 'Priority' && u.isPriority) ||
+        (uniPriorityFilter === 'Standard' && !u.isPriority);
+
+      return matchSearch && matchState && matchPriority;
     });
-  }, [universities, uniSearch, uniStateFilter]);
+  }, [universities, uniSearch, uniStateFilter, uniPriorityFilter]);
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
@@ -2320,17 +2413,56 @@ export default function AdminDashboardPage() {
         {/* ============================================================== */}
         {activeTab === 'universities' && (
           <div className="space-y-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-emerald-600" />
                   <span>Partner Universities Matrix ({universities.length})</span>
                 </h3>
-                <p className="text-xs text-slate-500">Direct university partnerships, statutory approvals, and state affiliations</p>
+                <p className="text-xs text-slate-500">
+                  Direct university partnerships, priority display ranking, statutory approvals, and state affiliations
+                </p>
+
+                {/* Priority Filter Pills */}
+                <div className="flex items-center gap-2 pt-3 flex-wrap">
+                  <button
+                    onClick={() => setUniPriorityFilter('All')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      uniPriorityFilter === 'All'
+                        ? 'bg-[#082B59] text-white shadow-xs'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
+                  >
+                    All ({universities.length})
+                  </button>
+                  <button
+                    onClick={() => setUniPriorityFilter('Priority')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                      uniPriorityFilter === 'Priority'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs'
+                        : 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
+                    }`}
+                  >
+                    <span>⭐ Priority Partners</span>
+                    <span className="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-white/40">
+                      {universities.filter((u) => u.isPriority).length}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => setUniPriorityFilter('Standard')}
+                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      uniPriorityFilter === 'Standard'
+                        ? 'bg-slate-800 text-white shadow-xs'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
+                  >
+                    Standard Directory ({universities.filter((u) => !u.isPriority).length})
+                  </button>
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto">
-                <div className="relative w-full sm:w-64">
+                <div className="relative w-full sm:w-56">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
@@ -2342,11 +2474,20 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <button
+                  onClick={() => setPriorityManagerOpen(true)}
+                  className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-900 text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-sm cursor-pointer transition-all whitespace-nowrap"
+                  title="Manage and reorder priority universities"
+                >
+                  <Star className="w-3.5 h-3.5 fill-slate-900" />
+                  <span>Priority Sequence ({universities.filter((u) => u.isPriority).length})</span>
+                </button>
+
+                <button
                   onClick={handleOpenAddUni}
                   className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold flex items-center justify-center gap-1.5 shadow-md cursor-pointer transition-all whitespace-nowrap"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>+ Add Partner University</span>
+                  <span>+ Add University</span>
                 </button>
               </div>
             </div>
@@ -2356,10 +2497,51 @@ export default function AdminDashboardPage() {
               {filteredUniversities.map((u) => (
                 <div
                   key={u.id}
-                  className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-400 transition-all flex flex-col justify-between"
+                  className={`bg-white p-5 rounded-2xl border shadow-sm transition-all flex flex-col justify-between ${
+                    u.isPriority ? 'border-amber-300 ring-1 ring-amber-400/40' : 'border-slate-200 hover:border-slate-300'
+                  }`}
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
+                  <div className="space-y-2.5">
+                    {/* Priority & Status Header Bar */}
+                    <div className="flex items-center justify-between gap-2 pb-1 border-b border-slate-100">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => handleTogglePriority(u.id)}
+                          title={u.isPriority ? "Click to remove priority status" : "Click to mark as Priority Partner"}
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 transition-all cursor-pointer ${
+                            u.isPriority
+                              ? 'bg-amber-100 text-amber-900 border border-amber-400 hover:bg-amber-200'
+                              : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
+                          }`}
+                        >
+                          <Star className={`w-3 h-3 ${u.isPriority ? 'text-amber-500 fill-amber-500' : 'text-slate-400'}`} />
+                          <span>{u.isPriority ? `Priority #${u.priorityOrder || 1}` : 'Set Priority'}</span>
+                        </button>
+
+                        {u.isPriority && (
+                          <div className="flex items-center gap-0.5">
+                            <button
+                              onClick={() => handleMovePriority(u.id, 'up')}
+                              title="Move priority up"
+                              className="p-1 rounded hover:bg-slate-100 text-slate-600 cursor-pointer"
+                            >
+                              <ArrowUp className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => handleMovePriority(u.id, 'down')}
+                              title="Move priority down"
+                              className="p-1 rounded hover:bg-slate-100 text-slate-600 cursor-pointer"
+                            >
+                              <ArrowDown className="w-3 h-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      <span className="text-[11px] font-semibold text-slate-500">📍 {u.state}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2">
                       <select
                         value={u.verificationStatus}
                         onChange={(e) => {
@@ -2381,11 +2563,15 @@ export default function AdminDashboardPage() {
                         <option value="Verification Required">Verification Required</option>
                         <option value="Institutional Review">Institutional Review</option>
                       </select>
-                      <span className="text-[11px] font-semibold text-slate-500">📍 {u.state}</span>
+                      <span className="text-[10px] font-medium text-slate-400 bg-slate-50 px-2 py-0.5 rounded">
+                        {u.type}
+                      </span>
                     </div>
 
-                    <h4 className="font-bold text-sm text-slate-900 leading-snug">{u.name}</h4>
-                    <p className="text-xs text-slate-500">{u.location}</p>
+                    <div>
+                      <h4 className="font-bold text-sm text-slate-900 leading-snug">{u.name}</h4>
+                      <p className="text-xs text-slate-500">{u.location}</p>
+                    </div>
 
                     <div className="text-[11px] text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
                       <p className="font-medium line-clamp-2">{u.accreditationNote}</p>
@@ -3648,6 +3834,40 @@ export default function AdminDashboardPage() {
                 />
               </div>
 
+              {/* Priority Configuration Card */}
+              <div className="p-3 bg-amber-50/70 rounded-2xl border border-amber-300 space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={uniForm.isPriority}
+                      onChange={(e) => setUniForm({ ...uniForm, isPriority: e.target.checked })}
+                      className="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-0 cursor-pointer"
+                    />
+                    <span className="font-bold text-amber-950 text-xs flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                      <span>Set as Priority Partner University</span>
+                    </span>
+                  </label>
+                  {uniForm.isPriority && (
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px] font-bold text-amber-900">Rank:</span>
+                      <input
+                        type="number"
+                        min={1}
+                        max={99}
+                        value={uniForm.priorityOrder || 1}
+                        onChange={(e) => setUniForm({ ...uniForm, priorityOrder: parseInt(e.target.value) || 1 })}
+                        className="w-14 p-1 text-center font-extrabold text-amber-950 bg-white border border-amber-400 rounded-lg text-xs"
+                      />
+                    </div>
+                  )}
+                </div>
+                <p className="text-[11px] text-amber-900/80 leading-relaxed">
+                  Priority universities appear first on the home page and in the universities directory in numerical order.
+                </p>
+              </div>
+
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
                   Assign Available Courses ({uniForm.availableCourseIds.length} Selected)
@@ -3689,6 +3909,121 @@ export default function AdminDashboardPage() {
                 {editingUni ? 'Save Changes' : 'Create Partner University'}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* MODAL 6: PRIORITY SEQUENCE MANAGER                             */}
+      {/* ============================================================== */}
+      {priorityManagerOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-amber-300 space-y-4 animate-in zoom-in-95 max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3 flex-shrink-0">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+                  <span>Priority Universities Sequence ({universities.filter((u) => u.isPriority).length})</span>
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Priority universities appear first on the home page and university directory in this numerical sequence.
+                </p>
+              </div>
+              <button
+                onClick={() => setPriorityManagerOpen(false)}
+                className="text-slate-400 hover:text-slate-700 cursor-pointer p-1"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto flex-1 space-y-2 pr-1">
+              {universities
+                .filter((u) => u.isPriority)
+                .sort((a, b) => (a.priorityOrder || 0) - (b.priorityOrder || 0))
+                .map((u, idx, arr) => (
+                  <div
+                    key={u.id}
+                    className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-400 transition-all gap-3"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="w-7 h-7 rounded-lg bg-amber-400 text-slate-900 font-black text-xs flex items-center justify-center flex-shrink-0 shadow-xs">
+                        #{idx + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-bold text-slate-900 truncate">{u.name}</h4>
+                        <p className="text-[11px] text-slate-500">{u.location}, {u.state} • {u.type}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-1">
+                        <button
+                          disabled={idx === 0}
+                          onClick={() => handleMovePriority(u.id, 'up')}
+                          className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          title="Move Up"
+                        >
+                          <ArrowUp className="w-3.5 h-3.5 text-slate-700" />
+                        </button>
+                        <button
+                          disabled={idx === arr.length - 1}
+                          onClick={() => handleMovePriority(u.id, 'down')}
+                          className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          title="Move Down"
+                        >
+                          <ArrowDown className="w-3.5 h-3.5 text-slate-700" />
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => handleTogglePriority(u.id)}
+                        className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold cursor-pointer"
+                        title="Remove from Priority"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+
+              {universities.filter((u) => u.isPriority).length === 0 && (
+                <div className="p-8 text-center text-xs text-slate-500">
+                  No universities currently marked as priority. Use the selector below to add institutions.
+                </div>
+              )}
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 flex-shrink-0">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      handleTogglePriority(e.target.value);
+                      e.target.value = '';
+                    }
+                  }}
+                  defaultValue=""
+                  className="text-xs p-2.5 rounded-xl border border-slate-300 bg-white w-full sm:w-64 focus:outline-none"
+                >
+                  <option value="" disabled>+ Add University to Priority...</option>
+                  {universities
+                    .filter((u) => !u.isPriority)
+                    .map((u) => (
+                      <option key={u.id} value={u.id}>
+                        {u.name} ({u.state})
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <button
+                onClick={() => setPriorityManagerOpen(false)}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-amber-300 text-xs font-bold cursor-pointer shadow-md"
+              >
+                Done
+              </button>
+            </div>
           </div>
         </div>
       )}

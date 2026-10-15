@@ -16,6 +16,7 @@ export default function UniversitiesPage() {
   const [search, setSearch] = useState('');
   const [selectedState, setSelectedState] = useState<string>('All');
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
+  const [selectedPriority, setSelectedPriority] = useState<'All' | 'Priority'>('All');
 
   useEffect(() => {
     setUniversities(getStoredUniversities());
@@ -52,9 +53,12 @@ export default function UniversitiesPage() {
       const matchStatus =
         selectedStatus === 'All' || uni.verificationStatus === selectedStatus;
 
-      return matchSearch && matchState && matchStatus;
+      const matchPriority =
+        selectedPriority === 'All' || uni.isPriority;
+
+      return matchSearch && matchState && matchStatus && matchPriority;
     });
-  }, [universities, search, selectedState, selectedStatus]);
+  }, [universities, search, selectedState, selectedStatus, selectedPriority]);
 
   const handleApply = (uni: University) => {
     setSelectedUni(uni);
@@ -71,10 +75,10 @@ export default function UniversitiesPage() {
             <span>Institutional Directory</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-            25+ Leading Universities Directory
+            {universities.length}+ Leading Universities Directory
           </h1>
           <p className="text-sm sm:text-base text-slate-200 mt-3 leading-relaxed">
-            Authentic institution profiles extracted directly from our verified admissions poster, with session-based regulatory status.
+            Authentic partner university profiles and priority institutions with session-based regulatory status.
           </p>
         </div>
       </section>
@@ -98,6 +102,35 @@ export default function UniversitiesPage() {
 
         {/* Filters */}
         <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-5 sm:p-6 mb-10 space-y-4">
+          {/* Priority Quick Filter Pills */}
+          <div className="flex items-center gap-2 flex-wrap pb-2 border-b border-slate-100">
+            <button
+              onClick={() => setSelectedPriority('All')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedPriority === 'All'
+                  ? 'bg-[#082B59] text-white shadow-xs'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              All Universities ({universities.length})
+            </button>
+            <button
+              onClick={() => setSelectedPriority('Priority')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedPriority === 'Priority'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs'
+                  : 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
+              }`}
+            >
+              <span>⭐ Priority Partner Universities</span>
+              <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-full ${
+                selectedPriority === 'Priority' ? 'bg-white/30 text-white' : 'bg-amber-200/80 text-amber-950'
+              }`}>
+                {universities.filter((u) => u.isPriority).length}
+              </span>
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             {/* Search */}
             <div className="md:col-span-6 relative">
@@ -146,14 +179,15 @@ export default function UniversitiesPage() {
             <span>
               Showing <strong>{filtered.length}</strong> of {universities.length} universities
             </span>
-            {(search || selectedState !== 'All' || selectedStatus !== 'All') && (
+            {(search || selectedState !== 'All' || selectedStatus !== 'All' || selectedPriority !== 'All') && (
               <button
                 onClick={() => {
                   setSearch('');
                   setSelectedState('All');
                   setSelectedStatus('All');
+                  setSelectedPriority('All');
                 }}
-                className="text-xs font-bold text-[#082B59] hover:underline"
+                className="text-xs font-bold text-[#082B59] hover:underline cursor-pointer"
               >
                 Reset filters
               </button>

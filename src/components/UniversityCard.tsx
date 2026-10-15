@@ -27,10 +27,17 @@ export default function UniversityCard({ university, onApply }: UniversityCardPr
       <div className="p-5 pb-3">
         {/* Verification Status Pill */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300">
-            <ShieldAlert className="w-3 h-3 text-amber-600" />
-            <span>{university.verificationStatus}</span>
-          </span>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300">
+              <ShieldAlert className="w-3 h-3 text-amber-600" />
+              <span>{university.verificationStatus}</span>
+            </span>
+            {university.isPriority && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs">
+                <span>⭐ Priority #{university.priorityOrder || 1}</span>
+              </span>
+            )}
+          </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
             {university.type}
           </span>
