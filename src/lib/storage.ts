@@ -198,14 +198,35 @@ export function getStoredUniversities(): University[] {
     }
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      const existingIds = new Set(parsed.map((p: University) => p.id));
-      const missingInitial = initialUniversities.filter(iu => !existingIds.has(iu.id));
-      if (missingInitial.length > 0) {
-        const merged = [...parsed, ...missingInitial];
-        localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(merged));
-        return merged;
+      // Deduplicate by ID, slug, and name
+      const seenIds = new Set<string>();
+      const seenNames = new Set<string>();
+      const seenSlugs = new Set<string>();
+      const cleanList: University[] = [];
+
+      // 1. Process initialUniversities first to ensure latest canonical data
+      for (const iu of initialUniversities) {
+        cleanList.push(iu);
+        seenIds.add(iu.id);
+        seenNames.add(iu.name.toLowerCase().trim());
+        seenSlugs.add(iu.slug.toLowerCase().trim());
       }
-      return parsed;
+
+      // 2. Append any custom admin-created universities not already in initialUniversities
+      for (const p of parsed) {
+        if (!p || !p.id || !p.name) continue;
+        const normName = p.name.toLowerCase().trim();
+        const normSlug = (p.slug || '').toLowerCase().trim();
+        if (!seenIds.has(p.id) && !seenNames.has(normName) && !seenSlugs.has(normSlug)) {
+          cleanList.push(p);
+          seenIds.add(p.id);
+          seenNames.add(normName);
+          seenSlugs.add(normSlug);
+        }
+      }
+
+      localStorage.setItem(UNIVERSITIES_KEY, JSON.stringify(cleanList));
+      return cleanList;
     }
     return initialUniversities;
   } catch {
