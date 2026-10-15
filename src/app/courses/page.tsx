@@ -94,7 +94,7 @@ export default function CoursesPage() {
             All Courses & Degrees
           </h1>
           <p className="text-sm sm:text-base text-slate-200 mt-3 leading-relaxed">
-            Discover 50+ verified programmes across Arts, Commerce, Science, Engineering, Paramedical & Allied Health, Nursing, Pharmacy, B.Ed & Education, Vocational B.Voc, and School Boards.
+            Discover 100+ verified programmes across Arts, Commerce, Science, Engineering, Paramedical & Allied Health, Nursing, Pharmacy, B.Ed & Education, Vocational B.Voc, and School Boards.
           </p>
         </div>
       </section>

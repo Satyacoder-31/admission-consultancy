@@ -187,7 +187,7 @@ export default function HomePage() {
               href="/courses"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#082B59] hover:text-[#1355A5] transition-colors"
             >
-              <span>View Full Directory (50+ Courses)</span>
+              <span>View Full Directory (100+ Courses)</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

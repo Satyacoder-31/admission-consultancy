@@ -30,8 +30,8 @@ const HERO_SLIDES = [
     image: '/images/hero/slide-1-campus.jpg',
     mobileImage: '/images/hero/slide-1-campus-mobile.jpg',
     alt: 'Prestigious University Campus Environment',
-    badge: '25+ Leading Partner Universities',
-    badgeHi: '25+ प्रमुख सहयोगी विश्वविद्यालय',
+    badge: '45+ Leading Partner Universities',
+    badgeHi: '45+ प्रमुख सहयोगी विश्वविद्यालय',
     caption: 'Prestigious Campuses',
   },
   {
@@ -39,8 +39,8 @@ const HERO_SLIDES = [
     image: '/images/hero/slide-2-library.jpg',
     mobileImage: '/images/hero/slide-2-library-mobile.jpg',
     alt: 'Modern Academic Research & Library Learning',
-    badge: '50+ Recognized Degrees & Diplomas',
-    badgeHi: '50+ मान्यता प्राप्त डिग्री व डिप्लोमा',
+    badge: '100+ Recognized Degrees & Diplomas',
+    badgeHi: '100+ मान्यता प्राप्त डिग्री व डिप्लोमा',
     caption: 'Modern Learning',
   },
   {
@@ -269,7 +269,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '50+ कोर्स' : '50+ Courses'}</h4>
+                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '100+ कोर्स' : '100+ Courses'}</h4>
                   <p className="text-[11px] text-slate-300">{language === 'hi' ? 'पैरामेडिकल, नर्सिंग, फार्मेसी, B.Ed व कृषि' : 'Paramedical, Nursing, Pharmacy, B.Ed & Tech'}</p>
                 </div>
               </div>
@@ -279,7 +279,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                   <Building2 className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '25+ विश्वविद्यालय' : '25+ Universities'}</h4>
+                  <h4 className="text-xs font-bold text-white">{language === 'hi' ? '45+ विश्वविद्यालय' : '45+ Universities'}</h4>
                   <p className="text-[11px] text-slate-300">{language === 'hi' ? 'रेगुलर, डिस्टेंस एवं ऑनलाइन' : 'Regular, Distance & Online'}</p>
                 </div>
               </div>
