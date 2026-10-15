@@ -75,21 +75,21 @@ export const initialUniversities: University[] = [
   },
   {
     id: 'u-calorx',
-    slug: 'calorx-teachers-university',
-    name: "Calorx Teachers' University (Sabarmati University)",
-    shortName: "Calorx / Sabarmati",
+    slug: 'sabarmati-university',
+    name: 'Sabarmati University',
+    shortName: 'Sabarmati University',
     location: 'Ahmedabad',
     state: 'Gujarat',
-    logo: '/images/universities/calorx.png',
+    logo: '/images/universities/sabarmati.png',
     established: '2009',
     type: 'State Private University',
-    verificationStatus: 'Verification Required',
-    accreditationNote: 'Established under Gujarat State Act. Originating with focus on teacher education; now operating as Sabarmati University. NCTE/UGC approval statuses vary by discipline.',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Gujarat Private Universities Act (formerly Calorx Teachers University). Recognized by UGC under Section 2(f). Member of Association of Indian Universities (AIU). Approved by NCTE for teacher education programs.',
     modesOffered: ['Regular'],
-    availableCourseIds: ['c-ba', 'c-ma', 'c-bcom', 'c-bba', 'c-mba', 'c-bca', 'c-pgdca', 'c-dlib', 'c-blib', 'c-mlib'],
-    campusFeatures: ['Pedagogical Training Labs', 'Central Library', 'Digital Seminar Halls'],
-    summary: 'Originally established with a distinctive focus on pedagogical innovation and teacher education, situated near Ahmedabad, Gujarat.',
-    address: 'Near Greenwood Lake Resort, Vaishno Devi Circle, Ahmedabad, Gujarat – 382481'
+    availableCourseIds: ['c-bed', 'c-med', 'c-deled', 'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-bsc', 'c-msc', 'c-dlib', 'c-blib', 'c-mlib', 'c-phd'],
+    campusFeatures: ['Historic Green Campus near Vaishno Devi Circle, Ahmedabad', 'Premier Center for Teacher Education & Pedagogical Innovation', 'NCTE & UGC Recognized University', 'Rich Central Library & Digital Research Infrastructure', 'Comprehensive Sports & Student Cultural Facilities'],
+    summary: 'A prominent state private university in Ahmedabad, Gujarat (formerly Calorx Teachers University), recognized for pedagogy, teacher education, management, commerce, arts, computing, and interdisciplinary doctoral studies.',
+    address: 'Near Greenwood Lake Resort, Vaishno Devi Circle, Sardar Patel Ring Road, Ahmedabad, Gujarat – 382481'
   },
   {
     id: 'u-arni',
@@ -585,5 +585,486 @@ export const initialUniversities: University[] = [
     ],
     summary: 'A premier NAAC "A+" accredited university in Jaipur, Rajasthan, sponsored by the Seedling Group. Offers comprehensive programmes across medical & health sciences, nursing, pharmacy, engineering, education, law, and management with world-class hospital and laboratory infrastructure.',
     address: 'Jaipur-Agra Bypass, Near New RTO Office, Jagatpura, Jaipur, Rajasthan – 302017'
+  },
+  {
+    id: 'u-sunrise',
+    slug: 'sunrise-university-alwar',
+    name: 'SunRise University',
+    shortName: 'SunRise University',
+    location: 'Alwar',
+    state: 'Rajasthan',
+    logo: '/images/universities/sunrise.png',
+    established: '2011',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Rajasthan State Legislature Act No. 25 of 2011. Recognized by UGC under Section 2(f) of UGC Act 1956. Approved by AICTE, BCI, PCI, and member of Association of Indian Universities (AIU).',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 
+      'c-bsc', 'c-msc', 'c-bsc-agriculture', 'c-bpharm', 'c-dpharm', 
+      'c-dpt', 'c-bpt', 'c-bmlt', 'c-llb', 'c-ballb', 'c-llm', 
+      'c-bed', 'c-dlib', 'c-blib', 'c-phd'
+    ],
+    campusFeatures: [
+      '35+ Acre Integrated Campus in Alwar, Rajasthan',
+      'Recognized by UGC, AICTE, PCI & Bar Council of India (BCI)',
+      'Hi-Tech Engineering & Pharmacy Research Laboratories',
+      'Residential Hostels, Sports Complex & Gymnasium',
+      'Dedicated Training & Placement Assistance Cell'
+    ],
+    summary: 'A well-established multidisciplinary university in Alwar, Rajasthan, providing high-standard professional education across engineering, pharmacy, law, agriculture, management, and basic sciences.',
+    address: 'Bagad Rajput, Tehsil Ramgarh, District Alwar, Rajasthan – 301028'
+  },
+  {
+    id: 'u-ppu',
+    slug: 'patliputra-university-patna',
+    name: 'Patliputra University',
+    shortName: 'PPU Patna',
+    location: 'Patna',
+    state: 'Bihar',
+    logo: '/images/universities/patliputra.png',
+    established: '2018',
+    type: 'State University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established by Bihar State University Act (Amendment) 2016 by the Government of Bihar. Recognized under Section 2(f) & 12(B) of the UGC Act, 1956. Premier public state university administering higher education across Patna and Nalanda districts.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 
+      'c-bca', 'c-mca', 'c-bba', 'c-mba', 'c-bed', 'c-deled', 
+      'c-llb', 'c-blib', 'c-mlib', 'c-phd'
+    ],
+    campusFeatures: [
+      'Premier Bihar State Public University',
+      'Jurisdiction covering Patna & Nalanda Districts with 125+ Colleges',
+      'Centrally located administrative headquarters in Patna',
+      'UGC Recognized Public State University Degree Credentials',
+      'Standard Government Fee & Reservation Structure'
+    ],
+    summary: 'The premier state university of Bihar headquartered in Patna, managing over 125 constituent and affiliated degree colleges with extensive academic programs in traditional arts, sciences, commerce, and professional vocational studies.',
+    address: 'Kankarbagh, Old Bypass Road, Patna, Bihar – 800020'
+  },
+  {
+    id: 'u-aiu',
+    slug: 'asian-international-university-manipur',
+    name: 'Asian International University',
+    shortName: 'AIU Manipur',
+    location: 'Imphal West',
+    state: 'Manipur',
+    logo: '/images/universities/aiu.png',
+    established: '2021',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established by the Government of Manipur under Manipur Act No. 05 of 2021. Recognized by UGC under Section 2(f) of UGC Act, 1956. Member of Association of Indian Universities (AIU).',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 
+      'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 
+      'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-phd'
+    ],
+    campusFeatures: [
+      'State-of-the-Art Academic Infrastructure in Manipur',
+      'Recognized under Section 2(f) of UGC Act 1956',
+      'Diverse Undergraduate & Postgraduate Academic Offerings',
+      'Skill Development, Vocational Training & Research Wings',
+      'Active Student Support & Welfare Cell'
+    ],
+    summary: 'A forward-looking university in Manipur committed to imparting quality education, research, and career skill empowerment to students from across India and the North Eastern states.',
+    address: 'Ghari, Awang Leikai, Imphal West, Manipur – 795140'
+  },
+  {
+    id: 'u-sspu',
+    slug: 'sikkim-sardar-patel-university',
+    name: 'Sikkim Sardar Patel University',
+    shortName: 'SSPU Sikkim',
+    location: 'Soreng',
+    state: 'Sikkim',
+    logo: '/images/universities/sikkim-sardar-patel.png',
+    established: '2023',
+    type: 'State Private University',
+    verificationStatus: 'Verification Required',
+    accreditationNote: 'Established under Sikkim State Legislature Act. Recognized by University Grants Commission (UGC) under Section 2(f). Focuses on skill, technical, managerial, and healthcare professional tracks.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 
+      'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-diploma-eng', 
+      'c-dlib', 'c-blib', 'c-mlib'
+    ],
+    campusFeatures: [
+      'Himalayan Campus Facility in Soreng, Sikkim',
+      'UGC Recognized State Private University',
+      'Smart Classrooms & Computational Laboratories',
+      'Career Development & Student Mentorship Network'
+    ],
+    summary: 'A private university established in Sikkim aimed at expanding higher educational opportunities, practical skills, and vocational capabilities in the Himalayan region.',
+    address: 'Soreng, West Sikkim, Sikkim – 737121'
+  },
+  {
+    id: 'u-sikkim-prof',
+    slug: 'sikkim-professional-university',
+    name: 'Sikkim Professional University',
+    shortName: 'SPU Sikkim',
+    location: 'Tadong, Gangtok',
+    state: 'Sikkim',
+    logo: '/images/universities/sikkim-professional.png',
+    established: '2008',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Act No. 11 of 2008 of Sikkim State Legislature. Recognized by UGC under Section 2(f). Approvals by Indian Nursing Council (INC), Pharmacy Council of India (PCI), and statutory councils for paramedical & healthcare disciplines.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 'c-msc-nursing', 'c-pbbsc-nursing', 
+      'c-bpharm', 'c-dpharm', 'c-bmlt', 'c-dmlt-diploma', 'c-bpt', 'c-dpt', 
+      'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-ba', 'c-bcom', 'c-phd'
+    ],
+    campusFeatures: [
+      'Multi-Acre Healthcare, Nursing & Paramedical Training Campus',
+      'Approved by Indian Nursing Council (INC) & PCI',
+      'Hospital-Integrated Clinical Postings & Practical Wards',
+      'Advanced Simulation Laboratories & Anatomy Centers',
+      'Active Student Placement Network across Top Hospitals'
+    ],
+    summary: 'A premier health science and professional university in Sikkim, widely acclaimed for nursing, pharmacy, paramedical, management, and computing degree programs with extensive clinical hospital attachments.',
+    address: 'NH 10, Tadong, Gangtok, East Sikkim, Sikkim – 737102'
+  },
+  {
+    id: 'u-mind-power',
+    slug: 'mind-power-university-uttarakhand',
+    name: 'Mind Power University',
+    shortName: 'Mind Power University',
+    location: 'Bhimtal, Nainital',
+    state: 'Uttarakhand',
+    logo: '/images/universities/mind-power.png',
+    established: '2022',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Uttarakhand State Legislature Act. Recognized by University Grants Commission (UGC) under Section 2(f) of the UGC Act 1956. Focus on innovative technology, management, hospitality, and life sciences.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
+      'c-bhm-hotel-mgmt', 'c-bsc', 'c-msc', 'c-ba', 'c-bcom', 
+      'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality'
+    ],
+    campusFeatures: [
+      'Picturesque Himalayan Foothills Campus in Bhimtal',
+      'Modern AI, Robotics & Computer Laboratories',
+      'Hospitality & Culinary Training Kitchens',
+      'Sports, Wellness & Student Activity Hub',
+      'Corporate Placement Linkages & Internship Cell'
+    ],
+    summary: 'Located in the scenic lake town of Bhimtal, Uttarakhand, Mind Power University emphasizes innovative curriculum design, technology integration, hospitality, and student entrepreneurship.',
+    address: 'Bhimtal, District Nainital, Uttarakhand – 263136'
+  },
+  {
+    id: 'u-miu',
+    slug: 'manipur-international-university',
+    name: 'Manipur International University',
+    shortName: 'MIU Manipur',
+    location: 'Imphal',
+    state: 'Manipur',
+    logo: '/images/universities/miu.png',
+    established: '2018',
+    type: 'State Private University',
+    verificationStatus: 'Verification Required',
+    accreditationNote: 'Established by the Manipur International University Act 2018 (Manipur Act No. 8 of 2018) enacted by the Manipur Legislative Assembly. Recognized under Section 2(f) of UGC Act 1956.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 
+      'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-blib', 'c-mlib', 'c-phd'
+    ],
+    campusFeatures: [
+      'State Legislative University Statutory Charter',
+      'International Academic Partnerships & Student Exchange',
+      'Interdisciplinary Research Facilities & Digital Library',
+      'Blended Learning & Comprehensive Career Guidance'
+    ],
+    summary: 'Established under Manipur State legislation, MIU focuses on international research partnerships, multidisciplinary degrees, and accessible higher education.',
+    address: 'MIU Complex, Imphal, Manipur – 795001'
+  },
+  {
+    id: 'u-matrix-skilltech',
+    slug: 'matrix-skilltech-university-sikkim',
+    name: 'Matrix SkillTech University',
+    shortName: 'MSU Sikkim',
+    location: 'Geyzing',
+    state: 'Sikkim',
+    logo: '/images/universities/matrix-skilltech.png',
+    established: '2023',
+    type: 'State Private University',
+    verificationStatus: 'Verification Required',
+    accreditationNote: 'Established under Sikkim State Legislature Act as a specialized Skill and Technical University. Recognized by UGC under Section 2(f). Focuses on NSQF aligned skill qualifications and vocational excellence.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-bvoc-software-dev', 'c-bvoc-tourism-hospitality', 'c-bca', 
+      'c-bba', 'c-diploma-eng', 'c-fire-safety', 'c-bmlt', 
+      'c-dmlt-diploma', 'c-bsc-animation'
+    ],
+    campusFeatures: [
+      'Specialized Skill & Hands-on Practical Training Infrastructure',
+      'NSQF Aligned Curriculum & Industry Apprenticeships',
+      'Modern Computing, Design & Paramedical Skills Laboratories',
+      'Direct Placement Linkages with National Industrial Partners'
+    ],
+    summary: 'A dedicated skill-tech university in Geyzing, Sikkim, established to bridge the gap between academic qualifications and industry workplace readiness with vocational degree programs.',
+    address: 'Geyzing, West Sikkim, Sikkim – 737111'
+  },
+  {
+    id: 'u-shridhar',
+    slug: 'shridhar-university-pilani',
+    name: 'Shridhar University',
+    shortName: 'Shridhar University',
+    location: 'Pilani',
+    state: 'Rajasthan',
+    logo: '/images/universities/shridhar.png',
+    established: '2010',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Rajasthan State Legislature Act No. 4 of 2010. Approved by UGC under Section 2(f) of the UGC Act 1956. Approvals by AICTE, Bar Council of India (BCI), Pharmacy Council of India (PCI), and Member of AIU.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 
+      'c-bsc', 'c-msc', 'c-bsc-agriculture', 'c-bpharm', 'c-dpharm', 
+      'c-llb', 'c-ballb', 'c-llm', 'c-phd'
+    ],
+    campusFeatures: [
+      '60+ Acre Sprawling Green Campus in Pilani Educational Belt',
+      'Approved by UGC, AICTE, PCI & Bar Council of India',
+      'Agricultural Research Farms & Advanced Greenhouses',
+      'State-of-the-Art Engineering Labs & Central Computing Hub',
+      'Air-Cooled Hostels, Cafeteria & Extensive Sports Arenas'
+    ],
+    summary: 'Situated in the historic education hub of Pilani, Rajasthan, Shridhar University provides comprehensive multidisciplinary education across engineering, agriculture, law, pharmacy, and management.',
+    address: 'Pilani-Chirawa Road, Pilani, Rajasthan – 333031'
+  },
+  {
+    id: 'u-mdu',
+    slug: 'maharishi-dayanand-university-rohtak',
+    name: 'Maharishi Dayanand University',
+    shortName: 'MDU Rohtak',
+    location: 'Rohtak',
+    state: 'Haryana',
+    logo: '/images/universities/mdu.png',
+    established: '1976',
+    type: 'State University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established in 1976 by an Act of the Legislative Assembly of Haryana. Awarded prestigious NAAC "A+" Grade. Recognized under Section 2(f) and 12(B) of the UGC Act. Approvals by AICTE, NCTE, BCI, PCI, and consistently high NIRF rankings.',
+    modesOffered: ['Regular', 'Distance'],
+    availableCourseIds: [
+      'c-bed', 'c-med', 'c-deled', 'c-ba', 'c-ma', 'c-bcom', 'c-mcom', 
+      'c-bsc', 'c-msc', 'c-bba', 'c-mba', 'c-bca', 'c-mca', 'c-btech', 
+      'c-bpharm', 'c-dpharm', 'c-llb', 'c-ballb', 'c-llm', 
+      'c-dlib', 'c-blib', 'c-mlib', 'c-phd'
+    ],
+    campusFeatures: [
+      'Prestigious NAAC "A+" Grade State Public University',
+      '665-Acre Sprawling Historic Campus in Rohtak, Haryana',
+      'Leading National Center for B.Ed & Teacher Education Programs',
+      'Vivekananda Central Library with 400,000+ Printed & Digital Resources',
+      'Olympic-Standard Sports Complex, Hostels & Medical Facilities'
+    ],
+    summary: 'One of North India\'s foremost State Public Universities with NAAC "A+" grade, renowned for teacher education (B.Ed/M.Ed), distance education, management, law, science, and public service careers.',
+    address: 'Delhi Road, University Campus, Rohtak, Haryana – 124001'
+  },
+  {
+    id: 'u-arka-jain',
+    slug: 'arka-jain-university-jharkhand',
+    name: 'Arka Jain University',
+    shortName: 'Arka Jain',
+    location: 'Gamharia, Jamshedpur',
+    state: 'Jharkhand',
+    logo: '/images/universities/arka-jain.png',
+    established: '2017',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Jharkhand State Act. Recognized by UGC under Section 2(f). First private university in Kolhan region to be accredited with NAAC "A" Grade. Approved by AICTE, PCI, BCI, and Optometry Council.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
+      'c-bcom', 'c-bpharm', 'c-dpharm', 'c-bpt', 'c-bmlt', 
+      'c-llb', 'c-ballb', 'c-bvoc-software-dev', 'c-phd'
+    ],
+    campusFeatures: [
+      'Prestigious NAAC "A" Grade University in Jharkhand',
+      'Part of the Nationally Renowned JGI Group (Jain Group of Institutions)',
+      'Advanced Engineering, AI & Robotics Innovation Labs',
+      'Industry-Embedded Management & IT Degree Programs',
+      '100% Placement Support in Jamshedpur Industrial Belt'
+    ],
+    summary: 'The premier NAAC "A" accredited private university of Jharkhand (managed by JGI Group), celebrated for its high-placement professional courses in engineering, management, pharmacy, law, and paramedical sciences.',
+    address: 'Opposite Kerala Public School, Mohanpur, Gamharia, District Seraikela Kharsawan (Near Jamshedpur), Jharkhand – 832108'
+  },
+  {
+    id: 'u-silver-oak',
+    slug: 'silver-oak-university-ahmedabad',
+    name: 'Silver Oak University',
+    shortName: 'Silver Oak',
+    location: 'Gota, Ahmedabad',
+    state: 'Gujarat',
+    logo: '/images/universities/silver-oak.png',
+    established: '2009',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Gujarat Private Universities Act. Recognized by UGC under Section 2(f). Accredited with NAAC "A" Grade. Approved by AICTE, PCI, and Directorate General of Civil Aviation (DGCA) affiliates.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-bsc', 'c-msc', 
+      'c-bpharm', 'c-dpharm', 'c-bsc-nursing', 'c-gnm-nursing', 'c-anm-nursing', 
+      'c-bpt', 'c-bmlt', 'c-bsc-animation', 'c-fire-safety', 'c-phd'
+    ],
+    campusFeatures: [
+      'NAAC "A" Accredited Innovation Campus in Ahmedabad',
+      'Silver Oak Center for Innovation and Incubation (SOCII)',
+      'Aviation Academy & Aircraft Maintenance Simulation Labs',
+      'Comprehensive Nursing & Health Sciences College',
+      '1000+ Corporate Recruiters Placement Tie-ups'
+    ],
+    summary: 'One of Gujarat\'s most vibrant and dynamic universities, famous for engineering excellence, computer applications, design, aviation, nursing, and industry-backed incubation.',
+    address: 'Opposite Bhagwat Vidyapith, S.G. Highway, Gota, Ahmedabad, Gujarat – 382481'
+  },
+  {
+    id: 'u-sage-bhopal',
+    slug: 'sage-university-bhopal',
+    name: 'SAGE University Bhopal',
+    shortName: 'SAGE Bhopal',
+    location: 'Bhopal',
+    state: 'Madhya Pradesh',
+    logo: '/images/universities/sage-bhopal.png',
+    established: '2020',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Madhya Pradesh Niji Vishwavidyalaya Adhiniyam. Recognized by UGC under Section 2(f). Approved by AICTE, PCI, and BCI. Part of the renowned Sagar Group of Educational Institutions.',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-bsc', 'c-msc', 
+      'c-bsc-agriculture', 'c-msc-agronomy', 'c-bpharm', 'c-dpharm', 
+      'c-llb', 'c-ballb', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-phd'
+    ],
+    campusFeatures: [
+      'Ultra-Modern Futuristic Smart Campus in Bhopal',
+      'Apple Authorized Training Center & Advanced AI Laboratories',
+      'Smart Agricultural Research Farms & Greenhouses',
+      'Design, Media & Performance Arts Studios',
+      'Robust Sagar Group Corporate Placement Network'
+    ],
+    summary: 'A top-tier emerging university in central India promoted by the Sagar Group, offering modern technology, AI, agriculture, pharmacy, design, and management degrees with world-class infrastructure.',
+    address: 'Sahara Bypass Road, Katara Hills Extension, Bhopal, Madhya Pradesh – 462022'
+  },
+  {
+    id: 'u-srm',
+    slug: 'srm-university',
+    name: 'SRM University (SRM Institute of Science and Technology)',
+    shortName: 'SRM University',
+    location: 'Chennai / Delhi-NCR',
+    state: 'Tamil Nadu / Delhi-NCR',
+    logo: '/images/universities/srm.png',
+    established: '1985',
+    type: 'Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Recognized by UGC under Section 3 of UGC Act 1956 and Section 2(f). Highest NAAC "A++" Grade accreditation. Approved by AICTE, NIRF Ranked Top 20 nationally. International ABET accreditation for engineering programs.',
+    modesOffered: ['Regular', 'Online'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
+      'c-bcom', 'c-mcom', 'c-bsc', 'c-msc', 'c-bpharm', 'c-dpharm', 
+      'c-bpt', 'c-bmlt', 'c-llb', 'c-ballb', 'c-bhm-hotel-mgmt', 
+      'c-bsc-animation', 'c-phd'
+    ],
+    campusFeatures: [
+      'Prestigious NAAC "A++" Grade & Category 1 University Status',
+      'Global Top Tier Rankings with International ABET Accreditations',
+      '250+ Acre Mega Campus with Supercomputing Facilities',
+      'Over 1200+ National & Global Recruiting Corporates',
+      'International Semester Abroad Programs & Dedicated Research Hubs'
+    ],
+    summary: 'One of India\'s premier multi-campus universities, globally renowned for world-class engineering, computer science, management, medical sciences, and stellar career placement records.',
+    address: 'SRM Nagar, Kattankulathur, Kancheepuram, Tamil Nadu – 603203 / Delhi-NCR Campus, Modinagar'
+  },
+  {
+    id: 'u-tulas',
+    slug: 'tulas-university-dehradun',
+    name: "Tula's University",
+    shortName: "Tula's Dehradun",
+    location: 'Dehradun',
+    state: 'Uttarakhand',
+    logo: '/images/universities/tulas.png',
+    established: '2006',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: "Established under Uttarakhand State Act. Accredited with NAAC 'A+' Grade and NBA Accredited Engineering Programs. Recognized by UGC under Section 2(f). Approved by AICTE, Ministry of Education.",
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-diploma-eng', 'c-bca', 'c-mca', 'c-bba', 'c-mba', 
+      'c-bcom', 'c-bsc-agriculture', 'c-bhm-hotel-mgmt', 'c-bsc-animation', 'c-phd'
+    ],
+    campusFeatures: [
+      "Prestigious NAAC 'A+' & NBA Accredited Institution",
+      'Picturesque 22-Acre Campus in the Foothills of Dehradun',
+      'Microsoft Innovation Center & D-Link Academy',
+      'Agricultural Research Fields & High-Tech Polyhouses',
+      'Consistent 90%+ Placement Record with Top MNCs'
+    ],
+    summary: "A top-rated engineering, agriculture, and management institution in Dehradun, Uttarakhand, honored with NAAC 'A+' and NBA accreditations for academic and industrial excellence.",
+    address: 'Dhoolkot, PO Selaqui, Chakrata Road, Dehradun, Uttarakhand – 248011'
+  },
+  {
+    id: 'u-marwadi',
+    slug: 'marwadi-university-rajkot',
+    name: 'Marwadi University',
+    shortName: 'Marwadi University',
+    location: 'Rajkot',
+    state: 'Gujarat',
+    logo: '/images/universities/marwadi.png',
+    established: '2016',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under Gujarat Private Universities Act 9 of 2016. Awarded prestigious NAAC "A+" Grade. Recognized by UGC under Section 2(f). Approved by AICTE, Bar Council of India (BCI), and Pharmacy Council of India (PCI).',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-bsc', 'c-msc', 
+      'c-bsc-agriculture', 'c-bpharm', 'c-dpharm', 'c-bpt', 
+      'c-llb', 'c-ballb', 'c-llm', 'c-phd'
+    ],
+    campusFeatures: [
+      'Premier NAAC "A+" Accredited University in Gujarat',
+      '52-Acre Modern Wi-Fi Enabled Campus in Rajkot',
+      'Supercomputer Center & 50+ Specialized Technology Laboratories',
+      'Marwadi Chandarana Group Industrial Backing & Startup Incubator',
+      'Hostels for 4000+ Students & Vibrant Sports Arenas'
+    ],
+    summary: 'A landmark NAAC "A+" accredited university in Rajkot, Gujarat, backed by the Marwadi Chandarana Group, recognized for high-caliber technical, management, pharmacy, legal, and agricultural programs.',
+    address: 'Rajkot-Morbi Road, At & Po. Gauridad, Rajkot, Gujarat – 360003'
+  },
+  {
+    id: 'u-niu',
+    slug: 'noida-international-university',
+    name: 'Noida International University',
+    shortName: 'NIU Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    logo: '/images/universities/niu.png',
+    established: '2010',
+    type: 'State Private University',
+    verificationStatus: 'Verified',
+    accreditationNote: 'Established under UP State Legislature Act No. 27 of 2010. Recognized by UGC under Section 2(f). Prestigious NAAC "A+" Grade accredited. Approved by AICTE, BCI, PCI, Indian Nursing Council (INC), and National Medical Commission (NMC).',
+    modesOffered: ['Regular'],
+    availableCourseIds: [
+      'c-btech', 'c-mtech', 'c-diploma-eng', 'c-bca', 'c-mca', 
+      'c-bba', 'c-mba', 'c-bcom', 'c-mcom', 'c-ba', 'c-ma', 
+      'c-bsc', 'c-msc', 'c-bsc-agriculture', 'c-bsc-nursing', 
+      'c-gnm-nursing', 'c-anm-nursing', 'c-bpharm', 'c-dpharm', 
+      'c-bpt', 'c-bmlt', 'c-llb', 'c-ballb', 'c-llm', 'c-bed', 'c-phd'
+    ],
+    campusFeatures: [
+      '75-Acre World-Class Campus on Yamuna Expressway, Greater Noida',
+      'Prestigious NAAC "A+" Grade Accreditation',
+      '750+ Bedded NIIMS Super Speciality Hospital & Medical College',
+      'INC & PCI Approved Nursing and Pharmacy Colleges',
+      'Hostels, International Students Wing & 500+ Top Recruiters'
+    ],
+    summary: 'A premier NAAC "A+" accredited university located on the Yamuna Expressway in Greater Noida, featuring the NIIMS teaching hospital, high-tech engineering, nursing, pharmacy, law, and business programs.',
+    address: 'Plot No. 1, Sector 17-A, Yamuna Expressway, Gautam Budh Nagar, Greater Noida, Uttar Pradesh – 201308'
   }
 ];
