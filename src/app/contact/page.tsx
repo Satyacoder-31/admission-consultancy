@@ -13,8 +13,12 @@ import {
   Send, 
   CheckCircle2,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  Navigation,
+  Share2
 } from 'lucide-react';
+import GoogleMapsCard from '@/components/GoogleMapsCard';
+import { OFFICIAL_SOCIAL_LINKS, GOOGLE_MAPS_URL, GoogleMapsIcon } from '@/components/SocialIcons';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -82,11 +86,28 @@ export default function ContactPage() {
             <div className="space-y-4 text-xs sm:text-sm text-slate-700">
               <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <MapPin className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <strong className="block text-slate-900 font-bold mb-0.5">Office Address:</strong>
-                  <address className="not-italic leading-relaxed text-slate-600">
+                <div className="flex-1">
+                  <div className="flex items-center justify-between gap-2 mb-0.5">
+                    <strong className="block text-slate-900 font-bold">Office Address:</strong>
+                    <a
+                      href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-700 hover:underline"
+                    >
+                      <Navigation className="w-3 h-3" />
+                      <span>Maps</span>
+                    </a>
+                  </div>
+                  <a
+                    href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="not-italic leading-relaxed text-slate-600 hover:text-blue-700 transition-colors block"
+                    title="View office location on Google Maps"
+                  >
                     {settings.address}
-                  </address>
+                  </a>
                 </div>
               </div>
 
@@ -144,6 +165,49 @@ export default function ContactPage() {
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp</span>
               </a>
+            </div>
+
+            {/* Official Social Media Channels (Instagram, YouTube, Facebook, LinkedIn) */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-50 to-amber-50/40 border border-slate-200 space-y-3">
+              <div>
+                <span className="text-[11px] font-bold text-teal-700 uppercase tracking-wider block">
+                  Connect & Follow Online
+                </span>
+                <h3 className="text-sm font-extrabold text-slate-900">
+                  Official Social Media Channels
+                </h3>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Follow for official admission updates, campus guides, notifications, and spot counselling alerts.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                {OFFICIAL_SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all group"
+                      title={`Visit ${item.name} (${item.handle})`}
+                    >
+                      <span className={`p-1.5 rounded-lg ${item.badgeBg} flex-shrink-0 group-hover:scale-110 transition-transform shadow-xs`}>
+                        <Icon className="w-3.5 h-3.5" />
+                      </span>
+                      <div className="min-w-0">
+                        <span className="block text-xs font-bold text-slate-800 group-hover:text-amber-600 transition-colors truncate">
+                          {item.name}
+                        </span>
+                        <span className="block text-[10px] text-slate-400 truncate">
+                          {item.handle}
+                        </span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -222,23 +286,8 @@ export default function ContactPage() {
               )}
             </div>
 
-            {/* Google Map Box */}
-            <div className="h-72 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md relative bg-slate-200">
-              <iframe
-                title="SAHI RAAH CONSULTANCY Official Map"
-                src={settings.googleMapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              />
-              <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-800 shadow">
-                📍 Kaurihar Chouk, Kaurihar Road, Raxaul – 845305
-              </div>
-            </div>
+            {/* Interactive Google Map UI Card */}
+            <GoogleMapsCard embedUrl={settings.googleMapsEmbedUrl} />
           </div>
         </div>
       </div>

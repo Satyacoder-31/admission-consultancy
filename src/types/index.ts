@@ -90,6 +90,13 @@ export interface AdmissionEnquiry {
   createdAt: string;
 }
 
+export interface SocialLinksConfig {
+  instagram: string;
+  youtube: string;
+  facebook: string;
+  linkedin: string;
+}
+
 export interface SiteSettings {
   businessName: string;
   tagline: string;
@@ -101,6 +108,8 @@ export interface SiteSettings {
   defaultSession: string;
   officeHours: string;
   googleMapsEmbedUrl: string;
+  googleMapsUrl?: string;
+  socialLinks?: SocialLinksConfig;
 }
 
 export interface CouncilAffiliation {

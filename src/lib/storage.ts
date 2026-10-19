@@ -337,7 +337,17 @@ export function getStoredSettings(): SiteSettings {
       return siteConfig;
     }
     const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' ? { ...siteConfig, ...parsed } : siteConfig;
+    return parsed && typeof parsed === 'object'
+      ? {
+          ...siteConfig,
+          ...parsed,
+          googleMapsUrl: parsed.googleMapsUrl || siteConfig.googleMapsUrl,
+          socialLinks: {
+            ...siteConfig.socialLinks,
+            ...(parsed.socialLinks || {})
+          }
+        }
+      : siteConfig;
   } catch {
     return siteConfig;
   }

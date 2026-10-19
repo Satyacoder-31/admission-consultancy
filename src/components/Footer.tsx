@@ -19,6 +19,11 @@ import {
   Clock,
   Sparkles 
 } from 'lucide-react';
+import { 
+  OFFICIAL_SOCIAL_LINKS, 
+  GOOGLE_MAPS_URL, 
+  GoogleMapsIcon 
+} from '@/components/SocialIcons';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -82,6 +87,35 @@ export default function Footer() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-teal-950/80 border border-teal-500/30 text-teal-300 text-xs font-medium">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                 <span>Admissions Guidance for Sessions 2026–2027 & 2027–2028</span>
+              </div>
+            </div>
+
+            {/* Official Social Media Channels (Instagram, YouTube, Facebook, LinkedIn) */}
+            <div className="pt-3 space-y-2.5">
+              <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase block">
+                Connect With Us On Social Media
+              </span>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                {OFFICIAL_SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 hover:border-amber-400/50 transition-all shadow-sm"
+                      title={`Follow SAHI RAAH on ${item.name}`}
+                    >
+                      <span className={`p-1 rounded-lg ${item.badgeBg} flex items-center justify-center transition-transform group-hover:scale-110 shadow`}>
+                        <Icon className="w-3.5 h-3.5" />
+                      </span>
+                      <span className="text-xs font-semibold text-slate-200 group-hover:text-amber-300 transition-colors">
+                        {item.name}
+                      </span>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -230,9 +264,15 @@ export default function Footer() {
             <div className="space-y-2.5 text-sm text-slate-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
-                <address className="not-italic text-xs leading-relaxed">
+                <a
+                  href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="not-italic text-xs leading-relaxed hover:text-amber-300 transition-colors"
+                  title="Open Kaurihar Chouk, Raxaul in Google Maps"
+                >
                   {settings.address}
-                </address>
+                </a>
               </div>
 
               <div className="flex items-center gap-2.5">
@@ -256,12 +296,23 @@ export default function Footer() {
                 </span>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-3 space-y-2">
+                <a
+                  href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition-all hover:scale-105 active:scale-95 group w-full justify-center"
+                >
+                  <GoogleMapsIcon className="w-4 h-4" />
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-white font-medium underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-white font-medium justify-center w-full"
                 >
-                  <span>View Google Map & Directions</span>
+                  <span>Interactive Route & Office Map</span>
                   <ExternalLink className="w-3 h-3" />
                 </Link>
               </div>

@@ -37,8 +37,11 @@ import {
   ArrowRight,
   GraduationCap,
   MessageCircle,
-  ExternalLink
+  ExternalLink,
+  Navigation
 } from 'lucide-react';
+import GoogleMapsCard from '@/components/GoogleMapsCard';
+import { OFFICIAL_SOCIAL_LINKS, GOOGLE_MAPS_URL, GoogleMapsIcon } from '@/components/SocialIcons';
 
 export default function HomePage() {
   // Modal states
@@ -621,10 +624,18 @@ export default function HomePage() {
                 Parents and students are welcome to visit our counseling center at Kaurihar Chouk, Raxaul. Bring your previous marksheets for direct spot eligibility evaluation.
               </p>
 
-              <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-2 text-xs text-slate-700">
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 space-y-2 text-xs text-slate-700 shadow-sm">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
-                  <span className="font-semibold">{settings.address}</span>
+                  <a
+                    href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                    title="Open on Google Maps"
+                  >
+                    {settings.address} ↗
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-teal-600 flex-shrink-0" />
@@ -636,38 +647,57 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* Direct Location Action CTAs */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
                   href={`tel:${settings.phone}`}
-                  className="px-5 py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold shadow-md transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold shadow-md transition-all hover:scale-105"
                 >
                   Call Now: {settings.phone}
                 </a>
-                <Link
-                  href="/contact"
-                  className="px-5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition-colors"
+                <a
+                  href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md transition-all flex items-center gap-2 hover:scale-105"
                 >
-                  Get Route Directions
-                </Link>
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Get Live Route Directions</span>
+                  <ExternalLink className="w-3 h-3 text-white/80" />
+                </a>
+              </div>
+
+              {/* Official Social Media Channels connected to Brand */}
+              <div className="pt-3 border-t border-slate-200/80">
+                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-2">
+                  Official Channels:
+                </span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {OFFICIAL_SOCIAL_LINKS.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <a
+                        key={item.id}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-amber-400 text-slate-700 hover:text-slate-950 text-xs font-semibold shadow-xs transition-all group hover:scale-105"
+                        title={item.name}
+                      >
+                        <span className={`p-1 rounded-md ${item.badgeBg}`}>
+                          <Icon className="w-3 h-3" />
+                        </span>
+                        <span>{item.name}</span>
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
-            {/* Google Maps Embed / Card */}
-            <div className="lg:col-span-7 h-80 sm:h-96 rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md relative bg-slate-200">
-              <iframe
-                title="SAHI RAAH CONSULTANCY Location Map - Kaurihar Chouk, Raxaul"
-                src={settings.googleMapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              />
-              <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-800 shadow">
-                📍 Kaurihar Chouk, Raxaul (Bihar)
-              </div>
+            {/* Interactive Google Maps UI Component */}
+            <div className="lg:col-span-7">
+              <GoogleMapsCard embedUrl={settings.googleMapsEmbedUrl} />
             </div>
           </div>
         </div>

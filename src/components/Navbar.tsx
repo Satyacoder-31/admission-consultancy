@@ -24,6 +24,11 @@ import {
   Moon,
   Languages
 } from 'lucide-react';
+import { 
+  OFFICIAL_SOCIAL_LINKS, 
+  GOOGLE_MAPS_URL, 
+  GoogleMapsIcon 
+} from '@/components/SocialIcons';
 
 const NAV_LINKS = [
   { key: 'nav.home', defaultName: 'Home', href: '/' },
@@ -105,6 +110,37 @@ export default function Navbar() {
               <CreditCard className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
               <span>{t('top.bscc', 'BSCC Scheme Available')}</span>
             </Link>
+
+            {/* Social Channels Quick Connect */}
+            <div className="hidden xl:flex items-center gap-2 pl-3 border-l border-white/10">
+              <span className="text-[10px] text-slate-400 font-medium">Follow:</span>
+              <div className="flex items-center gap-1.5">
+                {OFFICIAL_SOCIAL_LINKS.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <a
+                      key={s.id}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-1 rounded-md bg-white/10 hover:bg-white/20 text-slate-300 hover:text-amber-300 transition-colors"
+                      title={`Visit ${s.name} (${s.handle})`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                    </a>
+                  );
+                })}
+                <a
+                  href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1 rounded-md bg-white/10 hover:bg-white/20 text-amber-300 transition-colors"
+                  title="Locate on Google Maps (Raxaul)"
+                >
+                  <GoogleMapsIcon className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
           </div>
           
           {/* Right Preferences (Language, Dark/Light, Status, Admin) */}
@@ -337,9 +373,41 @@ export default function Navbar() {
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{t('top.admissions', 'Session: 2026–2028 Admission Guidance')}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-teal-400" />
-                <span>{t('sec.address', 'Kaurihar Chouk, Kaurihar Road, Raxaul')}</span>
+              <a
+                href={settings.googleMapsUrl || GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-teal-300 hover:text-amber-300 transition-colors"
+              >
+                <MapPin className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
+                <span className="underline">{t('sec.address', 'Kaurihar Chouk, Kaurihar Road, Raxaul (View Map)')}</span>
+              </a>
+            </div>
+
+            {/* Mobile Drawer Social Links */}
+            <div className="px-3 pt-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1.5">
+                Connect on Social Media:
+              </span>
+              <div className="grid grid-cols-4 gap-1.5">
+                {OFFICIAL_SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-center gap-1 text-[10px] text-slate-200 transition-colors"
+                      title={item.name}
+                    >
+                      <span className={`p-1.5 rounded-lg ${item.badgeBg}`}>
+                        <Icon className="w-3.5 h-3.5" />
+                      </span>
+                      <span className="truncate w-full text-[9px] font-medium">{item.name}</span>
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
