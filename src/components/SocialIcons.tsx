@@ -99,4 +99,4 @@ export const OFFICIAL_SOCIAL_LINKS: SocialLinkItem[] = [
   }
 ];
 
-export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/nbti2tD4AMgATBuL7';
+export const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/V1TFX21myf7LiBT49';

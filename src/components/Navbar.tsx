@@ -18,7 +18,6 @@ import {
   GraduationCap, 
   ChevronRight, 
   Sparkles,
-  Lock,
   CreditCard,
   Sun,
   Moon,
@@ -183,16 +182,6 @@ export default function Navbar() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               {t('top.counseling', 'Counseling Active Today')}
             </span>
-
-            {/* Admin Portal Link */}
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-amber-300 transition-colors"
-              title="Counsellor / Admin Portal"
-            >
-              <Lock className="w-3 h-3" />
-              <span>{t('top.admin', 'Admin')}</span>
-            </Link>
           </div>
         </div>
       </div>

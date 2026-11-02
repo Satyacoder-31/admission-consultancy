@@ -697,7 +697,10 @@ export default function HomePage() {
 
             {/* Interactive Google Maps UI Component */}
             <div className="lg:col-span-7">
-              <GoogleMapsCard embedUrl={settings.googleMapsEmbedUrl} />
+              <GoogleMapsCard 
+                embedUrl={settings.googleMapsEmbedUrl} 
+                mapsUrl={settings.googleMapsUrl || GOOGLE_MAPS_URL} 
+              />
             </div>
           </div>
         </div>

@@ -287,7 +287,10 @@ export default function ContactPage() {
             </div>
 
             {/* Interactive Google Map UI Card */}
-            <GoogleMapsCard embedUrl={settings.googleMapsEmbedUrl} />
+            <GoogleMapsCard 
+              embedUrl={settings.googleMapsEmbedUrl} 
+              mapsUrl={settings.googleMapsUrl || GOOGLE_MAPS_URL} 
+            />
           </div>
         </div>
       </div>

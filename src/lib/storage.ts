@@ -345,6 +345,9 @@ export function getStoredSettings(): SiteSettings {
       if (parsed.whatsapp === '8092911956') {
         parsed.whatsapp = siteConfig.whatsapp;
       }
+      if (parsed.googleMapsUrl === 'https://maps.app.goo.gl/nbti2tD4AMgATBuL7') {
+        parsed.googleMapsUrl = siteConfig.googleMapsUrl;
+      }
       return {
         ...siteConfig,
         ...parsed,

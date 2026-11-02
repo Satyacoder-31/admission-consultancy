@@ -15,19 +15,22 @@ import { GOOGLE_MAPS_URL, GoogleMapsIcon } from './SocialIcons';
 
 interface GoogleMapsCardProps {
   embedUrl?: string;
+  mapsUrl?: string;
   className?: string;
   showDetails?: boolean;
 }
 
 export default function GoogleMapsCard({
   embedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.8521799298495!2d84.8523497!3d26.9792019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399335a9f2430fa1%3A0x6b432168ec28a8d1!2sKaurihar%20Chowk%2C%20Raxaul%2C%20Bihar%20845305!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin',
+  mapsUrl,
   className = '',
   showDetails = true
 }: GoogleMapsCardProps) {
   const [copied, setCopied] = useState(false);
+  const targetMapsUrl = mapsUrl || GOOGLE_MAPS_URL;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(GOOGLE_MAPS_URL);
+    navigator.clipboard.writeText(targetMapsUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -55,7 +58,7 @@ export default function GoogleMapsCard({
 
         {/* Action Button: Open in Google Maps */}
         <a
-          href={GOOGLE_MAPS_URL}
+          href={targetMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-xs font-bold shadow-md transition-all hover:scale-105 active:scale-95 group"
@@ -99,6 +102,15 @@ export default function GoogleMapsCard({
                   <Clock className="w-2.5 h-2.5" />
                   <span>Open 9:30 AM – 7:00 PM</span>
                 </span>
+                <a
+                  href={targetMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-0.5"
+                >
+                  <span>Open in Maps</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
             </div>
           </div>
@@ -106,7 +118,7 @@ export default function GoogleMapsCard({
 
         {/* Bottom Floating Quick Navigate Pill */}
         <a
-          href={GOOGLE_MAPS_URL}
+          href={targetMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="absolute bottom-3 right-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 transition-transform hover:scale-105 active:scale-95"
@@ -149,7 +161,7 @@ export default function GoogleMapsCard({
             </button>
 
             <a
-              href={GOOGLE_MAPS_URL}
+              href={targetMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#082B59] hover:bg-[#1355A5] text-white text-xs font-bold shadow transition-colors"

@@ -448,10 +448,6 @@ export default function Footer() {
             <Link href="/disclaimer" className="hover:text-white transition-colors">
               Regulatory Disclaimer
             </Link>
-            <span>•</span>
-            <Link href="/admin" className="text-slate-500 hover:text-amber-300 transition-colors">
-              Admin CMS
-            </Link>
           </div>
         </div>
       </div>

@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/admin/'],
+      disallow: ['/admin', '/admin/', '/api/admin', '/api/admin/'],
     },
-    sitemap: 'https://sahiraahconsultancy.com/sitemap.xml',
+    sitemap: 'https://www.sahiraah.in/sitemap.xml',
   };
 }
