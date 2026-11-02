@@ -648,7 +648,7 @@ export default function AdminDashboardPage() {
               <div class="header">
                 <h1 class="org-title">SAHI RAAH CONSULTANCY</h1>
                 <p class="org-sub">
-                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 8092911956 • contact@sahiraah.com
+                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 7323025325 • contact@sahiraah.com
                 </p>
                 <div class="receipt-pill">Official Admission Document Receipt & Audit Acknowledgment</div>
               </div>
@@ -977,7 +977,7 @@ export default function AdminDashboardPage() {
               <div class="header">
                 <h1 class="org-title">SAHI RAAH CONSULTANCY</h1>
                 <p class="org-sub">
-                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 8092911956 • contact@sahiraah.com
+                  Kaurihar Chouk, Near Railway Crossing, Raxaul (East Champaran), Bihar • Helpline: +91 7323025325 • contact@sahiraah.com
                 </p>
                 <div class="checklist-pill">Candidate Physical File — Admission Document Verification Checklist</div>
               </div>
@@ -1095,18 +1095,18 @@ export default function AdminDashboardPage() {
     if (template === 'pendingDocs') {
       if (pendingDocs.length > 0) {
         const docList = pendingDocs.map((d, i) => `${i + 1}) ${d}`).join('\n');
-        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nRegarding your admission application for ${lead.interestedCourse} (${lead.admissionSession}):\n\nThe following documents are currently PENDING for official verification:\n${docList}\n\nPlease share clear photos of these documents on this WhatsApp number or visit our Kaurihar Chouk office so we can proceed with your university seat booking.\n\nHelpline: 8092911956\nLocation: Kaurihar Chouk, Near Railway Crossing, Raxaul (Bihar)`;
+        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nRegarding your admission application for ${lead.interestedCourse} (${lead.admissionSession}):\n\nThe following documents are currently PENDING for official verification:\n${docList}\n\nPlease share clear photos of these documents on this WhatsApp number or visit our Kaurihar Chouk office so we can proceed with your university seat booking.\n\nHelpline: 7323025325\nLocation: Kaurihar Chouk, Near Railway Crossing, Raxaul (Bihar)`;
       } else {
-        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nAll your admission documents for ${lead.interestedCourse} (${lead.admissionSession}) have been successfully verified and filed!\n\nPlease contact our counselling desk to finalize your admission allotment and seat confirmation.\n\nHelpline: 8092911956`;
+        return `Dear ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul.\n\nAll your admission documents for ${lead.interestedCourse} (${lead.admissionSession}) have been successfully verified and filed!\n\nPlease contact our counselling desk to finalize your admission allotment and seat confirmation.\n\nHelpline: 7323025325`;
       }
     }
 
     if (template === 'overview') {
-      return `Hello ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul!\n\nRegarding your enquiry for ${lead.interestedCourse} (${lead.admissionSession}): We have UGC, AICTE & Council approved university seats available with complete guidance on fees and scholarships. Please reply to schedule your free counselling session.\n\nHelpline: 8092911956`;
+      return `Hello ${lead.studentName}, Greetings from SAHI RAAH CONSULTANCY, Raxaul!\n\nRegarding your enquiry for ${lead.interestedCourse} (${lead.admissionSession}): We have UGC, AICTE & Council approved university seats available with complete guidance on fees and scholarships. Please reply to schedule your free counselling session.\n\nHelpline: 7323025325`;
     }
 
     if (template === 'visit') {
-      return `Hello ${lead.studentName}, please visit our central admission guidance office at Kaurihar Chouk, Kaurihar Road, Raxaul (East Champaran, Bihar).\n\nOur senior educational counsellors will assist you with college options, fee structure, scholarship, and Bihar Student Credit Card (BSCC) bonafide documentation.\n\nTiming: 9:00 AM – 7:00 PM\nHelpline: 8092911956`;
+      return `Hello ${lead.studentName}, please visit our central admission guidance office at Kaurihar Chouk, Kaurihar Road, Raxaul (East Champaran, Bihar).\n\nOur senior educational counsellors will assist you with college options, fee structure, scholarship, and Bihar Student Credit Card (BSCC) bonafide documentation.\n\nTiming: 9:00 AM – 7:00 PM\nHelpline: 7323025325`;
     }
 
     return '';

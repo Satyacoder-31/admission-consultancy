@@ -252,7 +252,7 @@ export default function ContactPage() {
                       </label>
                       <input
                         type="tel"
-                        placeholder="e.g. 8092911956"
+                        placeholder="e.g. 7323025325"
                         maxLength={10}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}

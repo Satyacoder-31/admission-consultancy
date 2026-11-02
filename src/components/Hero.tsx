@@ -325,7 +325,7 @@ export default function Hero({ onOpenEnquiry }: HeroProps) {
                     </div>
                     <div className="text-right">
                       <span className="text-[10px] text-amber-300 block font-semibold">
-                        Helpline: 8092911956
+                        Helpline: 7323025325
                       </span>
                       <span className="text-[10px] text-slate-400">
                         Offline & Online Support

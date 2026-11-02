@@ -3,8 +3,8 @@ import { SiteSettings } from '@/types';
 export const siteConfig: SiteSettings = {
   businessName: 'SAHI RAAH CONSULTANCY',
   tagline: 'Your Future. Our Guidance.',
-  phone: '8092911956',
-  whatsapp: '8092911956',
+  phone: '7323025325',
+  whatsapp: '7323025325',
   email: 'Sahiraahconsultancy@gmail.com',
   address: 'Kaurihar Chouk, Kaurihar Road, Raxaul – 845305, Bihar, India',
   activeSessions: ['2026-2027', '2027-2028'],

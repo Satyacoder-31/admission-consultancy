@@ -337,17 +337,25 @@ export function getStoredSettings(): SiteSettings {
       return siteConfig;
     }
     const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object'
-      ? {
-          ...siteConfig,
-          ...parsed,
-          googleMapsUrl: parsed.googleMapsUrl || siteConfig.googleMapsUrl,
-          socialLinks: {
-            ...siteConfig.socialLinks,
-            ...(parsed.socialLinks || {})
-          }
+    if (parsed && typeof parsed === 'object') {
+      // Auto-migrate legacy helpline numbers if previously cached
+      if (parsed.phone === '8092911956') {
+        parsed.phone = siteConfig.phone;
+      }
+      if (parsed.whatsapp === '8092911956') {
+        parsed.whatsapp = siteConfig.whatsapp;
+      }
+      return {
+        ...siteConfig,
+        ...parsed,
+        googleMapsUrl: parsed.googleMapsUrl || siteConfig.googleMapsUrl,
+        socialLinks: {
+          ...siteConfig.socialLinks,
+          ...(parsed.socialLinks || {})
         }
-      : siteConfig;
+      };
+    }
+    return siteConfig;
   } catch {
     return siteConfig;
   }

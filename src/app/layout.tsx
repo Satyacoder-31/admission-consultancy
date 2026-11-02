@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: 'SAHI RAAH CONSULTANCY | Premium Admission Guidance & University Assistance in Raxaul',
     template: '%s | SAHI RAAH CONSULTANCY'
   },
-  description: 'Official portal of SAHI RAAH CONSULTANCY, Raxaul (Bihar). Comprehensive admission guidance for Regular, Distance & Online degrees (BA, B.Com, B.Sc, BBA, MBA, B.Tech, MCA, BNYS, Diploma) & School Boards. Helpline: 8092911956.',
+  description: 'Official portal of SAHI RAAH CONSULTANCY, Raxaul (Bihar). Comprehensive admission guidance for Regular, Distance & Online degrees (BA, B.Com, B.Sc, BBA, MBA, B.Tech, MCA, BNYS, Diploma) & School Boards. Helpline: 7323025325.',
   keywords: [
     'admission consultancy in Raxaul',
     'college admission guidance in Raxaul',

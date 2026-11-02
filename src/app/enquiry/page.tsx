@@ -315,7 +315,7 @@ export default function EnquiryPage() {
                         </label>
                         <input
                           type="tel"
-                          placeholder="e.g. 8092911956"
+                          placeholder="e.g. 7323025325"
                           maxLength={10}
                           value={mobileNumber}
                           onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, ''))}

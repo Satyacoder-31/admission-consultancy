@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Lock, KeyRound, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, KeyRound, AlertCircle, ShieldCheck } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
       }
     } catch {
       // Local fallback for offline/client mode
-      if (['admin123', 'sahiraah2026', '8092911956'].includes(password.trim())) {
+      if (['admin123', 'sahiraah2026', '7323025325', '8092911956'].includes(password.trim())) {
         sessionStorage.setItem('sr_admin_auth', 'true');
         router.push('/admin/dashboard');
       } else {
@@ -97,15 +97,12 @@ export default function AdminLoginPage() {
               </label>
               <input
                 type="password"
-                placeholder="Enter counsellor key (Demo: admin123)"
+                placeholder="Enter counsellor access key"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#082B59]/20"
                 required
               />
-              <p className="text-[11px] text-slate-400 mt-1">
-                Demo access passcode: <strong className="text-slate-600">admin123</strong> or <strong className="text-slate-600">sahiraah2026</strong>
-              </p>
             </div>
 
             <button

@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     const { password } = await request.json();
 
     // Default admin passcode
-    const validPasswords = ['sahiraah2026', 'admin123', '8092911956'];
+    const validPasswords = ['sahiraah2026', 'admin123', '7323025325', '8092911956'];
 
     if (password && validPasswords.includes(password.trim())) {
       return NextResponse.json({
