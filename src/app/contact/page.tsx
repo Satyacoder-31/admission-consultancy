@@ -42,6 +42,19 @@ export default function ContactPage() {
     e.preventDefault();
     if (!name || !phone) return;
 
+    // Send record to database in background
+    fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        studentName: name.trim(),
+        mobileNumber: phone.trim(),
+        interestedCourse: 'General Admission / Quick Contact Inquiry',
+        questions: query ? query.trim() : 'Quick contact inquiry via contact page',
+        source: 'Contact Page'
+      })
+    }).catch((err) => console.log('Contact inquiry logging:', err));
+
     // Send query to WhatsApp or store
     const msg = `Hello SAHI RAAH CONSULTANCY,\n*Contact Form Submission*\nName: ${name}\nPhone: ${phone}\nQuery: ${query || 'Need general admission details'}`;
     window.open(getWhatsAppUrl(msg, settings.whatsapp), '_blank', 'noopener,noreferrer');

@@ -201,6 +201,17 @@ export default function AdminDashboardPage() {
     setUniversities(getStoredUniversities());
     setSettings(getStoredSettings());
 
+    // Fetch latest enquiries from Supabase database
+    fetch('/api/admin/enquiries')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.enquiries) && data.enquiries.length > 0) {
+          setEnquiries(data.enquiries);
+          localStorage.setItem('sr_enquiries_data', JSON.stringify(data.enquiries));
+        }
+      })
+      .catch((err) => console.log('Enquiry remote sync:', err));
+
     const savedMasterDocs = localStorage.getItem('admission_master_docs');
     if (savedMasterDocs) {
       try {
@@ -238,12 +249,27 @@ export default function AdminDashboardPage() {
   };
 
   // Lead Actions
+  const syncEnquiryToBackend = (enquiry?: AdmissionEnquiry) => {
+    if (!enquiry) return;
+    fetch('/api/admin/enquiries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(enquiry),
+    }).catch((err) => console.log('Enquiry sync error:', err));
+  };
+
   const handleUpdateLeadStatus = (id: string, newStatus: LeadStatus) => {
-    const updated = enquiries.map((enq) =>
-      enq.id === id ? { ...enq, status: newStatus } : enq
-    );
+    let changedEnquiry: AdmissionEnquiry | undefined;
+    const updated = enquiries.map((enq) => {
+      if (enq.id === id) {
+        changedEnquiry = { ...enq, status: newStatus };
+        return changedEnquiry;
+      }
+      return enq;
+    });
     setEnquiries(updated);
     saveStoredEnquiries(updated);
+    syncEnquiryToBackend(changedEnquiry);
     if (selectedEnquiry && selectedEnquiry.id === id) {
       setSelectedEnquiry({ ...selectedEnquiry, status: newStatus });
     }
@@ -251,11 +277,17 @@ export default function AdminDashboardPage() {
   };
 
   const handleUpdatePriority = (id: string, newPriority: 'Urgent' | 'High' | 'Normal') => {
-    const updated = enquiries.map((enq) =>
-      enq.id === id ? { ...enq, priority: newPriority } : enq
-    );
+    let changedEnquiry: AdmissionEnquiry | undefined;
+    const updated = enquiries.map((enq) => {
+      if (enq.id === id) {
+        changedEnquiry = { ...enq, priority: newPriority };
+        return changedEnquiry;
+      }
+      return enq;
+    });
     setEnquiries(updated);
     saveStoredEnquiries(updated);
+    syncEnquiryToBackend(changedEnquiry);
     showToast(`Priority tagged as ${newPriority}`);
   };
 
@@ -270,19 +302,22 @@ export default function AdminDashboardPage() {
       minute: '2-digit'
     });
 
+    let changedEnquiry: AdmissionEnquiry | undefined;
     const updated = enquiries.map((enq) => {
       if (enq.id === id) {
         const notes = enq.counselorNotes || [];
-        return {
+        changedEnquiry = {
           ...enq,
           counselorNotes: [...notes, `${timeString}: ${note.trim()}`]
         };
+        return changedEnquiry;
       }
       return enq;
     });
 
     setEnquiries(updated);
     saveStoredEnquiries(updated);
+    syncEnquiryToBackend(changedEnquiry);
     if (selectedEnquiry && selectedEnquiry.id === id) {
       const notes = selectedEnquiry.counselorNotes || [];
       setSelectedEnquiry({
